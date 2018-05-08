@@ -14,7 +14,7 @@ namespace MyTeam.Droid
 {
     [Activity(
         Theme = "@style/splashTheme",
-        MainLauncher = true,
+        MainLauncher = false,
         NoHistory = true
         )
         ]

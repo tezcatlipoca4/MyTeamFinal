@@ -14,7 +14,6 @@
     <None Remove="Assets\Images\siteLogos\onsports.png" />
     <None Remove="Assets\Images\siteLogos\prasinaNea.png" />
     <None Remove="Assets\Images\siteLogos\sport24.png" />
-    <None Remove="Assets\Images\splashScreen.jpg" />
     <None Remove="Assets\Images\teamLogos\aek.png" />
     <None Remove="Assets\Images\teamLogos\osfp.png" />
     <None Remove="Assets\Images\teamLogos\panathinaikos.png" />
@@ -31,7 +30,6 @@
     <EmbeddedResource Include="Assets\Images\siteLogos\onsports.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\prasinaNea.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\sport24.png" />
-    <EmbeddedResource Include="Assets\Images\splashScreen.jpg" />
     <EmbeddedResource Include="Assets\Images\teamLogos\aek.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\osfp.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\panathinaikos.png" />
@@ -40,6 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="16.1.0.37" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPullToRefresh" Version="16.1.0.37" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.1.527436" />
   </ItemGroup>
 

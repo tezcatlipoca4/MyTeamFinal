@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using MyTeam.Models;
 using Syncfusion.SfDataGrid.XForms;
@@ -21,6 +22,10 @@ namespace MyTeam
             //Βάζουμε τα εικονίδια στα banner από την ομάδα που έχει επιλέξει ο χρήστης
             LeftBannerTeamLogo.Source = RightBannerTeamLogo.Source =
                 ImageSource.FromResource("MyTeam.Assets.Images.teamLogos." + App.TeamChosen + ".png");
+           
+            //Ορίζουμε την εντολή για το refresh
+            dataGrid.PullToRefreshCommand = new Command(ExecutePullToRefreshCommand);
+
             LoadDataToGrid();
         }
 
@@ -44,6 +49,9 @@ namespace MyTeam
 
             //Κάνουμε bind τα αποτελέσματα στο dataGrid
             dataGrid.ItemsSource = new ObservableCollection<RssModel>(combinedResults);
+
+            //Ενημερώουμε το footerLabel με την τελευταία ώρα ενημέρωσης
+            FooterLabel.Text = "Τελευταία ενημέρωση: " + DateTime.Now.ToString("dd-MM-yy - HH:mm");
         }
 
         //H μέθοδος επιστρέφει τα 15 πιο πρόσφατα feeds βάσει των τιμων που δίνονται
@@ -83,5 +91,15 @@ namespace MyTeam
             //Στο κλικ του χρήστη ανοίγουμε το url που επέλεξε στον browser που χρησιμοποιεί
             Device.OpenUri(new Uri(dataGrid.GetCellValue(e.RowData, "Url").ToString()));
         }
+
+        private async void ExecutePullToRefreshCommand()
+        {
+            dataGrid.IsBusy = true;
+            
+            await Task.Delay(new TimeSpan(0, 0, 5));
+            LoadDataToGrid();
+            dataGrid.IsBusy = false;
+        }
+
     }
 }

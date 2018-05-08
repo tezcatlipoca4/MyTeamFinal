@@ -3,9 +3,11 @@
     x:Class="MyTeam.RssFeedPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pull="clr-namespace:Syncfusion.SfPullToRefresh.XForms;assembly=Syncfusion.SfPullToRefresh.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
-
     <ContentPage.Content>
+
+
         <StackLayout VerticalOptions="FillAndExpand">
             <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
                 <Image
@@ -23,12 +25,17 @@
                     HeightRequest="30" />
             </StackLayout>
 
+
+
             <syncfusion:SfDataGrid
                 x:Name="dataGrid"
                 ColumnSizer="LastColumnFill"
                 GridTapped="DataGrid_OnGridTapped"
                 HeaderRowHeight="0"
-                RowHeight="40">
+                RowHeight="40"
+                AllowPullToRefresh="True">
+
+
                 <syncfusion:SfDataGrid.SortColumnDescriptions>
                     <syncfusion:SortColumnDescription ColumnName="PublishedDatetime" SortDirection="Descending" />
                 </syncfusion:SfDataGrid.SortColumnDescriptions>
@@ -48,5 +55,6 @@
                 FontSize="10"
                 HorizontalTextAlignment="Center" />
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>
