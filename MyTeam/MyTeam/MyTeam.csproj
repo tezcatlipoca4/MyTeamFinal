@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\siteLogos\aek365.png" />
+    <None Remove="Assets\Images\siteLogos\contra.png" />
+    <None Remove="Assets\Images\siteLogos\gayros.png" />
+    <None Remove="Assets\Images\siteLogos\gazzetta.png" />
+    <None Remove="Assets\Images\siteLogos\inPaok.png" />
+    <None Remove="Assets\Images\siteLogos\novasports.png" />
+    <None Remove="Assets\Images\siteLogos\onsports.png" />
+    <None Remove="Assets\Images\siteLogos\prasinaNea.png" />
+    <None Remove="Assets\Images\siteLogos\sport24.png" />
+    <None Remove="Assets\Images\splashScreen.jpg" />
+    <None Remove="Assets\Images\teamLogos\aek.png" />
+    <None Remove="Assets\Images\teamLogos\osfp.png" />
+    <None Remove="Assets\Images\teamLogos\panathinaikos.png" />
+    <None Remove="Assets\Images\teamLogos\paok.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\siteLogos\aek365.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\contra.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\gayros.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\gazzetta.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\inPaok.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\novasports.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\onsports.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\prasinaNea.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\sport24.png" />
+    <EmbeddedResource Include="Assets\Images\splashScreen.jpg" />
+    <EmbeddedResource Include="Assets\Images\teamLogos\aek.png" />
+    <EmbeddedResource Include="Assets\Images\teamLogos\osfp.png" />
+    <EmbeddedResource Include="Assets\Images\teamLogos\panathinaikos.png" />
+    <EmbeddedResource Include="Assets\Images\teamLogos\paok.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="16.1.0.37" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.1.527436" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
+      <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
+      <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="RssFeedPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

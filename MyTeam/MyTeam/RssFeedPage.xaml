@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyTeam.RssFeedPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <Image
+                    x:Name="LeftBannerTeamLogo"
+                    Aspect="AspectFit"
+                    HeightRequest="30" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HorizontalTextAlignment="Start"
+                    Text="Π.Α.Ο.Κ." />
+                <Image
+                    x:Name="RightBannerTeamLogo"
+                    Aspect="AspectFit"
+                    HeightRequest="30" />
+            </StackLayout>
+
+            <syncfusion:SfDataGrid
+                x:Name="dataGrid"
+                ColumnSizer="LastColumnFill"
+                GridTapped="DataGrid_OnGridTapped"
+                HeaderRowHeight="0"
+                RowHeight="40">
+                <syncfusion:SfDataGrid.SortColumnDescriptions>
+                    <syncfusion:SortColumnDescription ColumnName="PublishedDatetime" SortDirection="Descending" />
+                </syncfusion:SfDataGrid.SortColumnDescriptions>
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridImageColumn Width="40" MappingName="SiteLogo" />
+                    <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start" />
+                    <syncfusion:GridTextColumn IsHidden="True" MappingName="Description" />
+                    <syncfusion:GridTextColumn IsHidden="True" MappingName="Url" />
+                    <syncfusion:GridDateTimeColumn IsHidden="True" MappingName="PublishedDatetime" />
+
+                </syncfusion:SfDataGrid.Columns>
+
+            </syncfusion:SfDataGrid>
+
+            <Label
+                x:Name="FooterLabel"
+                FontSize="10"
+                HorizontalTextAlignment="Center" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
