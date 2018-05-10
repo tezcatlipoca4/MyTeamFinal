@@ -8,6 +8,7 @@
     <ContentPage.Content>
 
 
+
         <StackLayout VerticalOptions="FillAndExpand">
             <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
                 <Image
@@ -29,11 +30,11 @@
 
             <syncfusion:SfDataGrid
                 x:Name="dataGrid"
+                AllowPullToRefresh="True"
                 ColumnSizer="LastColumnFill"
                 GridTapped="DataGrid_OnGridTapped"
                 HeaderRowHeight="0"
-                RowHeight="40"
-                AllowPullToRefresh="True">
+                RowHeight="40">
 
 
                 <syncfusion:SfDataGrid.SortColumnDescriptions>

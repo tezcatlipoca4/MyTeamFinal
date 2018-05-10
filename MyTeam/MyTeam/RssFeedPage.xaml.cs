@@ -21,17 +21,12 @@ namespace MyTeam
 
             //Βάζουμε τα εικονίδια στα banner από την ομάδα που έχει επιλέξει ο χρήστης
             LeftBannerTeamLogo.Source = RightBannerTeamLogo.Source =
-                ImageSource.FromResource("MyTeam.Assets.Images.teamLogos." + App.TeamChosen + ".png");
-           
+                ImageSource.FromResource("MyTeam.Assets.Images.teamLogos." + SettingsPage.TeamChosen + ".png");
+
             //Ορίζουμε την εντολή για το refresh
             dataGrid.PullToRefreshCommand = new Command(ExecutePullToRefreshCommand);
 
             LoadDataToGrid();
-        }
-
-        public List<RssModel> GettRssFeed()
-        {
-            return null;
         }
 
         public void LoadDataToGrid()
@@ -42,6 +37,7 @@ namespace MyTeam
             foreach (DataRow row in App.FilteredByTeamAndSiteDataTable.Rows)
             {
                 //Για κάθε ένα site βάζουμε τις τιμές στο combinedResults
+                //TODO: Να επιλέγει ο χρήστης από 5-15 άρθρα από κάθε σελίδα
                 List<RssModel> tempResults = GetRssFeed(row["rssType"].ToString(), row["url"].ToString(),
                     row["siteName"].ToString());
                 combinedResults.AddRange(tempResults);
@@ -54,8 +50,8 @@ namespace MyTeam
             FooterLabel.Text = "Τελευταία ενημέρωση: " + DateTime.Now.ToString("dd-MM-yy - HH:mm");
         }
 
-        //H μέθοδος επιστρέφει τα 15 πιο πρόσφατα feeds βάσει των τιμων που δίνονται
-        public List<RssModel> GetRssFeed(string rssType, string url, string siteName)
+        //H μέθοδος επιστρέφει τα πιο πρόσφατα feeds βάσει των τιμων που δίνονται
+        public List<RssModel> GetRssFeed(string rssType, string url, string siteName, int numberOfItems = 15)
         {
             //Δημιουργούμε το XDocument το οποίο είναι κοινό ανεξαιρέτως του τύπου δομής RSS/Atom
             var xDocument = XDocument.Load(url);
@@ -70,7 +66,7 @@ namespace MyTeam
                                 Title = feed.Element("title").Value,
                                 Url = feed.Element("link").Value,
                                 PublishedDatetime = DateTime.Parse(feed.Element("pubDate").Value)
-                            }).Take(15).ToList();
+                            }).Take(numberOfItems).ToList();
 
                 //Μιας και έχουμε μόνο δύο περιπτώσεις αν δεν είναι RSS θα είναι Atom οπότε μποροπυμε να το αφήσουμε στο default
                 default:
@@ -82,7 +78,7 @@ namespace MyTeam
                                 Title = item.Elements().First(i => i.Name.LocalName == "title").Value,
                                 PublishedDatetime =
                                     DateTime.Parse(item.Elements().First(i => i.Name.LocalName == "updated").Value)
-                            }).Take(15).ToList();
+                            }).Take(numberOfItems).ToList();
             }
         }
 
@@ -95,7 +91,7 @@ namespace MyTeam
         private async void ExecutePullToRefreshCommand()
         {
             dataGrid.IsBusy = true;
-            
+
             await Task.Delay(new TimeSpan(0, 0, 5));
             LoadDataToGrid();
             dataGrid.IsBusy = false;
