@@ -11,14 +11,21 @@
             <Label
                 FontSize="20"
                 HorizontalOptions="CenterAndExpand"
-                Text="Επιλεγμένη ομάδα "
+                Text="Επιλεγμένη ομάδα"
                 VerticalTextAlignment="Center" />
+
             <Picker
                 x:Name="Picker"
                 Title="Επιλογή ομάδας"
                 HorizontalOptions="Center"
                 MinimumHeightRequest="30"
                 SelectedIndexChanged="Picker_OnSelectedIndexChanged" />
+
+            <Label
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                Text="Διαθέσιμες Ιστοσελίδες"
+                VerticalTextAlignment="Center" />
 
             <syncfusion:SfDataGrid
                 x:Name="AvailableSitesDataGrid"
@@ -27,9 +34,11 @@
                 HeaderRowHeight="0"
                 HorizontalOptions="StartAndExpand"
                 RowHeight="40">
+
                 <syncfusion:SfDataGrid.SortColumnDescriptions>
                     <syncfusion:SortColumnDescription ColumnName="SiteName" />
                 </syncfusion:SfDataGrid.SortColumnDescriptions>
+
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridImageColumn MappingName="SiteLogo" />
                     <syncfusion:GridTextColumn
@@ -45,8 +54,8 @@
                 x:Name="SaveSettingsButton"
                 Margin="0,20,30,0"
                 HorizontalOptions="End"
+                Pressed="SaveSettingsButton_OnPressed"
                 Text="Αποθήκευση" />
-
 
         </StackLayout>
     </ContentPage.Content>

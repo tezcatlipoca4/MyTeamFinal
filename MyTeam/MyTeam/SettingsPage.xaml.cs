@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyTeam.Models;
+using MyTeam.Models.Styles;
 using Syncfusion.SfDataGrid.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,19 +14,7 @@ using DataRow = System.Data.DataRow;
 
 namespace MyTeam
 {
-    public class CustomGridStyle : DataGridStyle
-    {
-        public CustomGridStyle()
-        {
-        }
-
-        public override bor
-        public override GridLinesVisibility GetGridLinesVisibility()
-        {
-            // return base.GetGridLinesVisibility();
-            return GridLinesVisibility.Horizontal;
-            }
-    }
+    
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
@@ -106,6 +95,13 @@ namespace MyTeam
             TeamChosen = dv[0]["teamName"].ToString();
 
             FillAvailableSitesDataGrid(TeamChosen);
+        }
+
+        private void SaveSettingsButton_OnPressed(object sender, EventArgs e)
+        {
+            //TODO: Αποθήκευση ρυθμίσεων και μετάβαση στην σελίδα των feed
+
+            DisplayAlert("Αποθήκευση", "Οι ρυθμίσεις αποθηκεύτηκαν", "'νταξει λέμε");
         }
     }
 }

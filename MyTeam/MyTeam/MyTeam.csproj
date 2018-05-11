@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="16.1.0.37" />
+    <PackageReference Include="Syncfusion.Xamarin.SfNavigationDrawer" Version="16.1.0.37" />
     <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="16.1.0.37" />
     <PackageReference Include="Syncfusion.Xamarin.SfPullToRefresh" Version="16.1.0.37" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.1.527436" />

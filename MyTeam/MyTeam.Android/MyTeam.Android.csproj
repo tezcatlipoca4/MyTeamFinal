@@ -59,6 +59,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfDataGrid">
       <Version>16.1.0.37</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfNavigationDrawer">
+      <Version>16.1.0.37</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPicker">
       <Version>16.1.0.37</Version>
     </PackageReference>
@@ -106,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splashTemp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\drawable\settingsIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -11,6 +11,7 @@
 
         <StackLayout VerticalOptions="FillAndExpand">
             <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+
                 <Image
                     x:Name="LeftBannerTeamLogo"
                     Aspect="AspectFit"

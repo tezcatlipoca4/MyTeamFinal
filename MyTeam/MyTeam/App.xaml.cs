@@ -26,7 +26,8 @@ namespace MyTeam
             FilteredByTeamAndSiteDataTable =  FilterResutlsDataTable();
 
 
-            MainPage = new SettingsPage();
+            //MainPage = new SettingsPage();
+            MainPage = new RssFeedPage();
         }
 
         //Η μέθοδος φιλτράρει τον πίνακα με όλες τις πληροφορίες ώστε να πάρουμε μόνο τα feed για την ομάδα και τα site που έχουμε επιλέξει
@@ -88,7 +89,7 @@ namespace MyTeam
             //paok
             table.Rows.Add("paok", "ΠΑΟΚ", "Contra", "Atom", "http://www.contra.gr/soccer/paok/?widget=rssfeed&view=feed&contentId=1169269");
             table.Rows.Add("paok", "ΠΑΟΚ", "Gazzetta", "RSS", "http://www.gazzetta.gr/taxonomy/term/1018/all/feed");
-            table.Rows.Add("paok", "ΠΑΟΚ", "inPAOK", "RSS", "http://inpaok.com/feed/");
+            //table.Rows.Add("paok", "ΠΑΟΚ", "inPAOK", "RSS", "http://inpaok.com/feed/");
             table.Rows.Add("paok", "ΠΑΟΚ", "NovaSports", "RSS", "http://www.novasports.gr/sys/novasports/RssFeed/GetFeed?type=2&id=16657&languageID=1");
             table.Rows.Add("paok", "ΠΑΟΚ", "OnSports", "RSS", "http://www.onsports.gr/omades/paok?format=feed&type=rss");
             table.Rows.Add("paok", "ΠΑΟΚ", "Sport24", "Atom", "http://www.sport24.gr/football/omades/paok/?widget=rssfeed&view=feed&contentId=174866");

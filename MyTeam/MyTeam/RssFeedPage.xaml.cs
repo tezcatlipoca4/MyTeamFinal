@@ -53,6 +53,8 @@ namespace MyTeam
         //H μέθοδος επιστρέφει τα πιο πρόσφατα feeds βάσει των τιμων που δίνονται
         public List<RssModel> GetRssFeed(string rssType, string url, string siteName, int numberOfItems = 15)
         {
+            //todo:Αν το feed δεν ερχεται σωστα να εημερώνεται ο χρήστης και να αφαιρείται 
+
             //Δημιουργούμε το XDocument το οποίο είναι κοινό ανεξαιρέτως του τύπου δομής RSS/Atom
             var xDocument = XDocument.Load(url);
 
