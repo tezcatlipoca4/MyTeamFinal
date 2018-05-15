@@ -7,9 +7,8 @@
     xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
     <ContentPage.Content>
 
-
-
         <StackLayout VerticalOptions="FillAndExpand">
+
             <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
 
                 <Image
@@ -17,10 +16,10 @@
                     Aspect="AspectFit"
                     HeightRequest="30" />
                 <Label
+                    x:Name="teamLabel"
                     FontAttributes="Bold"
                     FontSize="30"
-                    HorizontalTextAlignment="Start"
-                    Text="Π.Α.Ο.Κ." />
+                    HorizontalTextAlignment="Start" />
                 <Image
                     x:Name="RightBannerTeamLogo"
                     Aspect="AspectFit"

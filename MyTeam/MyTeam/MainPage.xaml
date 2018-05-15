@@ -1,11 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MyTeam"
-             x:Class="MyTeam.MainPage">
+<ContentPage
+    x:Class="MyTeam.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyTeam"
+    xmlns:navigationdrawer="clr-namespace:Syncfusion.SfNavigationDrawer.XForms;assembly=Syncfusion.SfNavigationDrawer.XForms">
 
-	<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="600" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!--  Κνετρική μπάρα με hamburger button και label  -->
+        <StackLayout
+            Grid.Row="0"
+            BackgroundColor="#1aa1d6"
+            Orientation="Horizontal">
+            <Button
+                x:Name="hamburgerButton"
+                BackgroundColor="#1aa1d6"
+                Clicked="HamburgerButton_OnClicked"
+                FontSize="20"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                Image="hamburgerIcon.png"
+                WidthRequest="48" />
+            <Label
+                x:Name="headerLabel"
+                BackgroundColor="#1aa1d6"
+                FontSize="16"
+                HeightRequest="50"
+                HorizontalTextAlignment="Center"
+                Text="Κεντρική Σελίδα"
+                TextColor="White"
+                VerticalTextAlignment="Center" />
+        </StackLayout>
+        <navigationdrawer:SfNavigationDrawer
+            x:Name="navigationDrawer"
+            Grid.Row="1"
+            DrawerHeaderHeight="160"
+            DrawerWidth="200">
+
+            <navigationdrawer:SfNavigationDrawer.ContentView>
+                <Grid x:Name="mainContentView" BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="400" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label
+                        x:Name="contentLabel"
+                        Grid.Row="0"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Text="Content View"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                </Grid>
+            </navigationdrawer:SfNavigationDrawer.ContentView>
+            <navigationdrawer:SfNavigationDrawer.DrawerContentView>
+                <ListView
+                    x:Name="listView"
+                    ItemSelected="ListView_OnItemSelected"
+                    VerticalOptions="Start">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout HeightRequest="40">
+                                    <Label
+                                        Margin="10,7,0,0"
+                                        FontSize="15"
+                                        Text="{Binding}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </navigationdrawer:SfNavigationDrawer.DrawerContentView>
+        </navigationdrawer:SfNavigationDrawer>
+
+    </Grid>
 
 </ContentPage>

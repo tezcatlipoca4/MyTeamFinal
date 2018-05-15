@@ -111,7 +111,7 @@
     <AndroidResource Include="Resources\drawable\splashTemp.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\drawable\settingsIcon.png" />
+    <AndroidResource Include="Resources\drawable\hamburgerIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

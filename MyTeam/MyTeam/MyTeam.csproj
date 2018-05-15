@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\hamburger.png" />
+    <None Remove="Assets\Images\siteLogos\1Contra.png" />
+    <None Remove="Assets\Images\siteLogos\1Gazzetta.png" />
+    <None Remove="Assets\Images\siteLogos\1NovaSports.png" />
+    <None Remove="Assets\Images\siteLogos\1OnSports.png" />
+    <None Remove="Assets\Images\siteLogos\1PrasinaNea.png" />
+    <None Remove="Assets\Images\siteLogos\1Sport24.png" />
     <None Remove="Assets\Images\siteLogos\aek365.png" />
     <None Remove="Assets\Images\siteLogos\contra.png" />
     <None Remove="Assets\Images\siteLogos\gayros.png" />
@@ -21,14 +28,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\hamburger.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\AEK365.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\1Contra.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Contra.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Gayros.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\1Gazzetta.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Gazzetta.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\inPAOK.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\1NovaSports.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\NovaSports.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\1OnSports.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\OnSports.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\1PrasinaNea.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\PrasinaNea.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\1Sport24.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Sport24.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\aek.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\osfp.png" />

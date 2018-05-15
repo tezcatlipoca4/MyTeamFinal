@@ -6,7 +6,8 @@
     xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
 
     <ContentPage.Content>
-        <StackLayout Margin="20,20,20,20">
+        <ScrollView Margin="20,0">
+            <StackLayout>
 
             <Label
                 FontSize="20"
@@ -33,7 +34,8 @@
                 ColumnSizer="LastColumnFill"
                 HeaderRowHeight="0"
                 HorizontalOptions="StartAndExpand"
-                RowHeight="40">
+                RowHeight="40"
+                VerticalOptions="Start">
 
                 <syncfusion:SfDataGrid.SortColumnDescriptions>
                     <syncfusion:SortColumnDescription ColumnName="SiteName" />
@@ -52,11 +54,10 @@
 
             <Button
                 x:Name="SaveSettingsButton"
-                Margin="0,20,30,0"
                 HorizontalOptions="End"
                 Pressed="SaveSettingsButton_OnPressed"
                 Text="Αποθήκευση" />
-
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

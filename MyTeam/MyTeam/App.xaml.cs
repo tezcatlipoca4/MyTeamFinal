@@ -22,12 +22,13 @@ namespace MyTeam
             
             //Todo: αφαίρεση της δήλωσης της ομάδας απο εδώ, θα έρχεται από τα settings
             SettingsPage.TeamChosen = "paok";
+            SettingsPage.TeamLabel = "ΠΑΟΚ";
             
             FilteredByTeamAndSiteDataTable =  FilterResutlsDataTable();
 
 
             //MainPage = new SettingsPage();
-            MainPage = new RssFeedPage();
+            MainPage = new MainPage();
         }
 
         //Η μέθοδος φιλτράρει τον πίνακα με όλες τις πληροφορίες ώστε να πάρουμε μόνο τα feed για την ομάδα και τα site που έχουμε επιλέξει
@@ -86,6 +87,15 @@ namespace MyTeam
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "OnSports", "RSS", "http://www.onsports.gr/omades/panathinaikos?format=feed&type=rss");
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "PrasinaNea", "RSS", "http://www.prasinanea.gr/feed/");
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "Sport24", "Atom", "http://www.sport24.gr/football/omades/paok/?widget=rssfeed&view=feed&contentId=174866");
+
+            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "1Contra", "Atom", "http://www.contra.gr/soccer/panathinaikos/?widget=rssfeed&view=feed");
+            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "1Gazzetta", "RSS", "http://www.gazzetta.gr/taxonomy/term/1016/all/feed");
+            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "1NovaSports", "RSS", "http://www.novasports.gr/sys/novasports/RssFeed/GetFeed?type=2&id=16625&languageID=1");
+            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "1OnSports", "RSS", "http://www.onsports.gr/omades/panathinaikos?format=feed&type=rss");
+            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "1PrasinaNea", "RSS", "http://www.prasinanea.gr/feed/");
+            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "1Sport24", "Atom", "http://www.sport24.gr/football/omades/paok/?widget=rssfeed&view=feed&contentId=174866");
+
+
             //paok
             table.Rows.Add("paok", "ΠΑΟΚ", "Contra", "Atom", "http://www.contra.gr/soccer/paok/?widget=rssfeed&view=feed&contentId=1169269");
             table.Rows.Add("paok", "ΠΑΟΚ", "Gazzetta", "RSS", "http://www.gazzetta.gr/taxonomy/term/1018/all/feed");

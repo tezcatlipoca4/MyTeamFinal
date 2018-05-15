@@ -21,6 +21,7 @@ namespace MyTeam
         //Todo: Να έρχονται οι τιμές από τα αποθηκευμένα settings
         public static int RssFeedItems;
         public static string TeamChosen;
+        public static string TeamLabel;
 
         public SettingsPage()
         {
@@ -93,6 +94,8 @@ namespace MyTeam
             //Από το string της επιλεγμένης ομάδας παίρνουμε το όνομα της μεταβλητλης
             DataView dv = new DataView(App.TeamsInfoDataTable) { RowFilter = "teamLabel = '" + Picker.Items[Picker.SelectedIndex] + "'" };
             TeamChosen = dv[0]["teamName"].ToString();
+            TeamLabel = dv[0]["teamLabel"].ToString();
+
 
             FillAvailableSitesDataGrid(TeamChosen);
         }
