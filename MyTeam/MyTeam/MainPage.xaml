@@ -9,7 +9,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="600" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <!--  Κνετρική μπάρα με hamburger button και label  -->
@@ -42,22 +41,7 @@
             DrawerHeaderHeight="160"
             DrawerWidth="200">
 
-            <navigationdrawer:SfNavigationDrawer.ContentView>
-                <Grid x:Name="mainContentView" BackgroundColor="White">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="400" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Label
-                        x:Name="contentLabel"
-                        Grid.Row="0"
-                        FontSize="14"
-                        HorizontalOptions="Center"
-                        Text="Content View"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                </Grid>
-            </navigationdrawer:SfNavigationDrawer.ContentView>
+
             <navigationdrawer:SfNavigationDrawer.DrawerContentView>
                 <ListView
                     x:Name="listView"

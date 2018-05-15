@@ -7,7 +7,7 @@
     xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
     <ContentPage.Content>
 
-        <StackLayout VerticalOptions="FillAndExpand">
+        <StackLayout HorizontalOptions="FillAndExpand">
 
             <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
 
@@ -26,15 +26,16 @@
                     HeightRequest="30" />
             </StackLayout>
 
-
+            <ActivityIndicator x:Name="loadingActivityIndicator" HeightRequest="30" />
 
             <syncfusion:SfDataGrid
                 x:Name="dataGrid"
-                AllowPullToRefresh="True"
                 ColumnSizer="LastColumnFill"
                 GridTapped="DataGrid_OnGridTapped"
                 HeaderRowHeight="0"
-                RowHeight="40">
+                HorizontalOptions="FillAndExpand"
+                RowHeight="40"
+                VerticalOptions="FillAndExpand">
 
 
                 <syncfusion:SfDataGrid.SortColumnDescriptions>
@@ -42,7 +43,7 @@
                 </syncfusion:SfDataGrid.SortColumnDescriptions>
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridImageColumn Width="40" MappingName="SiteLogo" />
-                    <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start" />
+                    <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start"/>
                     <syncfusion:GridTextColumn IsHidden="True" MappingName="Description" />
                     <syncfusion:GridTextColumn IsHidden="True" MappingName="Url" />
                     <syncfusion:GridDateTimeColumn IsHidden="True" MappingName="PublishedDatetime" />
@@ -54,7 +55,8 @@
             <Label
                 x:Name="FooterLabel"
                 FontSize="10"
-                HorizontalTextAlignment="Center" />
+                HorizontalTextAlignment="Center"
+                VerticalOptions="End" />
         </StackLayout>
 
     </ContentPage.Content>

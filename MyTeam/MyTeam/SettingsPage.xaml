@@ -9,54 +9,54 @@
         <ScrollView Margin="20,0">
             <StackLayout>
 
-            <Label
-                FontSize="20"
-                HorizontalOptions="CenterAndExpand"
-                Text="Επιλεγμένη ομάδα"
-                VerticalTextAlignment="Center" />
+                <Label
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Επιλεγμένη ομάδα"
+                    VerticalTextAlignment="Center" />
 
-            <Picker
-                x:Name="Picker"
-                Title="Επιλογή ομάδας"
-                HorizontalOptions="Center"
-                MinimumHeightRequest="30"
-                SelectedIndexChanged="Picker_OnSelectedIndexChanged" />
+                <Picker
+                    x:Name="Picker"
+                    Title="Επιλογή ομάδας"
+                    HorizontalOptions="Center"
+                    MinimumHeightRequest="30"
+                    SelectedIndexChanged="Picker_OnSelectedIndexChanged" />
 
-            <Label
-                FontSize="20"
-                HorizontalOptions="CenterAndExpand"
-                Text="Διαθέσιμες Ιστοσελίδες"
-                VerticalTextAlignment="Center" />
+                <Label
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Διαθέσιμες Ιστοσελίδες"
+                    VerticalTextAlignment="Center" />
 
-            <syncfusion:SfDataGrid
-                x:Name="AvailableSitesDataGrid"
-                Margin="0,20,0,0"
-                ColumnSizer="LastColumnFill"
-                HeaderRowHeight="0"
-                HorizontalOptions="StartAndExpand"
-                RowHeight="40"
-                VerticalOptions="Start">
+                <syncfusion:SfDataGrid
+                    x:Name="AvailableSitesDataGrid"
+                    Margin="0,20,0,0"
+                    ColumnSizer="LastColumnFill"
+                    HeaderRowHeight="0"
+                    HorizontalOptions="StartAndExpand"
+                    RowHeight="40"
+                    VerticalOptions="Start">
 
-                <syncfusion:SfDataGrid.SortColumnDescriptions>
-                    <syncfusion:SortColumnDescription ColumnName="SiteName" />
-                </syncfusion:SfDataGrid.SortColumnDescriptions>
+                    <syncfusion:SfDataGrid.SortColumnDescriptions>
+                        <syncfusion:SortColumnDescription ColumnName="SiteName" />
+                    </syncfusion:SfDataGrid.SortColumnDescriptions>
 
-                <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridImageColumn MappingName="SiteLogo" />
-                    <syncfusion:GridTextColumn
-                        CellTextSize="20"
-                        ColumnSizer="Auto"
-                        MappingName="SiteName"
-                        TextAlignment="Start" />
-                    <syncfusion:GridSwitchColumn MappingName="SiteSelected" TextAlignment="Center" />
-                </syncfusion:SfDataGrid.Columns>
-            </syncfusion:SfDataGrid>
+                    <syncfusion:SfDataGrid.Columns>
+                        <syncfusion:GridImageColumn MappingName="SiteLogo" />
+                        <syncfusion:GridTextColumn
+                            CellTextSize="20"
+                            ColumnSizer="Auto"
+                            MappingName="SiteName"
+                            TextAlignment="Start" />
+                        <syncfusion:GridSwitchColumn MappingName="SiteSelected" TextAlignment="Center" />
+                    </syncfusion:SfDataGrid.Columns>
+                </syncfusion:SfDataGrid>
 
-            <Button
-                x:Name="SaveSettingsButton"
-                HorizontalOptions="End"
-                Pressed="SaveSettingsButton_OnPressed"
-                Text="Αποθήκευση" />
+                <Button
+                    x:Name="SaveSettingsButton"
+                    HorizontalOptions="End"
+                    Pressed="SaveSettingsButton_OnPressed"
+                    Text="Αποθήκευση" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
