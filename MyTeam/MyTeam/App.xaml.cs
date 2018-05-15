@@ -27,7 +27,7 @@ namespace MyTeam
             FilteredByTeamAndSiteDataTable =  FilterResutlsDataTable();
 
 
-            //MainPage = new SettingsPage();
+            
             MainPage = new MainPage();
         }
 

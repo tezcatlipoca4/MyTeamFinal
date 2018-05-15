@@ -4,11 +4,10 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pull="clr-namespace:Syncfusion.SfPullToRefresh.XForms;assembly=Syncfusion.SfPullToRefresh.XForms"
-   
     xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
     <ContentPage.Content>
 
-        <StackLayout VerticalOptions="FillAndExpand">
+        <StackLayout HorizontalOptions="FillAndExpand">
 
             <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
 
@@ -19,7 +18,7 @@
                 <Label
                     x:Name="teamLabel"
                     FontAttributes="Bold"
-                    
+                    FontSize="30"
                     HorizontalTextAlignment="Start" />
                 <Image
                     x:Name="RightBannerTeamLogo"
@@ -27,15 +26,16 @@
                     HeightRequest="30" />
             </StackLayout>
 
-
+            <ActivityIndicator x:Name="loadingActivityIndicator" HeightRequest="30" />
 
             <syncfusion:SfDataGrid
                 x:Name="dataGrid"
-                AllowPullToRefresh="True"
                 ColumnSizer="LastColumnFill"
                 GridTapped="DataGrid_OnGridTapped"
                 HeaderRowHeight="0"
-                RowHeight="40">
+                HorizontalOptions="FillAndExpand"
+                RowHeight="40"
+                VerticalOptions="FillAndExpand">
 
 
                 <syncfusion:SfDataGrid.SortColumnDescriptions>
@@ -43,22 +43,21 @@
                 </syncfusion:SfDataGrid.SortColumnDescriptions>
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridImageColumn Width="40" MappingName="SiteLogo" />
-                    <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start" />
+                    <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start"/>
                     <syncfusion:GridTextColumn IsHidden="True" MappingName="Description" />
                     <syncfusion:GridTextColumn IsHidden="True" MappingName="Url" />
                     <syncfusion:GridDateTimeColumn IsHidden="True" MappingName="PublishedDatetime" />
 
                 </syncfusion:SfDataGrid.Columns>
-                
+
             </syncfusion:SfDataGrid>
+
             <Label
                 x:Name="FooterLabel"
-                
-                HorizontalTextAlignment="Center" />
-      
-            
+                FontSize="10"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="End" />
         </StackLayout>
-        
+
     </ContentPage.Content>
-   
 </ContentPage>
