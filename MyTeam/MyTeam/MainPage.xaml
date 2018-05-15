@@ -3,13 +3,16 @@
     x:Class="MyTeam.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MyTeam"
     xmlns:local="clr-namespace:MyTeam"
     xmlns:navigationdrawer="clr-namespace:Syncfusion.SfNavigationDrawer.XForms;assembly=Syncfusion.SfNavigationDrawer.XForms">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="600" />
+            <RowDefinition Height="52" />
+            <RowDefinition Height="500" />
+            <RowDefinition Height="52" />
+            
             <RowDefinition />
         </Grid.RowDefinitions>
         <!--  Κνετρική μπάρα με hamburger button και label  -->
@@ -78,6 +81,12 @@
                 </ListView>
             </navigationdrawer:SfNavigationDrawer.DrawerContentView>
         </navigationdrawer:SfNavigationDrawer>
+
+        <StackLayout VerticalOptions="End" Grid.Row="2">
+            
+            <controls:AdMobView WidthRequest="320" HeightRequest="50" />
+        </StackLayout>
+
 
     </Grid>
 

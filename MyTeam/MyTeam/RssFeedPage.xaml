@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pull="clr-namespace:Syncfusion.SfPullToRefresh.XForms;assembly=Syncfusion.SfPullToRefresh.XForms"
+   
     xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
     <ContentPage.Content>
 
@@ -18,7 +19,7 @@
                 <Label
                     x:Name="teamLabel"
                     FontAttributes="Bold"
-                    FontSize="30"
+                    
                     HorizontalTextAlignment="Start" />
                 <Image
                     x:Name="RightBannerTeamLogo"
@@ -48,14 +49,16 @@
                     <syncfusion:GridDateTimeColumn IsHidden="True" MappingName="PublishedDatetime" />
 
                 </syncfusion:SfDataGrid.Columns>
-
+                
             </syncfusion:SfDataGrid>
-
             <Label
                 x:Name="FooterLabel"
-                FontSize="10"
+                
                 HorizontalTextAlignment="Center" />
+      
+            
         </StackLayout>
-
+        
     </ContentPage.Content>
+   
 </ContentPage>
