@@ -1,4 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using MyTeam.Models;
 using Xamarin.Forms;
 
 namespace MyTeam
@@ -7,6 +10,9 @@ namespace MyTeam
     {
         //Ο πίνακας που περιέχει όλες τις πληροφορίες για όλες τις ομάδες και όλα τα site
         public static DataTable TeamsInfoDataTable = new DataTable();
+
+        public static List<RssModel> CurrentLoadedRssModels = new List<RssModel>();
+        public static DateTime LastLoadedDateTime;
 
         //TODO: Αυτός ο πίνακας θα ενημερώνεται στο άνοιγμα της εφαρμογής βάσει των αποθηκευμένων επιλογών και με την αποθήκευση των ρυθμίσεων από τον χρήστη
         //Περιέχει τα φιλτραρισμένα στοιχεία και url που θα χρησιμοποιούμε για να τραβηξουμε τα RSS feeds
@@ -19,24 +25,25 @@ namespace MyTeam
 
             //Γέμισμα πίνακα με όλες τις πληροφορίες
             FillTeamInfoDataTable(TeamsInfoDataTable);
-            
+
             //Todo: αφαίρεση της δήλωσης της ομάδας απο εδώ, θα έρχεται από τα settings
             SettingsPage.TeamChosen = "paok";
             SettingsPage.TeamLabel = "ΠΑΟΚ";
-            
-            FilteredByTeamAndSiteDataTable =  FilterResutlsDataTable();
+            SettingsPage.SitesFilter = "'Gazzetta','NovaSports'";
+
+            FilteredByTeamAndSiteDataTable = FilterResutlsDataTable();
 
 
-            
+
             MainPage = new MainPage();
         }
 
         //Η μέθοδος φιλτράρει τον πίνακα με όλες τις πληροφορίες ώστε να πάρουμε μόνο τα feed για την ομάδα και τα site που έχουμε επιλέξει
-        public DataTable FilterResutlsDataTable()
+        public static DataTable FilterResutlsDataTable()
         {
             DataView dv = TeamsInfoDataTable.DefaultView;
 
-            dv.RowFilter = "teamName = '" + SettingsPage.TeamChosen + "'";
+            dv.RowFilter = "teamName = '" + SettingsPage.TeamChosen + "' AND siteName IN (" + SettingsPage.SitesFilter + ")";
 
             return dv.ToTable();
 

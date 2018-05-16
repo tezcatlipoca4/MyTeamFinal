@@ -9,10 +9,10 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="52" />
-            <RowDefinition Height="500" />
-            <RowDefinition Height="52" />
-            
+            <RowDefinition Height="50" />
+            <RowDefinition Height="450" />
+            <RowDefinition Height="50" />
+
             <RowDefinition />
         </Grid.RowDefinitions>
         <!--  Κνετρική μπάρα με hamburger button και label  -->
@@ -82,9 +82,9 @@
             </navigationdrawer:SfNavigationDrawer.DrawerContentView>
         </navigationdrawer:SfNavigationDrawer>
 
-        <StackLayout VerticalOptions="End" Grid.Row="2">
-            
-            <controls:AdMobView WidthRequest="320" HeightRequest="50" />
+        <StackLayout Grid.Row="2" VerticalOptions="End">
+
+            <local:AdMobView HeightRequest="50" WidthRequest="320" />
         </StackLayout>
 
 
