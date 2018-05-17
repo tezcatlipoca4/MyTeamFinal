@@ -18,11 +18,11 @@
         <!--  Κνετρική μπάρα με hamburger button και label  -->
         <StackLayout
             Grid.Row="0"
-            BackgroundColor="#1aa1d6"
+            BackgroundColor="Black"
             Orientation="Horizontal">
             <Button
                 x:Name="hamburgerButton"
-                BackgroundColor="#1aa1d6"
+                BackgroundColor="Black"
                 Clicked="HamburgerButton_OnClicked"
                 FontSize="20"
                 HeightRequest="50"
@@ -31,22 +31,30 @@
                 WidthRequest="48" />
             <Label
                 x:Name="headerLabel"
-                BackgroundColor="#1aa1d6"
+                BackgroundColor="Black"
                 FontSize="16"
                 HeightRequest="50"
                 HorizontalTextAlignment="Center"
                 Text="Κεντρική Σελίδα"
                 TextColor="White"
                 VerticalTextAlignment="Center" />
+            <Button
+                x:Name="backButton"
+                Clicked="BackButton_Clicked"
+                Text="ΠΙΣΩ"
+                TextColor="White"
+                BackgroundColor="Black"
+                HorizontalOptions="End"
+                WidthRequest="100" />
         </StackLayout>
         <navigationdrawer:SfNavigationDrawer
             x:Name="navigationDrawer"
             Grid.Row="1"
-            DrawerHeaderHeight="160"
+            DrawerHeaderHeight="10"
             DrawerWidth="200">
 
             <navigationdrawer:SfNavigationDrawer.ContentView>
-                <Grid x:Name="mainContentView" BackgroundColor="White">
+                <Grid x:Name="mainContentView" BackgroundColor="Black">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="400" />
                         <RowDefinition />
@@ -62,7 +70,8 @@
                 </Grid>
             </navigationdrawer:SfNavigationDrawer.ContentView>
             <navigationdrawer:SfNavigationDrawer.DrawerContentView>
-                <ListView
+                <ListView 
+                    BackgroundColor="White"
                     x:Name="listView"
                     ItemSelected="ListView_OnItemSelected"
                     VerticalOptions="Start">
