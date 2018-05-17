@@ -34,7 +34,7 @@
                 BackgroundColor="Black"
                 FontSize="16"
                 HeightRequest="50"
-                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"                
                 Text="Κεντρική Σελίδα"
                 TextColor="White"
                 VerticalTextAlignment="Center" />
