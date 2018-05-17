@@ -43,7 +43,7 @@
                 </syncfusion:SfDataGrid.SortColumnDescriptions>
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridImageColumn Width="40" MappingName="SiteLogo" />
-                    <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start"/>
+                    <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start" />
                     <syncfusion:GridTextColumn IsHidden="True" MappingName="Description" />
                     <syncfusion:GridTextColumn IsHidden="True" MappingName="Url" />
                     <syncfusion:GridDateTimeColumn IsHidden="True" MappingName="PublishedDatetime" />
