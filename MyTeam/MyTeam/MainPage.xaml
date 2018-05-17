@@ -41,11 +41,11 @@
             <Button
                 x:Name="backButton"
                 Clicked="BackButton_Clicked"
-                Text="ΠΙΣΩ"
+                Text="ΑΡΧΙΚΗ"
                 TextColor="White"
                 BackgroundColor="Black"
-                HorizontalOptions="End"
-                WidthRequest="100" />
+                HorizontalOptions="EndAndExpand"                
+                WidthRequest="60" />
         </StackLayout>
         <navigationdrawer:SfNavigationDrawer
             x:Name="navigationDrawer"
