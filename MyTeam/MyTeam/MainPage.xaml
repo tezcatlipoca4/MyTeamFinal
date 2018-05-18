@@ -15,6 +15,7 @@
 
             <RowDefinition />
         </Grid.RowDefinitions>
+
         <!--  Κνετρική μπάρα με hamburger button και label  -->
         <StackLayout
             Grid.Row="0"
@@ -40,11 +41,11 @@
                 VerticalTextAlignment="Center" />
             <Button
                 x:Name="backButton"
+                BackgroundColor="Black"
                 Clicked="BackButton_Clicked"
+                HorizontalOptions="End"
                 Text="ΠΙΣΩ"
                 TextColor="White"
-                BackgroundColor="Black"
-                HorizontalOptions="End"
                 WidthRequest="100" />
         </StackLayout>
         <navigationdrawer:SfNavigationDrawer
@@ -70,9 +71,9 @@
                 </Grid>
             </navigationdrawer:SfNavigationDrawer.ContentView>
             <navigationdrawer:SfNavigationDrawer.DrawerContentView>
-                <ListView 
-                    BackgroundColor="White"
+                <ListView
                     x:Name="listView"
+                    BackgroundColor="White"
                     ItemSelected="ListView_OnItemSelected"
                     VerticalOptions="Start">
                     <ListView.ItemTemplate>

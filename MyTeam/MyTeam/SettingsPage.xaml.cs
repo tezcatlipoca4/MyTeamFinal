@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
 using MyTeam.Models;
 using MyTeam.Models.Styles;
 using Syncfusion.Data;
@@ -18,9 +19,11 @@ namespace MyTeam
         //Todo: Να έρχονται οι τιμές από τα αποθηκευμένα settings
         public static int RssFeedItems;
 
-        public static string TeamChosen;
-        public static string TeamLabel;
-        public static string SitesFilter;
+        public static string TeamChosen = string.Empty;
+        public static string TeamLabel = string.Empty;
+        public static string SitesFilter = string.Empty;
+        public static string TeamChosenFcTables = string.Empty;
+        public static string TeamChosenFcTablesNumberOnly = string.Empty;
 
         //Χρησιμοποιείται για να έχουμε την ομάδα που διάλεξε, μέχρι να πατήσει ο χρήστης αποθήκευση και τα site
         private string _teamChosen;
@@ -114,13 +117,22 @@ namespace MyTeam
             //Έλεγχος αν ο χρήστης δεν έχει πραγματοποιήσει αλλαγές σε σχέση με πριν
             if (sitesFilter.Equals(SitesFilter) && _teamChosen.Equals(TeamChosen)) return;
 
+            if (Application.Current.MainPage == this)
+            {
+                Application.Current.MainPage = new MainPage();
+
+            }
+
             //TODO: Αποθήκευση ρυθμίσεων και μετάβαση στην σελίδα των feed
             TeamChosen = _teamChosen;
             TeamLabel = Picker.SelectedItem.ToString();
             SitesFilter = sitesFilter;
+            FcTableTeamChange();
             App.FilteredByTeamAndSiteDataTable = App.FilterResutlsDataTable();
             App.CurrentLoadedRssModels.Clear();
+
             
+
         }
 
         private string GetSelectedSitesFilter()
@@ -137,6 +149,33 @@ namespace MyTeam
 
             //Αν ο χρήστης δεν διάλεξε τπτ επιστρέφουμε empty αλλιώς αφαιρούμε το τελευταίο ',' που δημιουργήθηκε από την foreach
             return filter.Equals(string.Empty) ? string.Empty : filter.Substring(0, filter.Length - 1);
+        }
+
+        //Βάσει της επιλεγμένης ομάδας αλλάζουμε τα string που χρησιμοποιούνται για τα site της fcTables
+        private void FcTableTeamChange()
+        {
+            switch (TeamChosen)
+            {
+                case "paok":
+                    TeamChosenFcTables = "paok-thessaloniki-fc-191542";
+                    break;
+
+                case "aek":
+                    TeamChosenFcTables = "aek-athens-179288";
+                    break;
+
+                case "osfp":
+                    TeamChosenFcTables = "olympiacos-191194";
+                    break;
+
+                case "panathinaikos":
+                    TeamChosenFcTables = "panathinaikos-191512";
+                    break;
+            }
+
+            TeamChosenFcTablesNumberOnly = new string(TeamChosenFcTables.Where(char.IsDigit).ToArray());
+
+
         }
     }
 }

@@ -19,22 +19,11 @@ namespace MyTeam
             //Todo: Έλεγχος αν είναι η πρώτη φορά που τρέχει η εφαρμογή να πηγαίνει στις ρυθμίσεις με την επιλογή για feed απενεργοποιημένη
             //Διαφορετικά πηγαίνει κανονικά στο feed
 
-            //Δεν εχουμε ομάδα
-            if (SettingsPage.TeamChosen == string.Empty)
-            {
-                navigationDrawer.ContentView = new SettingsPage().Content;
-                headerLabel.Text = "Ρυθμίσεις";
+            //Για την αρχική εκκίνηση της εφαρμογής
+            navigationDrawer.ContentView = new RssFeedPage().Content;
+            backButton.IsVisible = false;
 
-                navigationDrawer.IsEnabled = false;
 
-            }
-            else
-            {
-                navigationDrawer.ContentView = new RssFeedPage().Content;
-                backButton.IsVisible = false;
-            }
-
-          
 
         }
 
