@@ -28,6 +28,8 @@ namespace MyTeam.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
+
+            Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 0, 0, 0)); // Change android status bar color to black
         }
     }
 }
