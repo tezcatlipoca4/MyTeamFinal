@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using MyTeam.Models;
 using MyTeam.Models.Styles;
+using Plugin.Settings;
+using Plugin.Settings.Abstractions;
 using Syncfusion.Data;
 using Syncfusion.SfDataGrid.XForms;
 using Xamarin.Forms;
@@ -16,12 +18,32 @@ namespace MyTeam
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
+        private static ISettings AppSettings => CrossSettings.Current;
+
+        public static string TeamChosen
+        {
+            get => AppSettings.GetValueOrDefault(nameof(TeamChosen), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(TeamChosen), value);
+        }
+
+        public static string TeamLabel
+        {
+            get => AppSettings.GetValueOrDefault(nameof(TeamLabel), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(TeamLabel), value);
+        }
+
+        public static string SitesFilter
+        {
+            get => AppSettings.GetValueOrDefault(nameof(SitesFilter), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(SitesFilter), value);
+        }
+
         //Todo: Να έρχονται οι τιμές από τα αποθηκευμένα settings
         public static int RssFeedItems;
 
-        public static string TeamChosen = string.Empty;
-        public static string TeamLabel = string.Empty;
-        public static string SitesFilter = string.Empty;
+        //public static string TeamChosen = string.Empty;
+        //public static string TeamLabel = string.Empty;
+        //public static string SitesFilter = string.Empty;
         public static string TeamChosenFcTables = string.Empty;
         public static string TeamChosenFcTablesNumberOnly = string.Empty;
 
