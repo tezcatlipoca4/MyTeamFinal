@@ -47,6 +47,7 @@
                             CellTextSize="20"
                             ColumnSizer="Auto"
                             MappingName="SiteName"
+                            MinimumWidth="150"
                             TextAlignment="Start" />
                         <syncfusion:GridSwitchColumn MappingName="SiteSelected" TextAlignment="Center" />
                     </syncfusion:SfDataGrid.Columns>

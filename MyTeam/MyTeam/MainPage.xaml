@@ -45,7 +45,7 @@
                 HorizontalOptions="EndAndExpand"
                 Text="ΑΡΧΙΚΗ"
                 TextColor="White"
-                WidthRequest="60" />
+                WidthRequest="75" />
         </StackLayout>
         <navigationdrawer:SfNavigationDrawer
             x:Name="navigationDrawer"

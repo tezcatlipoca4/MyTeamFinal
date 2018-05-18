@@ -18,34 +18,7 @@ namespace MyTeam
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
-        private static ISettings AppSettings => CrossSettings.Current;
-
-        public static string TeamChosen
-        {
-            get => AppSettings.GetValueOrDefault(nameof(TeamChosen), string.Empty);
-            set => AppSettings.AddOrUpdateValue(nameof(TeamChosen), value);
-        }
-
-        public static string TeamLabel
-        {
-            get => AppSettings.GetValueOrDefault(nameof(TeamLabel), string.Empty);
-            set => AppSettings.AddOrUpdateValue(nameof(TeamLabel), value);
-        }
-
-        public static string SitesFilter
-        {
-            get => AppSettings.GetValueOrDefault(nameof(SitesFilter), string.Empty);
-            set => AppSettings.AddOrUpdateValue(nameof(SitesFilter), value);
-        }
-
-        //Todo: Να έρχονται οι τιμές από τα αποθηκευμένα settings
         public static int RssFeedItems;
-
-        //public static string TeamChosen = string.Empty;
-        //public static string TeamLabel = string.Empty;
-        //public static string SitesFilter = string.Empty;
-        public static string TeamChosenFcTables = string.Empty;
-        public static string TeamChosenFcTablesNumberOnly = string.Empty;
 
         //Χρησιμοποιείται για να έχουμε την ομάδα που διάλεξε, μέχρι να πατήσει ο χρήστης αποθήκευση και τα site
         private string _teamChosen;
@@ -55,14 +28,27 @@ namespace MyTeam
         {
             InitializeComponent();
 
+            //Αν είναι η πρώτη φορά που ανοιγει η εφαρμογή βγαίνει ενημερωτικό μήνυμα.
+            if (TeamChosen == string.Empty)
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayAlert("Καλώς ήρθατε",
+                        "Ευχαριστούμε που κατεβάσατε την εφαρμογή \"Όλα για την ομάδα μου.\" Για να συνεχίσετε παρακαλώ επιλέξτε την αγαπημένη σας ομάδα και τις ιστοσελίδες από τις οποίες θέλετε να λαμβάνετε ενημερώσεις.",
+                        "ΟΚ");
+                });
+
+
             FillPickerWithTeams();
 
             FillAvailableSitesDataGrid(TeamChosen);
 
             Picker.SelectedItem = TeamLabel;
+
             //Ορίζουμε το θέμα για το datagrid
             AvailableSitesDataGrid.GridStyle = new CustomGridStyle();
         }
+
+        private static ISettings AppSettings => CrossSettings.Current;
 
         //Παίρνουμε όλες τις διαθέσιμές ομάδες με distinct από τα διαθέσιμα RSS που έχει ο κεντρικός πίνακας πληροφοριών
         private void FillPickerWithTeams()
@@ -125,36 +111,26 @@ namespace MyTeam
             //Έλεγχος αν ο χρήστης δεν έχει κανένα site ενεργό
             if (sitesFilter.Equals(string.Empty))
             {
-                //DisplayAlert("Σφάλμα",
-                //    "Πρέπει να έχετε επιλέξει τουλάχιστον μια ιστοσελίδα για να ποθηκευτούν οι ρυθμίσεις!", "ΟΚ");
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayAlert("Σφάλμα",
+                        "Πρέπει να έχετε επιλέξει τουλάχιστον μια ιστοσελίδα για να ποθηκευτούν οι ρυθμίσεις!", "ΟΚ");
+                });
 
-                //Device.BeginInvokeOnMainThread(async () =>
-                //{
-                //    await DisplayAlert("Σφάλμα",
-                //        "Πρέπει να έχετε επιλέξει τουλάχιστον μια ιστοσελίδα για να ποθηκευτούν οι ρυθμίσεις!", "Ok");
-                //});
                 return;
             }
 
             //Έλεγχος αν ο χρήστης δεν έχει πραγματοποιήσει αλλαγές σε σχέση με πριν
-            if (sitesFilter.Equals(SitesFilter) && _teamChosen.Equals(TeamChosen)) return;
-
-            if (Application.Current.MainPage == this)
+            if (!sitesFilter.Equals(SitesFilter) || !_teamChosen.Equals(TeamChosen))
             {
-                Application.Current.MainPage = new MainPage();
-
+                TeamChosen = _teamChosen;
+                TeamLabel = Picker.SelectedItem.ToString();
+                SitesFilter = sitesFilter;
+                FcTableTeamChange();
+                App.FilteredByTeamAndSiteDataTable = App.FilterResutlsDataTable();
+                App.CurrentLoadedRssModels.Clear();
             }
-
-            //TODO: Αποθήκευση ρυθμίσεων και μετάβαση στην σελίδα των feed
-            TeamChosen = _teamChosen;
-            TeamLabel = Picker.SelectedItem.ToString();
-            SitesFilter = sitesFilter;
-            FcTableTeamChange();
-            App.FilteredByTeamAndSiteDataTable = App.FilterResutlsDataTable();
-            App.CurrentLoadedRssModels.Clear();
-
-            
-
+            Application.Current.MainPage = new MainPage();
         }
 
         private string GetSelectedSitesFilter()
@@ -162,12 +138,8 @@ namespace MyTeam
             string filter = string.Empty;
 
             foreach (RecordEntry entry in AvailableSitesDataGrid.View.Records)
-            {
                 if ((bool)AvailableSitesDataGrid.GetCellValue(entry.Data, "SiteSelected"))
-                {
                     filter += "'" + AvailableSitesDataGrid.GetCellValue(entry.Data, "SiteName") + "',";
-                }
-            }
 
             //Αν ο χρήστης δεν διάλεξε τπτ επιστρέφουμε empty αλλιώς αφαιρούμε το τελευταίο ',' που δημιουργήθηκε από την foreach
             return filter.Equals(string.Empty) ? string.Empty : filter.Substring(0, filter.Length - 1);
@@ -196,8 +168,40 @@ namespace MyTeam
             }
 
             TeamChosenFcTablesNumberOnly = new string(TeamChosenFcTables.Where(char.IsDigit).ToArray());
-
-
         }
+
+        #region SettingsVariables
+
+        public static string TeamChosen
+        {
+            get => AppSettings.GetValueOrDefault(nameof(TeamChosen), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(TeamChosen), value);
+        }
+
+        public static string TeamLabel
+        {
+            get => AppSettings.GetValueOrDefault(nameof(TeamLabel), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(TeamLabel), value);
+        }
+
+        public static string SitesFilter
+        {
+            get => AppSettings.GetValueOrDefault(nameof(SitesFilter), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(SitesFilter), value);
+        }
+
+        public static string TeamChosenFcTables
+        {
+            get => AppSettings.GetValueOrDefault(nameof(TeamChosenFcTables), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(TeamChosenFcTables), value);
+        }
+
+        public static string TeamChosenFcTablesNumberOnly
+        {
+            get => AppSettings.GetValueOrDefault(nameof(TeamChosenFcTablesNumberOnly), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(TeamChosenFcTablesNumberOnly), value);
+        }
+
+        #endregion
     }
 }

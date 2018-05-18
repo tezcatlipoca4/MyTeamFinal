@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Syncfusion.Data.Extensions;
+using Syncfusion.SfDataGrid.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +16,7 @@ namespace MyTeam
         public MainPage()
         {
             InitializeComponent();
-
+            
             List<string> list = new List<string> { "Κεντρική Σελίδα", "Ρυθμισεις", "Προηγούμενος αγώνας", "Επόμενος αγώνας", "Βαθμολογία", "Live Score", "Σχετικά με την Konstraction" };
             listView.ItemsSource = list;
 
@@ -20,6 +24,7 @@ namespace MyTeam
             //Διαφορετικά πηγαίνει κανονικά στο feed
 
             //Για την αρχική εκκίνηση της εφαρμογής
+
             navigationDrawer.ContentView = new RssFeedPage().Content;
             backButton.IsVisible = false;
 
@@ -34,18 +39,17 @@ namespace MyTeam
 
         private void BackButton_Clicked(object sender, EventArgs e)
         {
-            navigationDrawer.ContentView = new RssFeedPage().Content;
-            backButton.IsVisible = false;
+            listView.SelectedItem = "Κεντρική Σελίδα";
         }
-
-
+        
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-
+           
             //Με την επιλογή ενός αντικειμένου από το μενου
             switch (e.SelectedItem.ToString())
             {
                 case "Κεντρική Σελίδα":
+
                     navigationDrawer.ContentView = new RssFeedPage().Content;
                     backButton.IsVisible = false;
                     break;
@@ -83,7 +87,7 @@ namespace MyTeam
             //Αλλάζουμε την επικεφαλίδα ανάλογα με την επιλογή
             headerLabel.Text = e.SelectedItem.ToString();
             //κλέινουμε το menu
-            navigationDrawer.ToggleDrawer();
+            if (navigationDrawer.IsOpen) navigationDrawer.ToggleDrawer();
         }
     }
 }

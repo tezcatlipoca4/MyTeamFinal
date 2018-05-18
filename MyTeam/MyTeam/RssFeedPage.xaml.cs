@@ -19,8 +19,7 @@ namespace MyTeam
         public RssFeedPage()
         {
             InitializeComponent();
-
-
+            
             //Βάζουμε τα εικονίδια στα banner από την ομάδα που έχει επιλέξει ο χρήστης
             LeftBannerTeamLogo.Source = RightBannerTeamLogo.Source =
                 ImageSource.FromResource("MyTeam.Assets.Images.teamLogos." + SettingsPage.TeamChosen + ".png");
