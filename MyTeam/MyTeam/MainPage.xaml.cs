@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Syncfusion.Data.Extensions;
-using Syncfusion.SfDataGrid.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,8 +11,17 @@ namespace MyTeam
         public MainPage()
         {
             InitializeComponent();
-            
-            List<string> list = new List<string> { "Κεντρική Σελίδα", "Ρυθμισεις", "Προηγούμενος αγώνας", "Επόμενος αγώνας", "Βαθμολογία", "Live Score", "Σχετικά με την Konstraction" };
+
+            List<string> list = new List<string>
+            {
+                "Ειδήσεις Ομάδας",
+                "Προηγούμενος αγώνας",
+                "Επόμενος αγώνας",
+                "Βαθμολογία",
+                "Live Score",
+                "Ρυθμισεις",
+                "Σχετικά με την εφαρμογή"
+            };
             listView.ItemsSource = list;
 
             //Todo: Έλεγχος αν είναι η πρώτη φορά που τρέχει η εφαρμογή να πηγαίνει στις ρυθμίσεις με την επιλογή για feed απενεργοποιημένη
@@ -27,9 +31,6 @@ namespace MyTeam
 
             navigationDrawer.ContentView = new RssFeedPage().Content;
             backButton.IsVisible = false;
-
-
-
         }
 
         private void HamburgerButton_OnClicked(object sender, EventArgs e)
@@ -39,29 +40,20 @@ namespace MyTeam
 
         private void BackButton_Clicked(object sender, EventArgs e)
         {
-            listView.SelectedItem = "Κεντρική Σελίδα";
+            listView.SelectedItem = "Ειδήσεις Ομάδας";
         }
-        
+
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-           
             //Με την επιλογή ενός αντικειμένου από το μενου
             switch (e.SelectedItem.ToString())
             {
-                case "Κεντρική Σελίδα":
+                case "Ειδήσεις Ομάδας":
 
                     navigationDrawer.ContentView = new RssFeedPage().Content;
                     backButton.IsVisible = false;
                     break;
 
-                case "Ρυθμισεις":
-                    navigationDrawer.ContentView = new SettingsPage().Content;
-                    backButton.IsVisible = true;
-                    break;
-
-                case "Σχετικά με την Konstraction":
-                    backButton.IsVisible = true;
-                    break;
 
                 case "Βαθμολογία":
                     navigationDrawer.ContentView = new StandingsPage().Content;
@@ -80,6 +72,15 @@ namespace MyTeam
 
                 case "Live Score":
                     navigationDrawer.ContentView = new LiveScoresPage().Content;
+                    backButton.IsVisible = true;
+                    break;
+                case "Ρυθμισεις":
+                    navigationDrawer.ContentView = new SettingsPage().Content;
+                    backButton.IsVisible = true;
+                    break;
+
+                case "Σχετικά με την εφαρμογή":
+                    navigationDrawer.ContentView = new AboutPage().Content;
                     backButton.IsVisible = true;
                     break;
             }

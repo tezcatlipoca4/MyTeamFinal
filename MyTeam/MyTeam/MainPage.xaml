@@ -50,8 +50,9 @@
         <navigationdrawer:SfNavigationDrawer
             x:Name="navigationDrawer"
             Grid.Row="1"
-            DrawerHeaderHeight="10"
-            DrawerWidth="200">
+            DrawerFooterHeight="40"
+            DrawerHeaderHeight="0"
+            DrawerWidth="250">
 
             <navigationdrawer:SfNavigationDrawer.ContentView>
                 <Grid x:Name="mainContentView" BackgroundColor="Black">
@@ -70,11 +71,12 @@
                 </Grid>
             </navigationdrawer:SfNavigationDrawer.ContentView>
             <navigationdrawer:SfNavigationDrawer.DrawerContentView>
+
                 <ListView
                     x:Name="listView"
                     BackgroundColor="White"
                     ItemSelected="ListView_OnItemSelected"
-                    VerticalOptions="Start">
+                    VerticalOptions="StartAndExpand">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -89,6 +91,14 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </navigationdrawer:SfNavigationDrawer.DrawerContentView>
+            <navigationdrawer:SfNavigationDrawer.DrawerFooterView>
+                <Label
+                    BackgroundColor="White"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Konstraction © 2018"
+                    VerticalTextAlignment="Center" />
+            </navigationdrawer:SfNavigationDrawer.DrawerFooterView>
         </navigationdrawer:SfNavigationDrawer>
 
         <StackLayout Grid.Row="2" VerticalOptions="End">
