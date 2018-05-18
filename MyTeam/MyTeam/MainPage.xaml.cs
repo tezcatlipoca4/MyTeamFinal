@@ -28,9 +28,12 @@ namespace MyTeam
             //Διαφορετικά πηγαίνει κανονικά στο feed
 
             //Για την αρχική εκκίνηση της εφαρμογής
-
             navigationDrawer.ContentView = new RssFeedPage().Content;
             backButton.IsVisible = false;
+
+            // Check Android Navigation Buttons
+            bool hasHardwareKeys = DependencyService.Get<App.IHasHardwareKeys>().GetHardwareKeys();
+            screenHeight.Height = hasHardwareKeys ? 450 : 500;
         }
 
         private void HamburgerButton_OnClicked(object sender, EventArgs e)

@@ -65,6 +65,12 @@ namespace MyTeam
             // Handle when your app resumes
         }
 
+        // Software Keys Interface
+        public interface IHasHardwareKeys
+        {
+            bool GetHardwareKeys();
+        }
+
         //Δημιουργία πίνακα με τις πληροφορίες και τα url των ιστοσελίδων
         private void FillTeamInfoDataTable(DataTable table)
         {
