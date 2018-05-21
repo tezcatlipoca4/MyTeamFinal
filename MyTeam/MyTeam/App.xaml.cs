@@ -33,9 +33,9 @@ namespace MyTeam
 
             FilteredByTeamAndSiteDataTable = FilterResutlsDataTable();
 
-
+            //MainPage = new AboutPage();
             //Ελέγχουμε αν είναι η πρώτη εκτέλεση της εφαρμογής ώστε να στείλουμε τον χρήστη στις ρυθμίσεις
-            MainPage = SettingsPage.TeamChosen == string.Empty ? (Page) new SettingsPage() : new MainPage();
+            MainPage = SettingsPage.TeamChosen == string.Empty ? (Page) new AboutPage() : new MainPage();
         }
 
         //Η μέθοδος φιλτράρει τον πίνακα με όλες τις πληροφορίες ώστε να πάρουμε μόνο τα feed για την ομάδα και τα site που έχουμε επιλέξει

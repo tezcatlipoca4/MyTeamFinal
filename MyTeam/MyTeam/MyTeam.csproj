@@ -2,9 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>MyTeam</AssemblyName>
+    <ApplicationIcon></ApplicationIcon>
+    <Win32Resource />
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\HtmlFiles\About.html" />
     <None Remove="Assets\Images\hamburger.png" />
     <None Remove="Assets\Images\siteLogos\1Contra.png" />
     <None Remove="Assets\Images\siteLogos\1Gazzetta.png" />
@@ -25,9 +29,11 @@
     <None Remove="Assets\Images\teamLogos\osfp.png" />
     <None Remove="Assets\Images\teamLogos\panathinaikos.png" />
     <None Remove="Assets\Images\teamLogos\paok.png" />
+    <None Remove="Assets\TextFiles\DisclaimerText.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\HtmlFiles\About.html" />
     <EmbeddedResource Include="Assets\Images\hamburger.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\AEK365.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\1Contra.png" />
@@ -48,6 +54,7 @@
     <EmbeddedResource Include="Assets\Images\teamLogos\osfp.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\panathinaikos.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\paok.png" />
+    <EmbeddedResource Include="Assets\TextFiles\DisclaimerText.txt" />
   </ItemGroup>
 
   <ItemGroup>

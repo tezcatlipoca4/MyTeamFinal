@@ -26,10 +26,14 @@
                     HeightRequest="30" />
             </StackLayout>
 
-            <ActivityIndicator x:Name="loadingActivityIndicator" HeightRequest="30" />
+            <ActivityIndicator
+                x:Name="loadingActivityIndicator"
+                BackgroundColor="White"
+                HeightRequest="40" />
 
             <syncfusion:SfDataGrid
                 x:Name="dataGrid"
+                AllowPullToRefresh="True"
                 ColumnSizer="LastColumnFill"
                 GridTapped="DataGrid_OnGridTapped"
                 HeaderRowHeight="0"

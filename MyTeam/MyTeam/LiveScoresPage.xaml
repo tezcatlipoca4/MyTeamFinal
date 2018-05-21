@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyTeam.LiveScoresPage">
+<ContentPage
+    x:Class="MyTeam.LiveScoresPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <StackLayout>
-        <WebView x:Name="Browser" WidthRequest="400" HeightRequest="440" />
+        <WebView
+            x:Name="Browser"
+            HeightRequest="440"
+            WidthRequest="400" />
     </StackLayout>
-    
+
 </ContentPage>
