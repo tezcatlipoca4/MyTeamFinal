@@ -67,8 +67,8 @@ namespace MyTeam
 
         // Software Keys Interface
         public interface IHasHardwareKeys
-        {
-            bool GetHardwareKeys();
+        {            
+            bool IsNavigationBarAvailable();
         }
 
         //Δημιουργία πίνακα με τις πληροφορίες και τα url των ιστοσελίδων

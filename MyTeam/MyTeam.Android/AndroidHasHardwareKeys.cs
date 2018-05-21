@@ -16,10 +16,23 @@ using Xamarin.Forms;
 namespace MyTeam.Droid
 {
     class AndroidHasHardwareKeys : App.IHasHardwareKeys
-    { 
-        public bool GetHardwareKeys()
+    {         
+        public bool IsNavigationBarAvailable()
         {
-            return ViewConfiguration.Get(Android.App.Application.Context).HasPermanentMenuKey;
+
+            bool hasBackKey = KeyCharacterMap.DeviceHasKey(KeyEvent.KeyCodeFromString("KEYCODE_BACK"));
+            bool hasHomeKey = KeyCharacterMap.DeviceHasKey(KeyEvent.KeyCodeFromString("KEYCODE_HOME"));
+
+            if (hasBackKey && hasHomeKey)
+            {
+                // no navigation bar, unless it is enabled in the settings
+                return false;
+            }
+            else
+            {
+                // 99% sure there's a navigation bar
+                return true;
+            }            
         }
     }
 }

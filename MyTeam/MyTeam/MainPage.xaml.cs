@@ -12,7 +12,11 @@ namespace MyTeam
         {
             InitializeComponent();
 
-            List<string> list = new List<string>
+            //Για την αρχική εκκίνηση της εφαρμογής
+            navigationDrawer.ContentView = new RssFeedPage().Content;
+            backButton.IsVisible = false;
+
+            List<string> menuList = new List<string>
             {
                 "Ειδήσεις Ομάδας",
                 "Προηγούμενος αγώνας",
@@ -22,18 +26,19 @@ namespace MyTeam
                 "Ρυθμισεις",
                 "Σχετικά με την εφαρμογή"
             };
-            listView.ItemsSource = list;
+            listView.ItemsSource = menuList;
+
+            // Έλεγχος εάν η συσκευή Android διαθέτει Software Navigation Keys
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                bool hasNavigationBar = DependencyService.Get<App.IHasHardwareKeys>().IsNavigationBarAvailable();
+                screenHeight.Height = hasNavigationBar ? 450 : 500;
+            }
+            else { screenHeight.Height = 500; } // Fixed height εάν είναι iOS. Θα δούμε την συμπεριφορά του αργότερα
 
             //Todo: Έλεγχος αν είναι η πρώτη φορά που τρέχει η εφαρμογή να πηγαίνει στις ρυθμίσεις με την επιλογή για feed απενεργοποιημένη
             //Διαφορετικά πηγαίνει κανονικά στο feed
 
-            //Για την αρχική εκκίνηση της εφαρμογής
-            navigationDrawer.ContentView = new RssFeedPage().Content;
-            backButton.IsVisible = false;
-
-            // Check Android Navigation Buttons
-            bool hasHardwareKeys = DependencyService.Get<App.IHasHardwareKeys>().GetHardwareKeys();
-            screenHeight.Height = hasHardwareKeys ? 450 : 500;
         }
 
         private void HamburgerButton_OnClicked(object sender, EventArgs e)
