@@ -26,18 +26,26 @@
                     HeightRequest="30" />
             </StackLayout>
 
-            <ActivityIndicator
-                x:Name="loadingActivityIndicator"
-                BackgroundColor="White"
-                HeightRequest="40"
-                IsVisible="False" />
-
-            <Label
-                x:Name="ActivityStatusLabel"
-                FontSize="20"
+            <StackLayout
+                x:Name="LoadingStatusStackLayout"
                 HorizontalOptions="CenterAndExpand"
-                HorizontalTextAlignment="Center"
-                IsVisible="False" />
+                IsVisible="False"
+                VerticalOptions="CenterAndExpand">
+
+                <ActivityIndicator
+                    HeightRequest="20"
+                    IsRunning="True"
+                    Color="Black" />
+
+                <Label
+                    x:Name="ActivityStatusLabel"
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center" />
+
+                <Image x:Name="loadingActivitySiteImage" />
+            </StackLayout>
+
 
             <syncfusion:SfDataGrid
                 x:Name="dataGrid"

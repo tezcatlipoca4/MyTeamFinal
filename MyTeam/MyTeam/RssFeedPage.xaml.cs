@@ -40,7 +40,8 @@ namespace MyTeam
 
             foreach (DataRow row in App.FilteredByTeamAndSiteDataTable.Rows)
             {
-                Device.BeginInvokeOnMainThread(() => ActivityStatusLabel.Text = "Παρακαλώ περιμένετε...\nΦόρτωση ειδήσεων από " + row["siteName"] + "!");
+                Device.BeginInvokeOnMainThread(() => ActivityStatusLabel.Text = "Παρακαλώ περιμένετε...\nΦόρτωση ειδήσεων από το\n" + row["siteName"]);
+                Device.BeginInvokeOnMainThread(()=> loadingActivitySiteImage.Source = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + row["siteName"] + ".png"));
 
                 //Για κάθε ένα site βάζουμε τις τιμές στο combinedResults
                 //TODO: Να επιλέγει ο χρήστης από 5-15 άρθρα από κάθε σελίδα
@@ -56,18 +57,14 @@ namespace MyTeam
 
         public async void LoadDataToGrid()
         {
-            loadingActivityIndicator.IsRunning = true;
-            loadingActivityIndicator.IsVisible = true;
-            ActivityStatusLabel.IsVisible = true;
-
-
+            //Εμφανίζουμε το stacklayout με το status φόρτωσης δεδομένων
+            LoadingStatusStackLayout.IsVisible = true;
+            
             App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
             dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
             FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
 
-            ActivityStatusLabel.IsVisible = false;
-            loadingActivityIndicator.IsRunning = false;
-            loadingActivityIndicator.IsVisible = false;
+            LoadingStatusStackLayout.IsVisible = false;
         }
 
 
