@@ -5,22 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using MyTeam.Models;
+using Plugin.Connectivity;
 using Syncfusion.SfDataGrid.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using DataRow = System.Data.DataRow;
-using Plugin.Connectivity;
 
 namespace MyTeam
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RssFeedPage : ContentPage
     {
-
         public RssFeedPage()
         {
             InitializeComponent();
-            
+
             //Βάζουμε τα εικονίδια στα banner από την ομάδα που έχει επιλέξει ο χρήστης
             LeftBannerTeamLogo.Source = RightBannerTeamLogo.Source =
                 ImageSource.FromResource("MyTeam.Assets.Images.teamLogos." + SettingsPage.TeamChosen + ".png");
@@ -35,14 +34,14 @@ namespace MyTeam
         {
             //Αν υπήρχαν δεδομένα από πρίν τα φρτώνουμε απο εκεί
             if (App.CurrentLoadedRssModels.Count > 0)
-            {
                 return App.CurrentLoadedRssModels;
-            }
             //Ο πίνακας FilteredBy... έχει φιξ τιμές και δεν χρειάζεται να τον παίρνουμε σαν όρισμα, αλλά τον βάζουμε κατευθείαν μέσα στη μέθοδο
             List<RssModel> combinedResults = new List<RssModel>();
 
             foreach (DataRow row in App.FilteredByTeamAndSiteDataTable.Rows)
             {
+                Device.BeginInvokeOnMainThread(() => ActivityStatusLabel.Text = "Παρακαλώ περιμένετε...\nΦόρτωση ειδήσεων από " + row["siteName"] + "!");
+
                 //Για κάθε ένα site βάζουμε τις τιμές στο combinedResults
                 //TODO: Να επιλέγει ο χρήστης από 5-15 άρθρα από κάθε σελίδα
                 List<RssModel> tempResults = GetRssFeed(row["rssType"].ToString(), row["url"].ToString(),
@@ -59,22 +58,18 @@ namespace MyTeam
         {
             loadingActivityIndicator.IsRunning = true;
             loadingActivityIndicator.IsVisible = true;
-            if(IsDeviceConnected())
-            {
+            ActivityStatusLabel.IsVisible = true;
 
-                App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
-                FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
-                dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
-            }
-            else
-            {
-                await DisplayAlert("No connection", "Please check your internet connection and try again", "OK");
-            }
 
+            App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
+            dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
+            FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
+
+            ActivityStatusLabel.IsVisible = false;
             loadingActivityIndicator.IsRunning = false;
             loadingActivityIndicator.IsVisible = false;
-            
         }
+
 
         //Επιστρέφει τα πιο πρόσφατα feeds βάσει των τιμων που δίνονται
         public List<RssModel> GetRssFeed(string rssType, string url, string siteName, int numberOfItems = 15)
@@ -123,7 +118,9 @@ namespace MyTeam
 
         private void DataGrid_OnGridLoaded(object sender, GridLoadedEventArgs e)
         {
-            LoadDataToGrid();
+            if (IsDeviceConnected())
+                LoadDataToGrid();
+
         }
     }
 }

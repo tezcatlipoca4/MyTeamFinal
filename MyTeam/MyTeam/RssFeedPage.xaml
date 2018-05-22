@@ -7,12 +7,9 @@
     xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
     <ContentPage.Content>
 
-        <StackLayout HorizontalOptions="FillAndExpand">
+        <StackLayout BackgroundColor="White" HorizontalOptions="FillAndExpand">
 
-            <StackLayout
-                BackgroundColor="White"
-                HorizontalOptions="CenterAndExpand"
-                Orientation="Horizontal">
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
 
                 <Image
                     x:Name="LeftBannerTeamLogo"
@@ -32,7 +29,15 @@
             <ActivityIndicator
                 x:Name="loadingActivityIndicator"
                 BackgroundColor="White"
-                HeightRequest="40" />
+                HeightRequest="40"
+                IsVisible="False" />
+
+            <Label
+                x:Name="ActivityStatusLabel"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                HorizontalTextAlignment="Center"
+                IsVisible="False" />
 
             <syncfusion:SfDataGrid
                 x:Name="dataGrid"
