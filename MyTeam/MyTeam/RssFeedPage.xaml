@@ -9,7 +9,10 @@
 
         <StackLayout HorizontalOptions="FillAndExpand">
 
-            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+            <StackLayout
+                BackgroundColor="White"
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal">
 
                 <Image
                     x:Name="LeftBannerTeamLogo"
