@@ -9,6 +9,7 @@ using Syncfusion.SfDataGrid.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using DataRow = System.Data.DataRow;
+using Plugin.Connectivity;
 
 namespace MyTeam
 {
@@ -58,13 +59,21 @@ namespace MyTeam
         {
             loadingActivityIndicator.IsRunning = true;
             loadingActivityIndicator.IsVisible = true;
+            if(IsDeviceConnected())
+            {
 
-            App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
-            dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
+                App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
+                FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
+                dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
+            }
+            else
+            {
+                await DisplayAlert("No connection", "Please check your internet connection and try again", "OK");
+            }
 
             loadingActivityIndicator.IsRunning = false;
             loadingActivityIndicator.IsVisible = false;
-            FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
+            
         }
 
         //Επιστρέφει τα πιο πρόσφατα feeds βάσει των τιμων που δίνονται
@@ -105,6 +114,11 @@ namespace MyTeam
         private void DataGrid_OnGridTapped(object sender, GridTappedEventArgs e)
         {
             Device.OpenUri(new Uri(dataGrid.GetCellValue(e.RowData, "Url").ToString()));
+        }
+
+        public bool IsDeviceConnected()
+        {
+            return CrossConnectivity.Current.IsConnected;
         }
 
         private void DataGrid_OnGridLoaded(object sender, GridLoadedEventArgs e)
