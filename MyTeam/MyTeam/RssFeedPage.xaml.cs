@@ -63,6 +63,7 @@ namespace MyTeam
             App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
             dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
             FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
+            FooterLabel.HorizontalTextAlignment = TextAlignment.Center;
 
             LoadingStatusStackLayout.IsVisible = false;
         }

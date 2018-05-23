@@ -35,10 +35,7 @@ namespace MyTeam
                 screenHeight.Height = hasNavigationBar ? 450 : 500;
             }
             else { screenHeight.Height = 500; } // Fixed height εάν είναι iOS. Θα δούμε την συμπεριφορά του αργότερα
-
-            //Todo: Έλεγχος αν είναι η πρώτη φορά που τρέχει η εφαρμογή να πηγαίνει στις ρυθμίσεις με την επιλογή για feed απενεργοποιημένη
-            //Διαφορετικά πηγαίνει κανονικά στο feed
-
+            
         }
 
         private void HamburgerButton_OnClicked(object sender, EventArgs e)
