@@ -59,17 +59,12 @@ namespace MyTeam
         {
             loadingActivityIndicator.IsRunning = true;
             loadingActivityIndicator.IsVisible = true;
-            if(IsDeviceConnected())
-            {
+            
 
-                App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
-                FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
-                dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
-            }
-            else
-            {
-                await DisplayAlert("No connection", "Please check your internet connection and try again", "OK");
-            }
+            App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
+            FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
+            dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
+           
 
             loadingActivityIndicator.IsRunning = false;
             loadingActivityIndicator.IsVisible = false;
@@ -116,10 +111,7 @@ namespace MyTeam
             Device.OpenUri(new Uri(dataGrid.GetCellValue(e.RowData, "Url").ToString()));
         }
 
-        public bool IsDeviceConnected()
-        {
-            return CrossConnectivity.Current.IsConnected;
-        }
+        
 
         private void DataGrid_OnGridLoaded(object sender, GridLoadedEventArgs e)
         {

@@ -12,8 +12,7 @@ namespace MyTeam
         {
             InitializeComponent();
 
-            //Για την αρχική εκκίνηση της εφαρμογής
-            navigationDrawer.ContentView = new RssFeedPage().Content;
+            CheckConnectionAndNavigateToContent(new RssFeedPage().Content);            
             backButton.IsVisible = false;
 
             List<string> menuList = new List<string>
@@ -40,7 +39,7 @@ namespace MyTeam
             //Διαφορετικά πηγαίνει κανονικά στο feed
 
         }
-
+        
         private void HamburgerButton_OnClicked(object sender, EventArgs e)
         {
             navigationDrawer.ToggleDrawer();
@@ -51,44 +50,61 @@ namespace MyTeam
             listView.SelectedItem = "Ειδήσεις Ομάδας";
         }
 
+        // Έλεγχος σύνδεσης στο ίντερνετ και popup error msg
+        public void CheckConnectionAndNavigateToContent(View contentView)
+        {
+            if (App.IsDeviceConnected())
+            {
+                navigationDrawer.ContentView = contentView;
+                backButton.IsVisible = false;
+            }
+            else
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayAlert("Σφάλμα",
+                    "Παρακαλώ, ελέγξτε τη σύνδεσή σας στο ίντερνετ",
+                    "ΟΚ");
+                });
+            }
+        }
+
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             //Με την επιλογή ενός αντικειμένου από το μενου
             switch (e.SelectedItem.ToString())
             {
                 case "Ειδήσεις Ομάδας":
-
-                    navigationDrawer.ContentView = new RssFeedPage().Content;
-                    backButton.IsVisible = false;
+                    CheckConnectionAndNavigateToContent(new RssFeedPage().Content);
                     break;
 
 
                 case "Βαθμολογία":
-                    navigationDrawer.ContentView = new StandingsPage().Content;
+                    CheckConnectionAndNavigateToContent(new StandingsPage().Content);                    
                     backButton.IsVisible = true;
                     break;
 
                 case "Προηγούμενος αγώνας":
-                    navigationDrawer.ContentView = new TeamLastGamePage().Content;
+                    CheckConnectionAndNavigateToContent(new TeamLastGamePage().Content);
                     backButton.IsVisible = true;
                     break;
 
                 case "Επόμενος αγώνας":
-                    navigationDrawer.ContentView = new TeamNextMatchPage().Content;
+                    CheckConnectionAndNavigateToContent(new TeamNextMatchPage().Content);
                     backButton.IsVisible = true;
                     break;
 
                 case "Live Score":
-                    navigationDrawer.ContentView = new LiveScoresPage().Content;
+                    CheckConnectionAndNavigateToContent(new LiveScoresPage().Content);
                     backButton.IsVisible = true;
                     break;
                 case "Ρυθμισεις":
-                    navigationDrawer.ContentView = new SettingsPage().Content;
+                    CheckConnectionAndNavigateToContent(new SettingsPage().Content);
                     backButton.IsVisible = true;
                     break;
 
                 case "Σχετικά με την εφαρμογή":
-                    navigationDrawer.ContentView = new AboutPage().Content;
+                    CheckConnectionAndNavigateToContent(new AboutPage().Content);
                     backButton.IsVisible = true;
                     break;
             }
