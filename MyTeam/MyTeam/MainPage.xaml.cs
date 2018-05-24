@@ -22,7 +22,7 @@ namespace MyTeam
 
             // Έλεγχος σύνδεσης κατά την εκκίνηση
             CheckConnectionAndNavigateToContent(new RssFeedPage().Content);            
-            backButton.IsVisible = false; // Hidden by default
+            
 
             // Δημιουργία sidebar menu
             List<string> menuList = new List<string>
@@ -37,9 +37,6 @@ namespace MyTeam
             };
             listView.ItemsSource = menuList; // Bind στο ListView
            
-            //Todo: Έλεγχος αν είναι η πρώτη φορά που τρέχει η εφαρμογή να πηγαίνει στις ρυθμίσεις με την επιλογή για feed απενεργοποιημένη
-            //Διαφορετικά πηγαίνει κανονικά στο feed
-
         }
         
         // Πάνω αριστερά button
@@ -59,22 +56,29 @@ namespace MyTeam
         {
             if (App.IsDeviceConnected())
             {
-                navigationDrawer.ContentView = contentView;                
+                navigationDrawer.ContentView = contentView;
+                
+                
             }
             else
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await DisplayAlert("Σφάλμα",
+                    await DisplayAlert("Σφάλμα Σύνδεσης",
                     "Παρακαλώ, ελέγξτε τη σύνδεσή σας στο ίντερνετ",
                     "ΟΚ");
                 });
+                navigationDrawer.ContentView = new RssFeedPage().Content;
+                backButton.Text = "Ξαναδοκιμάστε";
+                backButton.TextColor = Color.Red;
+               
             }
         }
 
         // Sidebar menu on item selected actions
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            
             //Με την επιλογή ενός αντικειμένου από το μενου
             switch (e.SelectedItem.ToString())
             {

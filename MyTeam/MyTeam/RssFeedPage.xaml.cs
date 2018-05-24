@@ -26,8 +26,18 @@ namespace MyTeam
             teamLabel.Text = SettingsPage.TeamLabel;
 
             dataGrid.GridLoaded += DataGrid_OnGridLoaded;
-            //Ορίζουμε την εντολή για το refresh
-            //dataGrid.PullToRefreshCommand = new Command(ExecutePullToRefreshCommand);
+
+            pullToRefresh.Refreshing += PullToRefresh_Refreshing;
+            
+        }
+        private  void PullToRefresh_Refreshing(object sender, EventArgs e)
+        {
+            pullToRefresh.IsRefreshing = true;
+            App.CurrentLoadedRssModels.Clear();
+            dataGrid.ItemsSource = null;
+            LoadDataToGrid();
+
+            pullToRefresh.IsRefreshing = false;
         }
 
         private List<RssModel> GetRssModels()

@@ -29,20 +29,22 @@ namespace MyTeam
             InitializeComponent();
 
             //Αν είναι η πρώτη φορά που ανοιγει η εφαρμογή βγαίνει ενημερωτικό μήνυμα.
-            if (TeamChosen == string.Empty)
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    await DisplayAlert("Καλώς ήρθατε",
-                        "Ευχαριστούμε που κατεβάσατε την εφαρμογή \n\"Όλα για την ομάδα μου.\"\nΓια να συνεχίσετε παρακαλώ επιλέξτε την αγαπημένη σας ομάδα και τις ιστοσελίδες από τις οποίες θέλετε να λαμβάνετε ενημερώσεις.",
-                        "ΟΚ");
-                });
+            //if (TeamChosen == string.Empty)
+            //    Device.BeginInvokeOnMainThread(async () =>
+            //    {
+            //        await DisplayAlert("Καλώς ήρθατε",
+            //            "Ευχαριστούμε που κατεβάσατε την εφαρμογή \n\"Όλα για την ομάδα μου.\"\nΓια να συνεχίσετε παρακαλώ επιλέξτε την αγαπημένη σας ομάδα και τις ιστοσελίδες από τις οποίες θέλετε να λαμβάνετε ενημερώσεις.",
+            //            "ΟΚ");
+            //    });
 
 
             FillPickerWithTeams();
 
-            FillAvailableSitesDataGrid(TeamChosen);
-
-            Picker.SelectedItem = TeamLabel;
+            if (TeamChosen!=string.Empty)
+            {
+                FillAvailableSitesDataGrid(TeamChosen);
+                Picker.SelectedItem = TeamLabel; 
+            }
 
             //Ορίζουμε το θέμα για το datagrid
             AvailableSitesDataGrid.GridStyle = new CustomGridStyle();
@@ -88,12 +90,16 @@ namespace MyTeam
                     //TODO: Θέλουμε αν υπήρχε στις προηγούμενες επιλογές του χρήστη να κρατάει τη ρύθμιση
                     SiteSelected = true
                 });
+            
             //Κάνουμε bind τα αποτελέσματα στο dataGrid
+
             AvailableSitesDataGrid.ItemsSource = new ObservableCollection<AvailableSitesModel>(results);
         }
 
         private void Picker_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (Picker.Items.Count == 0) return;
+
             //Από το string της επιλεγμένης ομάδας παίρνουμε το όνομα της μεταβλητλης
             DataView dv = new DataView(App.TeamsInfoDataTable)
             {

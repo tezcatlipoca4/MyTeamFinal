@@ -35,7 +35,7 @@
                 FontSize="16"
                 HeightRequest="50"
                 HorizontalOptions="Center"
-                Text="Κεντρική Σελίδα"
+                Text="Ειδήσεις Ομάδας"
                 TextColor="White"
                 VerticalTextAlignment="Center" />
             <Button
@@ -43,7 +43,8 @@
                 BackgroundColor="Black"
                 Clicked="BackButton_Clicked"
                 HorizontalOptions="EndAndExpand"
-                Text="ΑΡΧΙΚΗ"
+                IsVisible="False"
+                Text="Αρχική"
                 TextColor="White"
                 WidthRequest="75" />
         </StackLayout>

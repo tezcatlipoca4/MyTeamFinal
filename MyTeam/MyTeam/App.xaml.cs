@@ -117,7 +117,7 @@ namespace MyTeam
                 "http://www.onsports.gr/omades/panathinaikos?format=feed&type=rss");
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "PrasinaNea", "RSS", "http://www.prasinanea.gr/feed/");
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "Sport24", "Atom",
-                "http://www.sport24.gr/football/omades/paok/?widget=rssfeed&view=feed&contentId=174866");
+                "http://www.sport24.gr/football/omades/panathinaikos/?widget=rssfeed&view=feed&contentId=174866");
             
             //paok
             table.Rows.Add("paok", "ΠΑΟΚ", "Contra", "Atom",

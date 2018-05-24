@@ -6,78 +6,95 @@
     xmlns:pull="clr-namespace:Syncfusion.SfPullToRefresh.XForms;assembly=Syncfusion.SfPullToRefresh.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
     <ContentPage.Content>
+        <pull:SfPullToRefresh
+            x:Name="pullToRefresh"
+            ProgressBackgroundColor="White"
+            ProgressStrokeColor="Black"
+            PullingThreshold="100"
+            RefreshContentHeight="20"
+            RefreshContentThreshold="50"
+            RefreshContentWidth="20"
+            TransitionMode="SlideOnTop">
+            <pull:SfPullToRefresh.PullableContent>
+                <StackLayout BackgroundColor="White" HorizontalOptions="FillAndExpand">
 
-        <StackLayout BackgroundColor="White" HorizontalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
 
-            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-
-                <Image
-                    x:Name="LeftBannerTeamLogo"
-                    Aspect="AspectFit"
-                    HeightRequest="30" />
-                <Label
-                    x:Name="teamLabel"
-                    FontAttributes="Bold"
-                    FontSize="30"
-                    HorizontalTextAlignment="Start" />
-                <Image
-                    x:Name="RightBannerTeamLogo"
-                    Aspect="AspectFit"
-                    HeightRequest="30" />
-            </StackLayout>
-
-            <StackLayout
-                x:Name="LoadingStatusStackLayout"
-                HorizontalOptions="CenterAndExpand"
-                IsVisible="False"
-                VerticalOptions="CenterAndExpand">
-
-                <ActivityIndicator
-                    HeightRequest="20"
-                    IsRunning="True"
-                    Color="Black" />
-
-                <Label
-                    x:Name="ActivityStatusLabel"
-                    FontSize="20"
-                    HorizontalOptions="CenterAndExpand"
-                    HorizontalTextAlignment="Center" />
-
-                <Image x:Name="loadingActivitySiteImage" />
-            </StackLayout>
+                        <Image
+                            x:Name="LeftBannerTeamLogo"
+                            Aspect="AspectFit"
+                            HeightRequest="30" />
+                        <Label
+                            x:Name="teamLabel"
+                            FontAttributes="Bold"
+                            FontSize="30"
+                            HorizontalTextAlignment="Start" />
+                        <Image
+                            x:Name="RightBannerTeamLogo"
+                            Aspect="AspectFit"
+                            HeightRequest="30" />
+                    </StackLayout>
 
 
-            <syncfusion:SfDataGrid
-                x:Name="dataGrid"
-                AllowPullToRefresh="True"
-                ColumnSizer="LastColumnFill"
-                GridTapped="DataGrid_OnGridTapped"
-                HeaderRowHeight="0"
-                HorizontalOptions="FillAndExpand"
-                RowHeight="40"
-                VerticalOptions="FillAndExpand">
 
 
-                <syncfusion:SfDataGrid.SortColumnDescriptions>
-                    <syncfusion:SortColumnDescription ColumnName="PublishedDatetime" SortDirection="Descending" />
-                </syncfusion:SfDataGrid.SortColumnDescriptions>
-                <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridImageColumn Width="40" MappingName="SiteLogo" />
-                    <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start" />
-                    <syncfusion:GridTextColumn IsHidden="True" MappingName="Description" />
-                    <syncfusion:GridTextColumn IsHidden="True" MappingName="Url" />
-                    <syncfusion:GridDateTimeColumn IsHidden="True" MappingName="PublishedDatetime" />
+                    <StackLayout
+                        x:Name="LoadingStatusStackLayout"
+                        HorizontalOptions="CenterAndExpand"
+                        IsVisible="False"
+                        VerticalOptions="CenterAndExpand">
 
-                </syncfusion:SfDataGrid.Columns>
+                        <ActivityIndicator
+                            HeightRequest="20"
+                            IsRunning="True"
+                            Color="Black" />
 
-            </syncfusion:SfDataGrid>
+                        <Label
+                            x:Name="ActivityStatusLabel"
+                            FontSize="20"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center" />
 
-            <Label
-                x:Name="FooterLabel"
-                FontSize="10"
-                HorizontalTextAlignment="Center"
-                VerticalOptions="End" />
-        </StackLayout>
+                        <Image x:Name="loadingActivitySiteImage" />
+                    </StackLayout>
+
+
+                    <syncfusion:SfDataGrid
+                        x:Name="dataGrid"
+                        AllowPullToRefresh="False"
+                        ColumnSizer="LastColumnFill"
+                        GridTapped="DataGrid_OnGridTapped"
+                        HeaderRowHeight="0"
+                        HorizontalOptions="FillAndExpand"
+                        RowHeight="40"
+                        VerticalOptions="FillAndExpand">
+
+                        <syncfusion:SfDataGrid.SortColumnDescriptions>
+                            <syncfusion:SortColumnDescription ColumnName="PublishedDatetime" SortDirection="Descending" />
+                        </syncfusion:SfDataGrid.SortColumnDescriptions>
+
+                        <syncfusion:SfDataGrid.Columns>
+                            <syncfusion:GridImageColumn Width="40" MappingName="SiteLogo" />
+                            <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start" />
+                            <syncfusion:GridTextColumn IsHidden="True" MappingName="Description" />
+                            <syncfusion:GridTextColumn IsHidden="True" MappingName="Url" />
+                            <syncfusion:GridDateTimeColumn IsHidden="True" MappingName="PublishedDatetime" />
+
+                        </syncfusion:SfDataGrid.Columns>
+
+                    </syncfusion:SfDataGrid>
+
+
+
+                    <Label
+                        x:Name="FooterLabel"
+                        FontSize="10"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        VerticalOptions="End" />
+                </StackLayout>
+            </pull:SfPullToRefresh.PullableContent>
+        </pull:SfPullToRefresh>
 
     </ContentPage.Content>
 </ContentPage>
