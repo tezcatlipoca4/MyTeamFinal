@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using MyTeam.Models;
+using Plugin.Connectivity;
 using Xamarin.Forms;
 
 namespace MyTeam
@@ -69,6 +70,11 @@ namespace MyTeam
         public interface IHasHardwareKeys
         {            
             bool IsNavigationBarAvailable();
+        }
+
+        public static bool IsDeviceConnected()
+        {
+            return CrossConnectivity.Current.IsConnected;
         }
 
         //Δημιουργία πίνακα με τις πληροφορίες και τα url των ιστοσελίδων
