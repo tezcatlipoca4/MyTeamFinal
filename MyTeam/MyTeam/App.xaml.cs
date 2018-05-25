@@ -4,6 +4,8 @@ using System.Data;
 using MyTeam.Models;
 using Plugin.Connectivity;
 using Xamarin.Forms;
+using Plugin.Settings;
+using Plugin.Settings.Abstractions;
 
 namespace MyTeam
 {
@@ -13,7 +15,15 @@ namespace MyTeam
         public static DataTable TeamsInfoDataTable = new DataTable();
 
         public static List<RssModel> CurrentLoadedRssModels = new List<RssModel>();
+
         public static DateTime LastLoadedDateTime;
+		private static ISettings AppSettings => CrossSettings.Current;
+		public static bool TutorialMode 
+		{
+			get => AppSettings.GetValueOrDefault(nameof(TutorialMode), true);
+			set => AppSettings.AddOrUpdateValue(nameof(TutorialMode), value);
+		}
+
 
         //TODO: Αυτός ο πίνακας θα ενημερώνεται στο άνοιγμα της εφαρμογής βάσει των αποθηκευμένων επιλογών και με την αποθήκευση των ρυθμίσεων από τον χρήστη
         //Περιέχει τα φιλτραρισμένα στοιχεία και url που θα χρησιμοποιούμε για να τραβηξουμε τα RSS feeds
@@ -36,7 +46,8 @@ namespace MyTeam
 
             //MainPage = new AboutPage();
             //Ελέγχουμε αν είναι η πρώτη εκτέλεση της εφαρμογής ώστε να στείλουμε τον χρήστη στις ρυθμίσεις
-            MainPage = SettingsPage.TeamChosen == string.Empty ? (Page) new AboutPage() : new MainPage();
+            // MainPage = SettingsPage.TeamChosen == string.Empty ? (Page) new AboutPage() : new MainPage();
+			MainPage = TutorialMode ? (Page)new AboutPage() : new MainPage();
         }
 
         //Η μέθοδος φιλτράρει τον πίνακα με όλες τις πληροφορίες ώστε να πάρουμε μόνο τα feed για την ομάδα και τα site που έχουμε επιλέξει

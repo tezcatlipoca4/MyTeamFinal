@@ -11,6 +11,34 @@ namespace MyTeam
         public MainPage()
         {
             InitializeComponent();
+			if (App.TutorialMode)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayAlert("Συγχαρητήρια!",
+					                   "Ρυθμίσατε την εφαρμογή για την ομάδα '" + SettingsPage.TeamLabel + "'!",
+                        "ΟΚ!");
+					Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await DisplayAlert(SettingsPage.TeamLabel,
+                                           "Σύρετε το δάχτυλό σας απο την αριστερή άκρη της οθόνης για να εμφανιστεί το μενού της εφαρμογής.",
+                            "ΔΕΙΞΕ ΜΟΥ");
+						navigationDrawer.ToggleDrawer();
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await DisplayAlert(SettingsPage.TeamLabel,
+                                               "Από εδώ μπορείτε να μεταβείτε σε όλες τις λειτουργίες της εφαρμογής.",
+                                "ΤΕΛΟΣ");
+							navigationDrawer.ToggleDrawer();
+                        });
+                    });
+
+
+                    
+                });
+				App.TutorialMode = false;
+
+            }
 
             // Έλεγχος εάν η συσκευή Android διαθέτει Software Navigation Keys
             if (Device.RuntimePlatform == Device.Android)

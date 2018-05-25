@@ -25,7 +25,8 @@ namespace MyTeam
             webView.Source = html;
             //Το κουμπί θα εμφανιστεί μόνο την πρώτη φορά που θα τρέξει η εφαρμογή
 
-            if (SettingsPage.TeamChosen == string.Empty)
+            //if (SettingsPage.TeamChosen == string.Empty)
+			if(App.TutorialMode)
                 AgreeButton.IsVisible = true;
         }
 

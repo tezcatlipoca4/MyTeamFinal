@@ -28,16 +28,18 @@ namespace MyTeam
         {
             InitializeComponent();
 
-            //Αν είναι η πρώτη φορά που ανοιγει η εφαρμογή βγαίνει ενημερωτικό μήνυμα.
-            //if (TeamChosen == string.Empty)
-            //    Device.BeginInvokeOnMainThread(async () =>
-            //    {
-            //        await DisplayAlert("Καλώς ήρθατε",
-            //            "Ευχαριστούμε που κατεβάσατε την εφαρμογή \n\"Όλα για την ομάδα μου.\"\nΓια να συνεχίσετε παρακαλώ επιλέξτε την αγαπημένη σας ομάδα και τις ιστοσελίδες από τις οποίες θέλετε να λαμβάνετε ενημερώσεις.",
-            //            "ΟΚ");
-            //    });
-
-
+            // Αν είναι η πρώτη φορά που ανοιγει η εφαρμογή βγαίνει ενημερωτικό μήνυμα.
+			if (App.TutorialMode)
+			{
+				Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayAlert("Καλώς ήρθατε",
+                        "Ευχαριστούμε που κατεβάσατε την εφαρμογή \n\"Όλα για την ομάδα μου!\"\nΓια να συνεχίσετε παρακαλώ επιλέξτε την αγαπημένη σας ομάδα στο επάνω μέρος της οθόνης !",
+                        "ΟΚ");
+                });
+			}
+                
+                        
             FillPickerWithTeams();
 
             if (TeamChosen!=string.Empty)
@@ -108,6 +110,17 @@ namespace MyTeam
             _teamChosen = dv[0]["teamName"].ToString();
 
             FillAvailableSitesDataGrid(_teamChosen);
+            
+			if (App.TutorialMode && _firstTimeTeamSelection == true)
+            {				
+	    		Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await DisplayAlert("Όλα για την Ομάδα μου",
+                            "Τώρα, επιλέξτε από ποιες ιστοσελίδες θέλετε να λαμβάνεται νέα για την ομάδα σας και πατήστε το ΑΠΟΘΗΚΕΥΣΗ.",
+                            "ΚΑΤΑΛΑΒΑ");
+                    });
+				_firstTimeTeamSelection = false;
+			}
         }
 
         private void SaveSettingsButton_OnPressed(object sender, EventArgs e)
@@ -177,6 +190,12 @@ namespace MyTeam
         }
 
         #region SettingsVariables
+
+		private static bool _firstTimeTeamSelection
+		{
+			get => AppSettings.GetValueOrDefault(nameof(_firstTimeTeamSelection), true);
+			set => AppSettings.AddOrUpdateValue(nameof(_firstTimeTeamSelection), value);
+		}
 
         public static string TeamChosen
         {
