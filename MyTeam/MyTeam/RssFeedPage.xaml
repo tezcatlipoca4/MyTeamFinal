@@ -8,12 +8,12 @@
     <ContentPage.Content>
         <pull:SfPullToRefresh
             x:Name="pullToRefresh"
-            ProgressBackgroundColor="White"
-            ProgressStrokeColor="Black"
+            ProgressBackgroundColor="Black"
+            ProgressStrokeColor="White"
             PullingThreshold="100"
-            RefreshContentHeight="20"
+            RefreshContentHeight="30"
             RefreshContentThreshold="50"
-            RefreshContentWidth="20"
+            RefreshContentWidth="30"
             TransitionMode="SlideOnTop">
             <pull:SfPullToRefresh.PullableContent>
                 <StackLayout BackgroundColor="White" HorizontalOptions="FillAndExpand">
