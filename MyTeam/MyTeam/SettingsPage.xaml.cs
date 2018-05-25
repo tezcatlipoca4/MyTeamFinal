@@ -18,36 +18,37 @@ namespace MyTeam
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
-        public static int RssFeedItems;
 
-        //Χρησιμοποιείται για να έχουμε την ομάδα που διάλεξε, μέχρι να πατήσει ο χρήστης αποθήκευση και τα site
+
+        //Χρησιμοποιείται για να έχουμε την ομάδα που διάλεξε, μέχρι να πατήσει ο χρήστης αποθήκευση και τα site και το πλήθος των rss ανά σελίδα
         private string _teamChosen;
+        private int _numberOfRssFeedItems;
 
 
         public SettingsPage()
         {
             InitializeComponent();
 
-            //Αν είναι η πρώτη φορά που ανοιγει η εφαρμογή βγαίνει ενημερωτικό μήνυμα.
-            //if (TeamChosen == string.Empty)
-            //    Device.BeginInvokeOnMainThread(async () =>
-            //    {
-            //        await DisplayAlert("Καλώς ήρθατε",
-            //            "Ευχαριστούμε που κατεβάσατε την εφαρμογή \n\"Όλα για την ομάδα μου.\"\nΓια να συνεχίσετε παρακαλώ επιλέξτε την αγαπημένη σας ομάδα και τις ιστοσελίδες από τις οποίες θέλετε να λαμβάνετε ενημερώσεις.",
-            //            "ΟΚ");
-            //    });
-
-
+            //Γεμίζουμε τον picker με τις διαθέσιμες ομάδες
             FillPickerWithTeams();
 
-            if (TeamChosen!=string.Empty)
+            //Γεμίζουμε τον picker με το πλήθος άρθρων που θα εμφανίζονται ανά σελίδα
+            articlePicker.Items.Add(5.ToString());
+            articlePicker.Items.Add(10.ToString());
+            articlePicker.Items.Add(15.ToString());
+
+            if (TeamChosen != string.Empty)
             {
                 FillAvailableSitesDataGrid(TeamChosen);
-                Picker.SelectedItem = TeamLabel; 
+                Picker.SelectedItem = TeamLabel;
             }
+            articlePicker.SelectedItem = NumberOfRssFeedItems.ToString();
 
             //Ορίζουμε το θέμα για το datagrid
             AvailableSitesDataGrid.GridStyle = new CustomGridStyle();
+
+
+            
         }
 
         private static ISettings AppSettings => CrossSettings.Current;
@@ -90,7 +91,7 @@ namespace MyTeam
                     //TODO: Θέλουμε αν υπήρχε στις προηγούμενες επιλογές του χρήστη να κρατάει τη ρύθμιση
                     SiteSelected = true
                 });
-            
+
             //Κάνουμε bind τα αποτελέσματα στο dataGrid
 
             AvailableSitesDataGrid.ItemsSource = new ObservableCollection<AvailableSitesModel>(results);
@@ -127,14 +128,16 @@ namespace MyTeam
             }
 
             //Έλεγχος αν ο χρήστης δεν έχει πραγματοποιήσει αλλαγές σε σχέση με πριν
-            if (!sitesFilter.Equals(SitesFilter) || !_teamChosen.Equals(TeamChosen))
+            if (!sitesFilter.Equals(SitesFilter) || !_teamChosen.Equals(TeamChosen) || _numberOfRssFeedItems != NumberOfRssFeedItems)
             {
                 TeamChosen = _teamChosen;
                 TeamLabel = Picker.SelectedItem.ToString();
                 SitesFilter = sitesFilter;
                 FcTableTeamChange();
+                NumberOfRssFeedItems = _numberOfRssFeedItems;
                 App.FilteredByTeamAndSiteDataTable = App.FilterResutlsDataTable();
                 App.CurrentLoadedRssModels.Clear();
+
             }
             Application.Current.MainPage = new MainPage();
         }
@@ -176,7 +179,22 @@ namespace MyTeam
             TeamChosenFcTablesNumberOnly = new string(TeamChosenFcTables.Where(char.IsDigit).ToArray());
         }
 
+        private void articlePicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (articlePicker.Items.Count == 0) return;
+
+            _numberOfRssFeedItems = Convert.ToInt32(articlePicker.SelectedItem);
+
+        }
+
+
         #region SettingsVariables
+
+        public static int NumberOfRssFeedItems
+        {
+            get => AppSettings.GetValueOrDefault(nameof(NumberOfRssFeedItems), 15);
+            set => AppSettings.AddOrUpdateValue(nameof(NumberOfRssFeedItems), value);
+        }
 
         public static string TeamChosen
         {
@@ -209,5 +227,7 @@ namespace MyTeam
         }
 
         #endregion
+
+
     }
 }

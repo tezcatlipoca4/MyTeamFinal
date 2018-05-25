@@ -41,6 +41,8 @@
                         <syncfusion:SortColumnDescription ColumnName="SiteName" />
                     </syncfusion:SfDataGrid.SortColumnDescriptions>
 
+
+
                     <syncfusion:SfDataGrid.Columns>
                         <syncfusion:GridImageColumn MappingName="SiteLogo" />
                         <syncfusion:GridTextColumn
@@ -52,6 +54,20 @@
                         <syncfusion:GridSwitchColumn MappingName="SiteSelected" TextAlignment="Center" />
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
+
+                <Label
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Πλήθος άρθρων ανά σελίδα"
+                    VerticalTextAlignment="Center" />
+
+                <Picker
+                    x:Name="articlePicker"
+                    HorizontalOptions="Center"
+                    MinimumHeightRequest="30"
+                    MinimumWidthRequest="30"
+                    SelectedIndexChanged="articlePicker_SelectedIndexChanged" />
+
 
                 <Button
                     x:Name="SaveSettingsButton"

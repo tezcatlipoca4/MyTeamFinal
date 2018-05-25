@@ -28,9 +28,17 @@ namespace MyTeam
             dataGrid.GridLoaded += DataGrid_OnGridLoaded;
 
             pullToRefresh.Refreshing += PullToRefresh_Refreshing;
-            
+
+            dataGrid.GroupCaptionTextFormat = "Δημοσιεύθηκαν: {Key}";
+            dataGrid.GroupColumnDescriptions.Add(new GroupColumnDescription()
+            {
+                ColumnName = "PublishedDatetime",
+                Converter = new GroupConverterByDate()
+
+            });
+
         }
-        private  void PullToRefresh_Refreshing(object sender, EventArgs e)
+        private void PullToRefresh_Refreshing(object sender, EventArgs e)
         {
             pullToRefresh.IsRefreshing = true;
             App.CurrentLoadedRssModels.Clear();
@@ -51,12 +59,12 @@ namespace MyTeam
             foreach (DataRow row in App.FilteredByTeamAndSiteDataTable.Rows)
             {
                 Device.BeginInvokeOnMainThread(() => ActivityStatusLabel.Text = "Παρακαλώ περιμένετε...\nΦόρτωση ειδήσεων από το\n" + row["siteName"]);
-                Device.BeginInvokeOnMainThread(()=> loadingActivitySiteImage.Source = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + row["siteName"] + ".png"));
+                Device.BeginInvokeOnMainThread(() => loadingActivitySiteImage.Source = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + row["siteName"] + ".png"));
 
                 //Για κάθε ένα site βάζουμε τις τιμές στο combinedResults
                 //TODO: Να επιλέγει ο χρήστης από 5-15 άρθρα από κάθε σελίδα
                 List<RssModel> tempResults = GetRssFeed(row["rssType"].ToString(), row["url"].ToString(),
-                    row["siteName"].ToString());
+                    row["siteName"].ToString(), SettingsPage.NumberOfRssFeedItems);
                 combinedResults.AddRange(tempResults);
             }
 
@@ -69,7 +77,7 @@ namespace MyTeam
         {
             //Εμφανίζουμε το stacklayout με το status φόρτωσης δεδομένων
             LoadingStatusStackLayout.IsVisible = true;
-            
+
             App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
             dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
             FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
@@ -80,7 +88,7 @@ namespace MyTeam
 
 
         //Επιστρέφει τα πιο πρόσφατα feeds βάσει των τιμων που δίνονται
-        public List<RssModel> GetRssFeed(string rssType, string url, string siteName, int numberOfItems = 15)
+        public List<RssModel> GetRssFeed(string rssType, string url, string siteName, int numberOfItems)
         {
             //todo:Αν το feed δεν ερχεται σωστα να εημερώνεται ο χρήστης και να αφαιρείται 
 
