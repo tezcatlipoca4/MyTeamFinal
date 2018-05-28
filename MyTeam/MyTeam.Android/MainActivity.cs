@@ -10,7 +10,7 @@ using Android.OS;
 namespace MyTeam.Droid
 {
     [Activity(
-        Label = "MyTeam",
+        Label = "Όλα για την ομάδα μου",
         Icon = "@drawable/icon",
         Theme = "@style/MainTheme",
         MainLauncher = true,
