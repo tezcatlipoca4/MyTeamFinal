@@ -106,6 +106,8 @@ namespace MyTeam
             table.Rows.Add("aek", "ΑΕΚ", "OnSports", "RSS", "http://www.onsports.gr/omades/aek?format=feed&type=rss");
             table.Rows.Add("aek", "ΑΕΚ", "Sport24", "Atom",
                 "http://www.sport24.gr/football/omades/aek/?widget=rssfeed&view=feed&contentId=174866");
+            table.Rows.Add("aek", "ΑΕΚ", "SportFM", "Html", "http://www.sport-fm.gr/tag/aek");
+
             //osfp
             table.Rows.Add("osfp", "ΟΣΦΠ", "Contra", "Atom",
                 "http://www.contra.gr/soccer/olympiacos/?widget=rssfeed&view=feed");
@@ -137,12 +139,16 @@ namespace MyTeam
             //table.Rows.Add("paok", "ΠΑΟΚ", "inPAOK", "RSS", "http://inpaok.com/feed/");
             table.Rows.Add("paok", "ΠΑΟΚ", "NovaSports", "RSS",
                 "http://www.novasports.gr/sys/novasports/RssFeed/GetFeed?type=2&id=16657&languageID=1");
-            table.Rows.Add("paok", "ΠΑΟΚ", "OnSports", "RSS",
-                "http://www.onsports.gr/omades/paok?format=feed&type=rss");
+            table.Rows.Add("paok", "ΠΑΟΚ", "OnSports", "Html",
+                "http://www.onsports.gr/omades/paok");
             table.Rows.Add("paok", "ΠΑΟΚ", "Sport24", "Atom",
                 "http://www.sport24.gr/football/omades/paok/?widget=rssfeed&view=feed&contentId=174866");
+            table.Rows.Add("paok", "ΠΑΟΚ", "SportFM", "Html", "http://www.sport-fm.gr/tag/paok");
+            table.Rows.Add("paok", "ΠΑΟΚ", "SDNA", "", "http://www.sdna.gr/teams/paok");
+
+
         }
 
-        
+
     }
 }

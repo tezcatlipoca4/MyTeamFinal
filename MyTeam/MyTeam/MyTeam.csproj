@@ -24,7 +24,9 @@
     <None Remove="Assets\Images\siteLogos\novasports.png" />
     <None Remove="Assets\Images\siteLogos\onsports.png" />
     <None Remove="Assets\Images\siteLogos\prasinaNea.png" />
+    <None Remove="Assets\Images\siteLogos\sdna.png" />
     <None Remove="Assets\Images\siteLogos\sport24.png" />
+    <None Remove="Assets\Images\siteLogos\sportfm.png" />
     <None Remove="Assets\Images\teamLogos\aek.png" />
     <None Remove="Assets\Images\teamLogos\osfp.png" />
     <None Remove="Assets\Images\teamLogos\panathinaikos.png" />
@@ -49,7 +51,9 @@
     <EmbeddedResource Include="Assets\Images\siteLogos\1PrasinaNea.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\PrasinaNea.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\1Sport24.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\SDNA.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Sport24.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\SportFM.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\aek.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\osfp.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\panathinaikos.png" />

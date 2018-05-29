@@ -56,11 +56,12 @@
                             HorizontalTextAlignment="Center" />
 
                         <Image x:Name="loadingActivitySiteImage" />
-                        <Label x:Name="LoadingRandomText"
-                               Text=""
-                               FontSize="15"
-                               HorizontalOptions="CenterAndExpand"
-                               HorizontalTextAlignment="Center" />
+                        <Label
+                            x:Name="LoadingRandomText"
+                            FontSize="15"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Text="" />
                     </StackLayout>
 
 
