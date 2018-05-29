@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="MyTeam.RssFeedPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -56,6 +56,11 @@
                             HorizontalTextAlignment="Center" />
 
                         <Image x:Name="loadingActivitySiteImage" />
+                        <Label x:Name="LoadingRandomText"
+                               Text=""
+                               FontSize="15"
+                               HorizontalOptions="CenterAndExpand"
+                               HorizontalTextAlignment="Center" />
                     </StackLayout>
 
 
