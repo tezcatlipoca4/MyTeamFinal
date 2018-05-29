@@ -10,10 +10,9 @@ using Android.OS;
 namespace MyTeam.Droid
 {
     [Activity(
-        Label = "Όλα για την ομάδα μου",
-        Icon = "@drawable/icon",
-        Theme = "@style/MainTheme",
-        MainLauncher = true,
+        Label = "Η Ομάδα μου",
+		Icon = "@drawable/AppIcon",
+        Theme = "@style/MainTheme",        
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         ScreenOrientation = ScreenOrientation.Portrait)
         ]
