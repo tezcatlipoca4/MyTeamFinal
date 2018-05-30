@@ -2343,7 +2343,7 @@ namespace MyTeam.Droid
 			public const int abc_vector_test = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int AppIcon = 2130837587;
+			public const int App = 2130837587;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_hide_password = 2130837588;

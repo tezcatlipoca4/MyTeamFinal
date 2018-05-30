@@ -14,6 +14,8 @@ using Syncfusion.SfDataGrid.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using DataRow = System.Data.DataRow;
+using System.Reflection;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace MyTeam
 {
@@ -31,7 +33,7 @@ namespace MyTeam
             "Πετάμε χαρταετό"
 
         };
-
+		public string AppVersionNumber;
         public Random randomNumber = new Random();
         #endregion
 
@@ -39,6 +41,9 @@ namespace MyTeam
         public RssFeedPage()
         {
             InitializeComponent();
+
+			// Get version number
+			AppVersionNumber = DependencyService.Get<App.IGetVersionNumber>().GetVersion();
 
             //Βάζουμε τα εικονίδια στα banner από την ομάδα που έχει επιλέξει ο χρήστης
             LeftBannerTeamLogo.Source = RightBannerTeamLogo.Source =
@@ -108,7 +113,9 @@ namespace MyTeam
 
             App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
             dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
-            FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm");
+			FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm") + 
+				" | Έκδοση: " + AppVersionNumber;
+				
             FooterLabel.HorizontalTextAlignment = TextAlignment.Center;
 
             LoadingStatusStackLayout.IsVisible = false;

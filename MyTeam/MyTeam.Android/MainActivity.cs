@@ -11,7 +11,7 @@ namespace MyTeam.Droid
 {
     [Activity(
         Label = "Η Ομάδα μου",
-		Icon = "@drawable/AppIcon",
+		Icon = "@drawable/App",
         Theme = "@style/MainTheme",        
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         ScreenOrientation = ScreenOrientation.Portrait)
