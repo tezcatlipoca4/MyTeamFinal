@@ -79,12 +79,17 @@
                             <syncfusion:SortColumnDescription ColumnName="PublishedDatetime" SortDirection="Descending" />
                         </syncfusion:SfDataGrid.SortColumnDescriptions>
 
+                        <syncfusion:SfDataGrid.GroupColumnDescriptions>
+                            <syncfusion:GroupColumnDescription ColumnName="GroupingDate" />
+                        </syncfusion:SfDataGrid.GroupColumnDescriptions>
+
                         <syncfusion:SfDataGrid.Columns>
                             <syncfusion:GridImageColumn Width="40" MappingName="SiteLogo" />
                             <syncfusion:GridTextColumn MappingName="Title" TextAlignment="Start" />
                             <syncfusion:GridTextColumn IsHidden="True" MappingName="Description" />
                             <syncfusion:GridTextColumn IsHidden="True" MappingName="Url" />
                             <syncfusion:GridDateTimeColumn IsHidden="True" MappingName="PublishedDatetime" />
+                            <syncfusion:GridTextColumn IsHidden="True" MappingName="GroupingDate" />
 
                         </syncfusion:SfDataGrid.Columns>
 

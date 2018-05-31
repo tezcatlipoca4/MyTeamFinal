@@ -9,8 +9,10 @@ namespace MyTeam.Models
     {
         public ImageSource SiteLogo { get; set; }
         public string Title { get; set; }
-        //public string Description { get; set; }
         public string Url { get; set; }
         public DateTime PublishedDatetime { get; set; }
+
+        //Η στήλη χρησιμοποιείται μόνο για να κάνουμε το grouping χωρίς να πειράξουμε την ταξινόμηση
+        public string GroupingDate => PublishedDatetime.ToString("d MMMM yyyy");
     }
 }

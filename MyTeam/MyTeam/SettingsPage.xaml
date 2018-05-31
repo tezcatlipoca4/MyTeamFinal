@@ -59,7 +59,7 @@
                 <Label
                     FontSize="20"
                     HorizontalOptions="CenterAndExpand"
-                    Text="Πλήθος άρθρων ανά σελίδα"
+                    Text="Πλήθος άρθρων ανά ιστοσελίδα"
                     VerticalTextAlignment="Center" />
 
                 <Picker

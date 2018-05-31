@@ -38,9 +38,10 @@ namespace MyTeam
             "Κηνυγάμε ΜΑΟ - ΜΑΟ",
             "Ανακρίνουμε Ορκς",
             "Μεταφράζουμε Γιώργο Μίνο στα Αγγλικά",
-            "Πίνουμε καφέ με τον Θωμά Μάτσιο"                                              
+            "Πίνουμε καφέ με τον Θωμά Μάτσιο"
         };
-		public string AppVersionNumber;
+
+        public string AppVersionNumber;
         public Random randomNumber = new Random();
         #endregion
 
@@ -49,8 +50,8 @@ namespace MyTeam
         {
             InitializeComponent();
 
-			// Get version number
-			AppVersionNumber = DependencyService.Get<App.IGetVersionNumber>().GetVersion();
+            // Get version number
+            AppVersionNumber = DependencyService.Get<App.IGetVersionNumber>().GetVersion();
 
             //Βάζουμε τα εικονίδια στα banner από την ομάδα που έχει επιλέξει ο χρήστης
             LeftBannerTeamLogo.Source = RightBannerTeamLogo.Source =
@@ -59,23 +60,17 @@ namespace MyTeam
 
             dataGrid.GridLoaded += DataGrid_OnGridLoaded;
 
-
-            pullToRefresh.Refreshing += PullToRefresh_Refreshing;
-
-
             pullToRefresh.Refreshing += PullToRefresh_Refreshing;
 
             dataGrid.GroupCaptionTextFormat = "Δημοσιεύθηκαν: {Key}";
-            dataGrid.GroupColumnDescriptions.Add(new GroupColumnDescription()
-            {
-                ColumnName = "PublishedDatetime",
-                Converter = new GroupConverterByDate()
-
-            });
 
         }
 
+
+
         #region Methods
+
+
         private void PullToRefresh_Refreshing(object sender, EventArgs e)
         {
             pullToRefresh.IsRefreshing = true;
@@ -120,9 +115,9 @@ namespace MyTeam
 
             App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
             dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
-			FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm") + 
-				" | Έκδοση: " + AppVersionNumber;
-				
+            FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm") +
+                " | Έκδοση: " + AppVersionNumber;
+
             FooterLabel.HorizontalTextAlignment = TextAlignment.Center;
 
             LoadingStatusStackLayout.IsVisible = false;
@@ -374,7 +369,7 @@ namespace MyTeam
                                             new CultureInfo("el-GR"),
                                             //CultureInfo.CurrentCulture,
                                             DateTimeStyles.AssumeLocal, out retrievedDateTime))
-                                            
+
                                             tempPubDate = retrievedDateTime;
 
                                     }
@@ -385,7 +380,7 @@ namespace MyTeam
                                         //Το σύμβολο (") χωρίζει το url από τον τίτλο
                                         int breakSymbolIndex = line.IndexOf('\"');
                                         string tempLineUrl = line.Substring(0, breakSymbolIndex);
-                                        tempUrl  = "http://www.onsports.gr" + tempLineUrl;
+                                        tempUrl = "http://www.onsports.gr" + tempLineUrl;
 
                                         //Αφαιρούμε το url και τα διαχωριστικά (">) και μένει μόνο ο τίτλος του άρθρου
                                         tempTitle = line.Replace(tempLineUrl, string.Empty).Replace("\">", string.Empty);
@@ -430,6 +425,7 @@ namespace MyTeam
             if (IsDeviceConnected())
             {
                 LoadDataToGrid();
+
             }
         }
 

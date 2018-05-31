@@ -5,53 +5,53 @@ using Xamarin.Forms.Xaml;
 
 namespace MyTeam
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MainPage : ContentPage
-	{
-		// Ctor
-		public MainPage()
-		{
-			InitializeComponent();
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MainPage : ContentPage
+    {
+        // Ctor
+        public MainPage()
+        {
+            InitializeComponent();
 
-			//Tutorial
-			RunTutorial();
+            //Tutorial
+            RunTutorial();
 
-			// Έλεγχος εάν η συσκευή Android διαθέτει Software Navigation Keys
-			CheckAndroidNavigation();
+            // Έλεγχος εάν η συσκευή Android διαθέτει Software Navigation Keys
+            CheckAndroidNavigation();
 
-			// Έλεγχος σύνδεσης κατά την εκκίνηση
-			CheckConnectionAndNavigateToContent(new RssFeedPage().Content);
-            
-			// Δημιουργία sidebar menu
-			List<string> menuList = new List<string>
-			{
-				"Ειδήσεις Ομάδας",
-				"Προηγούμενος αγώνας",
-				"Επόμενος αγώνας",
-				"Βαθμολογία",
-				"Live Score",
-				"Ρυθμισεις",
-				"Σχετικά με την εφαρμογή"
-			};
+            // Έλεγχος σύνδεσης κατά την εκκίνηση
+            CheckConnectionAndNavigateToContent(new RssFeedPage().Content);
 
-			// Bind στο ListView
-			listView.ItemsSource = menuList; 
-		}
+            // Δημιουργία sidebar menu
+            List<string> menuList = new List<string>
+            {
+                "Ειδήσεις Ομάδας",
+                "Προηγούμενος αγώνας",
+                "Επόμενος αγώνας",
+                "Βαθμολογία",
+                "Live Score",
+                "Ρυθμισεις",
+                "Σχετικά με την εφαρμογή"
+            };
 
-		#region Methods
+            // Bind στο ListView
+            listView.ItemsSource = menuList;
+        }
+
+        #region Methods
         public void CheckAndroidNavigation()
-		{
-			if (Device.RuntimePlatform == Device.Android)
+        {
+            if (Device.RuntimePlatform == Device.Android)
             {
                 bool hasNavigationBar = DependencyService.Get<App.IHasHardwareKeys>().IsNavigationBarAvailable();
                 screenHeight.Height = hasNavigationBar ? 450 : 500;
             }
             else { screenHeight.Height = 500; } // Fixed height εάν είναι iOS. Θα δούμε την συμπεριφορά του αργότερα
-		}
-        
-		public void RunTutorial()
-		{
-			if (App.TutorialMode)
+        }
+
+        public void RunTutorial()
+        {
+            if (App.TutorialMode)
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
@@ -69,7 +69,6 @@ namespace MyTeam
                             await DisplayAlert(SettingsPage.TeamLabel,
                                                "Από εδώ μπορείτε να μεταβείτε σε όλες τις λειτουργίες της εφαρμογής.",
                                 "ΤΕΛΟΣ");
-                            navigationDrawer.ToggleDrawer();
                         });
                     });
 
@@ -79,92 +78,92 @@ namespace MyTeam
                 App.TutorialMode = false;
 
             }
-		}
+        }
 
-		// Πάνω αριστερά button
-		private void HamburgerButton_OnClicked(object sender, EventArgs e)
-		{
-			navigationDrawer.ToggleDrawer();
-		}
+        // Πάνω αριστερά button
+        private void HamburgerButton_OnClicked(object sender, EventArgs e)
+        {
+            navigationDrawer.ToggleDrawer();
+        }
 
-		// Πάνω δεξιά button
-		private void BackButton_Clicked(object sender, EventArgs e)
-		{
-			listView.SelectedItem = "Ειδήσεις Ομάδας";
-		}
+        // Πάνω δεξιά button
+        private void BackButton_Clicked(object sender, EventArgs e)
+        {
+            listView.SelectedItem = "Ειδήσεις Ομάδας";
+        }
 
-		// Έλεγχος σύνδεσης στο ίντερνετ και popup error msg
-		public void CheckConnectionAndNavigateToContent(View contentView)
-		{
-			if (App.IsDeviceConnected())
-			{
-				navigationDrawer.ContentView = contentView;
-
-
-			}
-			else
-			{
-				Device.BeginInvokeOnMainThread(async () =>
-				{
-					await DisplayAlert("Σφάλμα Σύνδεσης",
-					"Παρακαλώ, ελέγξτε τη σύνδεσή σας στο ίντερνετ",
-					"ΟΚ");
-				});
-				navigationDrawer.ContentView = new RssFeedPage().Content;
-				backButton.Text = "Ξαναδοκιμάστε";
-				backButton.TextColor = Color.Red;
-
-			}
-		}
-
-		// Sidebar menu on item selected actions
-		private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-		{
-
-			//Με την επιλογή ενός αντικειμένου από το μενου
-			switch (e.SelectedItem.ToString())
-			{
-				case "Ειδήσεις Ομάδας":
-					CheckConnectionAndNavigateToContent(new RssFeedPage().Content);
-					backButton.IsVisible = false;
-					break;
+        // Έλεγχος σύνδεσης στο ίντερνετ και popup error msg
+        public void CheckConnectionAndNavigateToContent(View contentView)
+        {
+            if (App.IsDeviceConnected())
+            {
+                navigationDrawer.ContentView = contentView;
 
 
-				case "Βαθμολογία":
-					CheckConnectionAndNavigateToContent(new StandingsPage().Content);
-					backButton.IsVisible = true;
-					break;
+            }
+            else
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayAlert("Σφάλμα Σύνδεσης",
+                    "Παρακαλώ, ελέγξτε τη σύνδεσή σας στο ίντερνετ",
+                    "ΟΚ");
+                });
+                navigationDrawer.ContentView = new RssFeedPage().Content;
+                backButton.Text = "Ξαναδοκιμάστε";
+                backButton.TextColor = Color.Red;
 
-				case "Προηγούμενος αγώνας":
-					CheckConnectionAndNavigateToContent(new TeamLastGamePage().Content);
-					backButton.IsVisible = true;
-					break;
+            }
+        }
 
-				case "Επόμενος αγώνας":
-					CheckConnectionAndNavigateToContent(new TeamNextMatchPage().Content);
-					backButton.IsVisible = true;
-					break;
+        // Sidebar menu on item selected actions
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
 
-				case "Live Score":
-					CheckConnectionAndNavigateToContent(new LiveScoresPage().Content);
-					backButton.IsVisible = true;
-					break;
-				case "Ρυθμισεις":
-					CheckConnectionAndNavigateToContent(new SettingsPage().Content);
-					backButton.IsVisible = true;
-					break;
+            //Με την επιλογή ενός αντικειμένου από το μενου
+            switch (e.SelectedItem.ToString())
+            {
+                case "Ειδήσεις Ομάδας":
+                    CheckConnectionAndNavigateToContent(new RssFeedPage().Content);
+                    backButton.IsVisible = false;
+                    break;
 
-				case "Σχετικά με την εφαρμογή":
-					CheckConnectionAndNavigateToContent(new AboutPage().Content);
-					backButton.IsVisible = true;
-					break;
-			}
 
-			//Αλλάζουμε την επικεφαλίδα ανάλογα με την επιλογή
-			headerLabel.Text = e.SelectedItem.ToString();
-			//κλέινουμε το menu
-			if (navigationDrawer.IsOpen) navigationDrawer.ToggleDrawer();
-		}
+                case "Βαθμολογία":
+                    CheckConnectionAndNavigateToContent(new StandingsPage().Content);
+                    backButton.IsVisible = true;
+                    break;
+
+                case "Προηγούμενος αγώνας":
+                    CheckConnectionAndNavigateToContent(new TeamLastGamePage().Content);
+                    backButton.IsVisible = true;
+                    break;
+
+                case "Επόμενος αγώνας":
+                    CheckConnectionAndNavigateToContent(new TeamNextMatchPage().Content);
+                    backButton.IsVisible = true;
+                    break;
+
+                case "Live Score":
+                    CheckConnectionAndNavigateToContent(new LiveScoresPage().Content);
+                    backButton.IsVisible = true;
+                    break;
+                case "Ρυθμισεις":
+                    CheckConnectionAndNavigateToContent(new SettingsPage().Content);
+                    backButton.IsVisible = true;
+                    break;
+
+                case "Σχετικά με την εφαρμογή":
+                    CheckConnectionAndNavigateToContent(new AboutPage().Content);
+                    backButton.IsVisible = true;
+                    break;
+            }
+
+            //Αλλάζουμε την επικεφαλίδα ανάλογα με την επιλογή
+            headerLabel.Text = e.SelectedItem.ToString();
+            //κλέινουμε το menu
+            if (navigationDrawer.IsOpen) navigationDrawer.ToggleDrawer();
+        }
         #endregion
-	}
+    }
 }
