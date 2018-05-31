@@ -5,11 +5,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="10">
+            <StackLayout Padding="10">                
                 <WebView
                     x:Name="webView"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand" />
+                    VerticalOptions="FillAndExpand" />                
+                <Label x:Name="versionNumber"
+                       HorizontalOptions="Start"
+                       HeightRequest="30"/>
                 <Button
                     x:Name="AgreeButton"
                     Clicked="Button_OnClicked"

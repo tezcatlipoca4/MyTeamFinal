@@ -38,7 +38,9 @@ namespace MyTeam
             "Κηνυγάμε ΜΑΟ - ΜΑΟ",
             "Ανακρίνουμε Ορκς",
             "Μεταφράζουμε Γιώργο Μίνο στα Αγγλικά",
-            "Πίνουμε καφέ με τον Θωμά Μάτσιο"                                              
+            "Πίνουμε καφέ με τον Θωμά Μάτσιο",
+            "Αγοράζουμε φρέσκο γάλα από τον Άγγελο"
+            
         };
 		public string AppVersionNumber;
         public Random randomNumber = new Random();
@@ -47,10 +49,7 @@ namespace MyTeam
         //Ctor
         public RssFeedPage()
         {
-            InitializeComponent();
-
-			// Get version number
-			AppVersionNumber = DependencyService.Get<App.IGetVersionNumber>().GetVersion();
+            InitializeComponent();            
 
             //Βάζουμε τα εικονίδια στα banner από την ομάδα που έχει επιλέξει ο χρήστης
             LeftBannerTeamLogo.Source = RightBannerTeamLogo.Source =
@@ -120,8 +119,8 @@ namespace MyTeam
 
             App.CurrentLoadedRssModels = await Task.Run(() => GetRssModels());
             dataGrid.ItemsSource = new ObservableCollection<RssModel>(App.CurrentLoadedRssModels);
-			FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm") + 
-				" | Έκδοση: " + AppVersionNumber;
+			FooterLabel.Text = "Τελευταία ενημέρωση: " + App.LastLoadedDateTime.ToString("dd/MM/yy - HH:mm"); 
+				
 				
             FooterLabel.HorizontalTextAlignment = TextAlignment.Center;
 
