@@ -83,6 +83,12 @@ namespace MyTeam
             bool IsNavigationBarAvailable();
         }
 
+        // Get version Interface
+		public interface IGetVersionNumber
+		{
+			string GetVersion();
+		}
+
         public static bool IsDeviceConnected()
         {
             return CrossConnectivity.Current.IsConnected;
