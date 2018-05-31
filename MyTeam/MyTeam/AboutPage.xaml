@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage BackgroundColor="Black"
+<ContentPage
     x:Class="MyTeam.AboutPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="Black">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="10">                
+            <StackLayout Padding="10">
                 <WebView
                     x:Name="webView"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand" />                
-                <Label x:Name="versionNumber"
-                       HorizontalOptions="Start"
-                       HeightRequest="30"/>
+                    VerticalOptions="FillAndExpand" />
+                <Label
+                    x:Name="versionNumber"
+                    HeightRequest="30"
+                    HorizontalOptions="Start" />
                 <Button
                     x:Name="AgreeButton"
                     Clicked="Button_OnClicked"
                     HorizontalOptions="End"
                     IsVisible="False"
                     Text="ΣΥΜΦΩΝΩ" />
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
