@@ -180,7 +180,7 @@ namespace MyTeam
 
                                         int endUrlQuotreIndex = line.IndexOf('\"');
 
-                                        tempUrl = "http://www.sport-fm.gr" + line.Substring(0, endUrlQuotreIndex - 1);
+                                        tempUrl = "http://www.sport-fm.gr" + line.Substring(0, endUrlQuotreIndex);
                                         //richTextBox1.AppendText("http://www.sport-fm.gr" + line.Substring(0, endUrlQuotreIndex - 1) + Environment.NewLine);
 
                                         //Αφαιρούμε πλέον το url από τη γραμμή, το πρόθεμα του τίτλου και τα σύμβολα στο τέλος
