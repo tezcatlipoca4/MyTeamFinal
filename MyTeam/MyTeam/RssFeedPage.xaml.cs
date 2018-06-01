@@ -59,7 +59,10 @@ namespace MyTeam
             pullToRefresh.Refreshing += PullToRefresh_Refreshing;
 
             dataGrid.GroupCaptionTextFormat = "{Key}";
-        }
+
+            }
+
+      
 
         #region Methods
 

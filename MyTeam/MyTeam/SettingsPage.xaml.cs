@@ -18,11 +18,11 @@ namespace MyTeam
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
+        private int _numberOfRssFeedItems;
 
 
         //Χρησιμοποιείται για να έχουμε την ομάδα που διάλεξε, μέχρι να πατήσει ο χρήστης αποθήκευση και τα site και το πλήθος των rss ανά σελίδα
         private string _teamChosen;
-        private int _numberOfRssFeedItems;
 
 
         public SettingsPage()
@@ -31,14 +31,12 @@ namespace MyTeam
 
             // Αν είναι η πρώτη φορά που ανοιγει η εφαρμογή βγαίνει ενημερωτικό μήνυμα.
             if (App.TutorialMode)
-            {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await DisplayAlert("Καλώς ήρθατε",
                         "Ευχαριστούμε που κατεβάσατε την εφαρμογή \n\"Όλα για την ομάδα μου!\"\nΓια να συνεχίσετε παρακαλώ επιλέξτε την αγαπημένη σας ομάδα στο επάνω μέρος της οθόνης !",
                         "ΟΚ");
                 });
-            }
 
             FillPickerWithTeams();
 
@@ -54,12 +52,12 @@ namespace MyTeam
             }
             articlePicker.SelectedItem = NumberOfRssFeedItems.ToString();
 
+            //Μαρκάρουμε τις επιλογές που έχει ήδη επιλέξει ο χρήστης από το string SitesSelected
+
             //Ορίζουμε το θέμα για το datagrid
             AvailableSitesDataGrid.GridStyle = new CustomGridStyle();
-
-
-
         }
+
 
         private static ISettings AppSettings => CrossSettings.Current;
 
@@ -83,12 +81,13 @@ namespace MyTeam
 
 
             foreach (DataRow row in availableSitesDataTable.Rows)
+
                 results.Add(new AvailableSitesModel
                 {
                     SiteLogo = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + row["siteName"] + ".png"),
                     SiteName = row["siteName"].ToString(),
                     //TODO: Θέλουμε αν υπήρχε στις προηγούμενες επιλογές του χρήστη να κρατάει τη ρύθμιση
-                    SiteSelected = false
+                    SiteSelected = SitesSelectedString.Contains(row["siteName"].ToString())
                 });
 
             //Κάνουμε bind τα αποτελέσματα στο dataGrid
@@ -109,15 +108,15 @@ namespace MyTeam
 
             FillAvailableSitesDataGrid(_teamChosen);
 
-            if (App.TutorialMode && _firstTimeTeamSelection == true)
+            if (App.TutorialMode && FirstTimeTeamSelection)
             {
                 Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await DisplayAlert("Όλα για την Ομάδα μου",
-                            "Τώρα, επιλέξτε από ποιες ιστοσελίδες θέλετε να λαμβάνεται νέα για την ομάδα σας και πατήστε το ΑΠΟΘΗΚΕΥΣΗ.",
-                            "ΚΑΤΑΛΑΒΑ");
-                    });
-                _firstTimeTeamSelection = false;
+                {
+                    await DisplayAlert("Όλα για την Ομάδα μου",
+                        "Τώρα, επιλέξτε από ποιες ιστοσελίδες θέλετε να λαμβάνεται νέα για την ομάδα σας και πατήστε το ΑΠΟΘΗΚΕΥΣΗ.",
+                        "ΚΑΤΑΛΑΒΑ");
+                });
+                FirstTimeTeamSelection = false;
             }
         }
 
@@ -138,7 +137,8 @@ namespace MyTeam
             }
 
             //Έλεγχος αν ο χρήστης δεν έχει πραγματοποιήσει αλλαγές σε σχέση με πριν
-            if (!sitesFilter.Equals(SitesFilter) || !_teamChosen.Equals(TeamChosen) || _numberOfRssFeedItems != NumberOfRssFeedItems)
+            if (!sitesFilter.Equals(SitesFilter) || !_teamChosen.Equals(TeamChosen) ||
+                _numberOfRssFeedItems != NumberOfRssFeedItems)
             {
                 TeamChosen = _teamChosen;
                 TeamLabel = Picker.SelectedItem.ToString();
@@ -148,8 +148,40 @@ namespace MyTeam
                 App.FilteredByTeamAndSiteDataTable = App.FilterResutlsDataTable();
                 App.CurrentLoadedRssModels.Clear();
 
+                //Φορτώνουμε το string που περιέχει όλες τις ιστοσελίδες που έχει ο χρήστης
+                SitesSelectedString = CreateSitesSelectedString();
             }
             Application.Current.MainPage = new MainPage();
+        }
+
+        private string CreateSitesSelectedString()
+        {
+            string tempString = string.Empty;
+            foreach (var item in AvailableSitesDataGrid.View.Records)
+            {
+                if (!(bool)AvailableSitesDataGrid.GetCellValue(item.Data, "SiteSelected")) continue;
+
+                tempString += "," + AvailableSitesDataGrid.GetCellValue(item.Data,"SiteName").ToString();
+            }
+
+            //Σβήνουνμε το πρώτο ','
+            return tempString.Remove(0, 1);
+        }
+
+        private void MarkPreviouslyChosenSites()
+        {
+            string[] previouslyChosenSitesStrings = SitesSelectedString.Split(',');
+            foreach (string currentSite in previouslyChosenSitesStrings)
+            {
+                //Ελέγχουμε μια μια τις γραμμές και αν βρούμε το ίδιο site το μαρκάρουμε θέτουμε την τιμή SiteSelected == true
+                foreach (var item in AvailableSitesDataGrid.View.Records)
+                {
+                    if (AvailableSitesDataGrid.GetCellValue(item.Data, "SiteSelected").ToString() != currentSite) continue;
+
+                    
+                }
+
+            }
         }
 
         private string GetSelectedSitesFilter()
@@ -194,17 +226,15 @@ namespace MyTeam
             if (articlePicker.Items.Count == 0) return;
 
             _numberOfRssFeedItems = Convert.ToInt32(articlePicker.SelectedItem);
-
         }
 
 
         #region SettingsVariables
 
-
-        private static bool _firstTimeTeamSelection
+        private static bool FirstTimeTeamSelection
         {
-            get => AppSettings.GetValueOrDefault(nameof(_firstTimeTeamSelection), true);
-            set => AppSettings.AddOrUpdateValue(nameof(_firstTimeTeamSelection), value);
+            get => AppSettings.GetValueOrDefault(nameof(FirstTimeTeamSelection), true);
+            set => AppSettings.AddOrUpdateValue(nameof(FirstTimeTeamSelection), value);
         }
 
         public static int NumberOfRssFeedItems
@@ -243,8 +273,12 @@ namespace MyTeam
             set => AppSettings.AddOrUpdateValue(nameof(TeamChosenFcTablesNumberOnly), value);
         }
 
+        public static string SitesSelectedString
+        {
+            get => AppSettings.GetValueOrDefault(nameof(SitesSelectedString), string.Empty);
+            set => AppSettings.AddOrUpdateValue(nameof(SitesSelectedString), value);
+        }
+
         #endregion
-
-
     }
 }

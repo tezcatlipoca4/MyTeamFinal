@@ -134,7 +134,7 @@ namespace MyTeam
                 "http://www.novasports.gr/sys/novasports/RssFeed/GetFeed?type=2&id=16625&languageID=1");
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "OnSports", "RSS",
                 "http://www.onsports.gr/omades/panathinaikos?format=feed&type=rss");
-            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "PrasinaNea", "RSS", "http://www.prasinanea.gr/feed/");
+            //table.Rows.Add("panathinaikos", "Παναθηναϊκός", "PrasinaNea", "RSS", "http://www.prasinanea.gr/feed/");
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "Sport24", "Atom",
                 "http://www.sport24.gr/football/omades/panathinaikos/?widget=rssfeed&view=feed&contentId=174866");
             
