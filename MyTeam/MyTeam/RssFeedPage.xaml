@@ -75,13 +75,15 @@
                         RowHeight="40"
                         VerticalOptions="FillAndExpand">
 
-                        <syncfusion:SfDataGrid.SortColumnDescriptions>
-                            <syncfusion:SortColumnDescription ColumnName="PublishedDatetime" SortDirection="Descending" />
-                        </syncfusion:SfDataGrid.SortColumnDescriptions>
 
                         <syncfusion:SfDataGrid.GroupColumnDescriptions>
                             <syncfusion:GroupColumnDescription ColumnName="GroupingDate" />
                         </syncfusion:SfDataGrid.GroupColumnDescriptions>
+
+
+                        <syncfusion:SfDataGrid.SortColumnDescriptions>
+                            <syncfusion:SortColumnDescription ColumnName="PublishedDatetime" SortDirection="Descending" />
+                        </syncfusion:SfDataGrid.SortColumnDescriptions>
 
                         <syncfusion:SfDataGrid.Columns>
                             <syncfusion:GridImageColumn Width="40" MappingName="SiteLogo" />

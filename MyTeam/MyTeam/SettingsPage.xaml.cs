@@ -28,17 +28,17 @@ namespace MyTeam
         public SettingsPage()
         {
             InitializeComponent();
-            
+
             // Αν είναι η πρώτη φορά που ανοιγει η εφαρμογή βγαίνει ενημερωτικό μήνυμα.
-			if (App.TutorialMode)
-			{
-				Device.BeginInvokeOnMainThread(async () =>
+            if (App.TutorialMode)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
                 {
                     await DisplayAlert("Καλώς ήρθατε",
                         "Ευχαριστούμε που κατεβάσατε την εφαρμογή \n\"Όλα για την ομάδα μου!\"\nΓια να συνεχίσετε παρακαλώ επιλέξτε την αγαπημένη σας ομάδα στο επάνω μέρος της οθόνης !",
                         "ΟΚ");
                 });
-			}
+            }
 
             FillPickerWithTeams();
 
@@ -58,7 +58,7 @@ namespace MyTeam
             AvailableSitesDataGrid.GridStyle = new CustomGridStyle();
 
 
-            
+
         }
 
         private static ISettings AppSettings => CrossSettings.Current;
@@ -77,17 +77,6 @@ namespace MyTeam
         {
             List<AvailableSitesModel> results = new List<AvailableSitesModel>();
 
-            //Σε περίπτωση αρχικοποίσης η τιμή teamSelected δεν θα έχει τιμή οπότε δημιουργούμε μια κενή "dummy" γραμμή
-            //TODO: Απενεργοποίηση του κουμπιού αποθήκευσης ρυθμίσεων μέχρι να γίνει επιλογή ομάδας
-            //if (teamSelected == string.Empty)
-            //    results.Add(new AvailableSitesModel
-            //    {
-            //        SiteName = "No Data",
-            //        //TODO: Θέλουμε αν υπήρχε στις προηγούμενες επιλογές του χρήστη να κρατάει τη ρύθμιση
-            //        SiteSelected = false
-            //    });
-
-
             //Παίρνουμε όλα τα διαθέσιμα site για την ομάδα που διάλεξε ο χρήστης
             DataView dv = new DataView(App.TeamsInfoDataTable) { RowFilter = "TeamName = '" + _teamChosen + "'" };
             DataTable availableSitesDataTable = dv.ToTable(true, "SiteName");
@@ -99,7 +88,7 @@ namespace MyTeam
                     SiteLogo = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + row["siteName"] + ".png"),
                     SiteName = row["siteName"].ToString(),
                     //TODO: Θέλουμε αν υπήρχε στις προηγούμενες επιλογές του χρήστη να κρατάει τη ρύθμιση
-                    SiteSelected = true
+                    SiteSelected = false
                 });
 
             //Κάνουμε bind τα αποτελέσματα στο dataGrid
@@ -119,17 +108,17 @@ namespace MyTeam
             _teamChosen = dv[0]["teamName"].ToString();
 
             FillAvailableSitesDataGrid(_teamChosen);
-            
-			if (App.TutorialMode && _firstTimeTeamSelection == true)
-            {				
-	    		Device.BeginInvokeOnMainThread(async () =>
+
+            if (App.TutorialMode && _firstTimeTeamSelection == true)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
                     {
                         await DisplayAlert("Όλα για την Ομάδα μου",
                             "Τώρα, επιλέξτε από ποιες ιστοσελίδες θέλετε να λαμβάνεται νέα για την ομάδα σας και πατήστε το ΑΠΟΘΗΚΕΥΣΗ.",
                             "ΚΑΤΑΛΑΒΑ");
                     });
-				_firstTimeTeamSelection = false;
-			}
+                _firstTimeTeamSelection = false;
+            }
         }
 
         private void SaveSettingsButton_OnPressed(object sender, EventArgs e)
@@ -212,18 +201,18 @@ namespace MyTeam
         #region SettingsVariables
 
 
-		private static bool _firstTimeTeamSelection
-		{
-			get => AppSettings.GetValueOrDefault(nameof(_firstTimeTeamSelection), true);
-			set => AppSettings.AddOrUpdateValue(nameof(_firstTimeTeamSelection), value);
-		}
+        private static bool _firstTimeTeamSelection
+        {
+            get => AppSettings.GetValueOrDefault(nameof(_firstTimeTeamSelection), true);
+            set => AppSettings.AddOrUpdateValue(nameof(_firstTimeTeamSelection), value);
+        }
 
         public static int NumberOfRssFeedItems
         {
             get => AppSettings.GetValueOrDefault(nameof(NumberOfRssFeedItems), 15);
             set => AppSettings.AddOrUpdateValue(nameof(NumberOfRssFeedItems), value);
         }
-        
+
         public static string TeamChosen
         {
             get => AppSettings.GetValueOrDefault(nameof(TeamChosen), string.Empty);
