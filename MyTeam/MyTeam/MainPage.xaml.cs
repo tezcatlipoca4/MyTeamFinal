@@ -29,6 +29,7 @@ namespace MyTeam
                 "Προηγούμενος αγώνας",
                 "Επόμενος αγώνας",
                 "Βαθμολογία",
+                "Σκόρερς",
                 "Live Score",
                 "Ρυθμισεις",
                 "Σχετικά με την εφαρμογή"
@@ -143,6 +144,11 @@ namespace MyTeam
                     CheckConnectionAndNavigateToContent(new TeamNextMatchPage().Content);
                     backButton.IsVisible = true;
                     break;
+
+				case "Σκόρερς":
+					CheckConnectionAndNavigateToContent(new ScorersPage().Content);
+					backButton.IsVisible = true;
+					break;
 
                 case "Live Score":
                     CheckConnectionAndNavigateToContent(new LiveScoresPage().Content);
