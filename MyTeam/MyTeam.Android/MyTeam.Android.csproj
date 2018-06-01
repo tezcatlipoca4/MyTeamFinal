@@ -99,8 +99,8 @@
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable\splash_screen.xml" />
-    <AndroidResource Include="Resources\drawable\App.ico" />
     <AndroidResource Include="Resources\drawable\splash_logo.jpg" />
+    <AndroidResource Include="Resources\drawable\App.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
