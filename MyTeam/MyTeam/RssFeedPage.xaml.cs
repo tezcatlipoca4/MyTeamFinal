@@ -58,11 +58,8 @@ namespace MyTeam
 
             pullToRefresh.Refreshing += PullToRefresh_Refreshing;
 
-            dataGrid.GroupCaptionTextFormat = "Δημοσιεύθηκαν: {Key}";
-
+            dataGrid.GroupCaptionTextFormat = "{Key}";
         }
-
-
 
         #region Methods
 
@@ -355,7 +352,7 @@ namespace MyTeam
                                         line = line.Replace("<span class=\"story-date\">", string.Empty).Replace("</span>", string.Empty).Trim();
                                         //Γίνεται γιατί οι τσομπάνηδες έχουν τον Μάιο χωρίς διαλυτικά
 
-                                        line = line.Replace("ί", "ΐ");
+                                        line = line.Replace("Μαίου", "Μαΐου");
 
                                         string[] format = { "dd MMMM yyyy, HH:mm" };
                                         DateTime retrievedDateTime;
