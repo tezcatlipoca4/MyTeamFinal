@@ -9,13 +9,13 @@ namespace MyTeam
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AboutPage : ContentPage
     {
-		public string AppVersionNumber;
+        public string AppVersionNumber;
 
         public AboutPage()
         {
             InitializeComponent();
 
-			// Get version number
+            // Get version number
             AppVersionNumber = DependencyService.Get<App.IGetVersionNumber>().GetVersion();
 
             var assembly = typeof(AboutPage).GetTypeInfo().Assembly;
@@ -31,16 +31,23 @@ namespace MyTeam
             //Το κουμπί θα εμφανιστεί μόνο την πρώτη φορά που θα τρέξει η εφαρμογή
 
             // Version Number
-			versionNumber.Text = "Έκδοση: " + AppVersionNumber;
+            versionNumber.Text = "Έκδοση: " + AppVersionNumber;
 
             //if (SettingsPage.TeamChosen == string.Empty)
-			if(App.TutorialMode)
+            if (App.TutorialMode)
                 AgreeButton.IsVisible = true;
         }
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
             Application.Current.MainPage = new SettingsPage();
+        }
+
+        private void WebView_OnNavigating(object sender, WebNavigatingEventArgs e)
+        {
+            if (!e.Url.StartsWith("mailto")) return;
+            Device.OpenUri(new Uri(e.Url));
+            e.Cancel = true;
         }
     }
 }

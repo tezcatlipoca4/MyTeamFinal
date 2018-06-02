@@ -19,12 +19,10 @@ namespace MyTeam
     public partial class SettingsPage : ContentPage
     {
         private int _numberOfRssFeedItems;
-
-
+        
         //Χρησιμοποιείται για να έχουμε την ομάδα που διάλεξε, μέχρι να πατήσει ο χρήστης αποθήκευση και τα site και το πλήθος των rss ανά σελίδα
         private string _teamChosen;
-
-
+        
         public SettingsPage()
         {
             InitializeComponent();
@@ -57,8 +55,7 @@ namespace MyTeam
             //Ορίζουμε το θέμα για το datagrid
             AvailableSitesDataGrid.GridStyle = new CustomGridStyle();
         }
-
-
+        
         private static ISettings AppSettings => CrossSettings.Current;
 
         //Παίρνουμε όλες τις διαθέσιμές ομάδες με distinct από τα διαθέσιμα RSS που έχει ο κεντρικός πίνακας πληροφοριών
@@ -76,9 +73,8 @@ namespace MyTeam
             List<AvailableSitesModel> results = new List<AvailableSitesModel>();
 
             //Παίρνουμε όλα τα διαθέσιμα site για την ομάδα που διάλεξε ο χρήστης
-            DataView dv = new DataView(App.TeamsInfoDataTable) { RowFilter = "TeamName = '" + _teamChosen + "'" };
+            DataView dv = new DataView(App.TeamsInfoDataTable) {RowFilter = "TeamName = '" + _teamChosen + "'"};
             DataTable availableSitesDataTable = dv.ToTable(true, "SiteName");
-
 
             foreach (DataRow row in availableSitesDataTable.Rows)
 
@@ -159,29 +155,13 @@ namespace MyTeam
             string tempString = string.Empty;
             foreach (var item in AvailableSitesDataGrid.View.Records)
             {
-                if (!(bool)AvailableSitesDataGrid.GetCellValue(item.Data, "SiteSelected")) continue;
+                if (!(bool) AvailableSitesDataGrid.GetCellValue(item.Data, "SiteSelected")) continue;
 
-                tempString += "," + AvailableSitesDataGrid.GetCellValue(item.Data,"SiteName").ToString();
+                tempString += "," + AvailableSitesDataGrid.GetCellValue(item.Data, "SiteName");
             }
 
             //Σβήνουνμε το πρώτο ','
             return tempString.Remove(0, 1);
-        }
-
-        private void MarkPreviouslyChosenSites()
-        {
-            string[] previouslyChosenSitesStrings = SitesSelectedString.Split(',');
-            foreach (string currentSite in previouslyChosenSitesStrings)
-            {
-                //Ελέγχουμε μια μια τις γραμμές και αν βρούμε το ίδιο site το μαρκάρουμε θέτουμε την τιμή SiteSelected == true
-                foreach (var item in AvailableSitesDataGrid.View.Records)
-                {
-                    if (AvailableSitesDataGrid.GetCellValue(item.Data, "SiteSelected").ToString() != currentSite) continue;
-
-                    
-                }
-
-            }
         }
 
         private string GetSelectedSitesFilter()
@@ -189,7 +169,7 @@ namespace MyTeam
             string filter = string.Empty;
 
             foreach (RecordEntry entry in AvailableSitesDataGrid.View.Records)
-                if ((bool)AvailableSitesDataGrid.GetCellValue(entry.Data, "SiteSelected"))
+                if ((bool) AvailableSitesDataGrid.GetCellValue(entry.Data, "SiteSelected"))
                     filter += "'" + AvailableSitesDataGrid.GetCellValue(entry.Data, "SiteName") + "',";
 
             //Αν ο χρήστης δεν διάλεξε τπτ επιστρέφουμε empty αλλιώς αφαιρούμε το τελευταίο ',' που δημιουργήθηκε από την foreach
@@ -227,7 +207,6 @@ namespace MyTeam
 
             _numberOfRssFeedItems = Convert.ToInt32(articlePicker.SelectedItem);
         }
-
 
         #region SettingsVariables
 

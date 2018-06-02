@@ -10,6 +10,7 @@
                 <WebView
                     x:Name="webView"
                     HorizontalOptions="FillAndExpand"
+                    Navigating="WebView_OnNavigating"
                     VerticalOptions="FillAndExpand" />
                 <Label
                     x:Name="versionNumber"

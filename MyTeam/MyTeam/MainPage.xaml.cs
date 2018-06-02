@@ -37,6 +37,7 @@ namespace MyTeam
 
             // Bind στο ListView
             listView.ItemsSource = menuList;
+
         }
 
         #region Methods
@@ -145,10 +146,10 @@ namespace MyTeam
                     backButton.IsVisible = true;
                     break;
 
-				case "Σκόρερς":
-					CheckConnectionAndNavigateToContent(new ScorersPage().Content);
-					backButton.IsVisible = true;
-					break;
+                case "Σκόρερς":
+                    CheckConnectionAndNavigateToContent(new ScorersPage().Content);
+                    backButton.IsVisible = true;
+                    break;
 
                 case "Live Score":
                     CheckConnectionAndNavigateToContent(new LiveScoresPage().Content);
