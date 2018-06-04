@@ -277,14 +277,13 @@ namespace MyTeam
                                         int endUrlQuotreIndex = line.IndexOf('\"');
 
                                         tempUrl = "http://www.sport-fm.gr" + line.Substring(0, endUrlQuotreIndex);
-                                        //richTextBox1.AppendText("http://www.sport-fm.gr" + line.Substring(0, endUrlQuotreIndex - 1) + Environment.NewLine);
-
+                                        
                                         //Αφαιρούμε πλέον το url από τη γραμμή, το πρόθεμα του τίτλου και τα σύμβολα στο τέλος
                                         line = line.Remove(0, endUrlQuotreIndex).Replace("\" title=\"", string.Empty)
                                             .Replace("\">", string.Empty);
 
                                         tempTitle = line;
-                                        //richTextBox1.AppendText(line + Environment.NewLine);
+                                        
                                         articlesFound++;
                                     }
                                     else
@@ -306,6 +305,7 @@ namespace MyTeam
                                                         Title = tempTitle,
                                                         PublishedDatetime = tempPubDate
                                                     });
+                                                    
                                                 }
                                                 break;
                                             default:
@@ -325,11 +325,9 @@ namespace MyTeam
                                                         Title = tempTitle,
                                                         PublishedDatetime = tempPubDate
                                                     });
-
-                                                    //richTextBox1.AppendText(line.Replace("<span>", "").Replace("</span>", "").TrimStart() + "\n");
-                                                    if (articlesFound >= numberOfItems) break;
+                                                    
                                                 }
-                                                //Μόνο για το πρώτο άρθρο που έχει διαφορετική ρύθμιση για την ώρα!
+                                               //Μόνο για το πρώτο άρθρο που έχει διαφορετική ρύθμιση για την ώρα!
                                                 else if (line.Contains("article-date") && articlesFound == 1)
                                                 {
                                                     tempPubDate = Convert.ToDateTime(line.Remove(0, line.IndexOf("\">") + 2)
@@ -345,10 +343,9 @@ namespace MyTeam
                                                     });
                                                 }
 
-
-
                                                 break;
                                         }
+                                        if (articlesFound >= numberOfItems) break;
                                     }
                                     
                                 }
