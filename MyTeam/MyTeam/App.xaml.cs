@@ -131,7 +131,7 @@ namespace MyTeam
             //osfp
             table.Rows.Add("osfp", "ΟΣΦΠ", "Contra", "Atom",
                 "http://www.contra.gr/soccer/olympiacos/?widget=rssfeed&view=feed");
-            table.Rows.Add("osfp", "ΟΣΦΠ", "Gayros", "RSS", "http://gavros.gr/rss?projection=370");
+            //table.Rows.Add("osfp", "ΟΣΦΠ", "Gayros", "RSS", "http://gavros.gr/rss?projection=370");
             table.Rows.Add("osfp", "ΟΣΦΠ", "Gazzetta", "RSS", "http://www.gazzetta.gr/taxonomy/term/1014/all/feed");
             table.Rows.Add("osfp", "ΟΣΦΠ", "NovaSports", "RSS",
                 "http://www.novasports.gr/sys/novasports/RssFeed/GetFeed?type=2&id=16641&languageID=1");
@@ -151,6 +151,7 @@ namespace MyTeam
             //table.Rows.Add("panathinaikos", "Παναθηναϊκός", "PrasinaNea", "RSS", "http://www.prasinanea.gr/feed/");
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "Sport24", "Atom",
                 "http://www.sport24.gr/football/omades/panathinaikos/?widget=rssfeed&view=feed&contentId=174866");
+			table.Rows.Add("osfp", "Ολυμπιακός", "Olympiacos.Org", "RSS", "http://www.olympiacos.org/feeds/social");
             
             //paok
             table.Rows.Add("paok", "ΠΑΟΚ", "Contra", "Atom",

@@ -44,7 +44,8 @@ namespace MyTeam.Droid
                 var ad = new AdView(Context)
                 {
                     AdSize = AdSize.Banner,
-                    AdUnitId = "ca-app-pub-3940256099942544/6300978111"
+					//AdUnitId = "ca-app-pub-2827816165257335/5822286130" // Real Ads
+                    AdUnitId = "ca-app-pub-3940256099942544/6300978111" // Test Ads
                 };
 
                 var requestbuilder = new AdRequest.Builder();
