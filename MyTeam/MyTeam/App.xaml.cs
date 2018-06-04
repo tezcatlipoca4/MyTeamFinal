@@ -15,9 +15,12 @@ namespace MyTeam
         public static DataTable TeamsInfoDataTable = new DataTable();
 
         public static List<RssModel> CurrentLoadedRssModels = new List<RssModel>();
+        public static List<RssModel> CurrentGeneralLoadedRssModels = new List<RssModel>();
 
         public static DateTime LastLoadedDateTime;
-		private static ISettings AppSettings => CrossSettings.Current;
+        public static DateTime LastGeneralLoadedDateTime;
+
+        private static ISettings AppSettings => CrossSettings.Current;
 		public static bool TutorialMode 
 		{
 			get => AppSettings.GetValueOrDefault(nameof(TutorialMode), true);
@@ -103,6 +106,15 @@ namespace MyTeam
             table.Columns.Add("rssType", typeof(string));
             table.Columns.Add("url", typeof(string));
 
+            //Γενικές Ειδήσεις
+            table.Rows.Add("general", "Γενικές Ειδήσεις", "Contra", "Atom", "http://www.contra.gr/latest/?widget=rssfeed&view=feed&contentId=1169269");
+            table.Rows.Add("general", "Γενικές Ειδήσεις", "Gazzetta", "RSS", "http://www.gazzetta.gr/rssfeeds/allnewsfeed");
+            table.Rows.Add("general", "Γενικές Ειδήσεις", "NovaSports", "RSS", "http://www.novasports.gr/sys/novasports/RssFeed/GetFeed?type=999&id=1&languageID=1");
+            table.Rows.Add("general", "Γενικές Ειδήσεις", "OnSports", "RSS", "https://www.onsports.gr/latest-news?format=feed");
+            table.Rows.Add("general", "Γενικές Ειδήσεις", "SDNA", "RSS", "http://www.sdna.gr/latest.xml");
+            table.Rows.Add("general", "Γενικές Ειδήσεις", "Sport24", "Atom", "http://www.sport24.gr/latest/?widget=rssfeed&view=feed&contentId=174866");
+            table.Rows.Add("general", "Γενικές Ειδήσεις", "SportFM", "Html", "http://www.sport-fm.gr/archive/latest/");
+            
             //ΑΕΚ
             table.Rows.Add("aek", "ΑΕΚ", "AEK365", "RSS", "http://feeds.feedburner.com/aek365gr-aek");
             table.Rows.Add("aek", "ΑΕΚ", "Contra", "Atom", "http://www.contra.gr/soccer/aek/?widget=rssfeed&view=feed");

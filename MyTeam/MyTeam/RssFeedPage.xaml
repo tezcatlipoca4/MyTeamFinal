@@ -18,7 +18,10 @@
             <pull:SfPullToRefresh.PullableContent>
                 <StackLayout BackgroundColor="White" HorizontalOptions="FillAndExpand">
 
-                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                    <StackLayout
+                        x:Name="bannerStackLayout"
+                        HorizontalOptions="CenterAndExpand"
+                        Orientation="Horizontal">
 
                         <Image
                             x:Name="LeftBannerTeamLogo"

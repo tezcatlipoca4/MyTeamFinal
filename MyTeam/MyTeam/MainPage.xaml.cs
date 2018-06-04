@@ -28,6 +28,7 @@ namespace MyTeam
                 "Ειδήσεις Ομάδας",
                 "Προηγούμενος αγώνας",
                 "Επόμενος αγώνας",
+                "Γενικές Ειδήσεις",
                 "Βαθμολογία",
                 "Σκόρερς",
                 "Live Score",
@@ -126,10 +127,20 @@ namespace MyTeam
             switch (e.SelectedItem.ToString())
             {
                 case "Ειδήσεις Ομάδας":
+                    //Σε περίπτωση που είχαμε πριν ενεργοποιήσει τις γενικές ειδήσεις το ξετσεκάρουμε από εδώ
+                    RssFeedPage.GeneralNewsSelected = false;
+
                     CheckConnectionAndNavigateToContent(new RssFeedPage().Content);
                     backButton.IsVisible = false;
                     break;
 
+                case "Γενικές Ειδήσεις":
+                    //Ενεργοποιούμε το flag για τις γενικές ειδήσεις
+                    RssFeedPage.GeneralNewsSelected = true;
+
+                    CheckConnectionAndNavigateToContent(new RssFeedPage().Content);
+                    backButton.IsVisible = false;
+                    break;
 
                 case "Βαθμολογία":
                     CheckConnectionAndNavigateToContent(new StandingsPage().Content);

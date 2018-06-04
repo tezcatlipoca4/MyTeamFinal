@@ -62,6 +62,10 @@ namespace MyTeam
         private void FillPickerWithTeams()
         {
             DataView dv = new DataView(App.TeamsInfoDataTable);
+            //Δεν θέλουμε να εμφανιστούν οι γενικές ειδήσεις ως ομάδα οπότε βάζουμε το αντίστοιχο φίλτρο
+
+            dv.RowFilter = "teamName <> 'general'";
+
             DataTable distinctTeamsDataTable = dv.ToTable(true, "teamName", "teamLabel");
 
             foreach (DataRow row in distinctTeamsDataTable.Rows)
@@ -218,7 +222,7 @@ namespace MyTeam
 
         public static int NumberOfRssFeedItems
         {
-            get => AppSettings.GetValueOrDefault(nameof(NumberOfRssFeedItems), 15);
+            get => AppSettings.GetValueOrDefault(nameof(NumberOfRssFeedItems), 10);
             set => AppSettings.AddOrUpdateValue(nameof(NumberOfRssFeedItems), value);
         }
 
