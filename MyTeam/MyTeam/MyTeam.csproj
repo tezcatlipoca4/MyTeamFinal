@@ -32,25 +32,21 @@
     <None Remove="Assets\Images\teamLogos\panathinaikos.png" />
     <None Remove="Assets\Images\teamLogos\paok.png" />
     <None Remove="Assets\TextFiles\DisclaimerText.txt" />
+    <None Remove="Assets\Images\teamLogos\aris.png" />
+    <None Remove="Assets\Images\teamLogos\atromitos.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\HtmlFiles\About.html" />
     <EmbeddedResource Include="Assets\Images\hamburger.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\AEK365.png" />
-    <EmbeddedResource Include="Assets\Images\siteLogos\1Contra.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Contra.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Gayros.png" />
-    <EmbeddedResource Include="Assets\Images\siteLogos\1Gazzetta.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Gazzetta.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\inPAOK.png" />
-    <EmbeddedResource Include="Assets\Images\siteLogos\1NovaSports.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\NovaSports.png" />
-    <EmbeddedResource Include="Assets\Images\siteLogos\1OnSports.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\OnSports.png" />
-    <EmbeddedResource Include="Assets\Images\siteLogos\1PrasinaNea.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\PrasinaNea.png" />
-    <EmbeddedResource Include="Assets\Images\siteLogos\1Sport24.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\SDNA.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Sport24.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\SportFM.png" />
@@ -59,6 +55,8 @@
     <EmbeddedResource Include="Assets\Images\teamLogos\panathinaikos.png" />
     <EmbeddedResource Include="Assets\Images\teamLogos\paok.png" />
     <EmbeddedResource Include="Assets\TextFiles\DisclaimerText.txt" />
+    <EmbeddedResource Include="Assets\Images\teamLogos\aris.png" />
+    <EmbeddedResource Include="Assets\Images\teamLogos\atromitos.png" />
   </ItemGroup>
 
   <ItemGroup>
