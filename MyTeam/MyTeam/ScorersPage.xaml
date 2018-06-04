@@ -5,7 +5,7 @@
 
          <StackLayout>
             <WebView x:Name="Browser" 
-                     WidthRequest="350"
+                     WidthRequest="520"
                      HeightRequest="700"/>
     </StackLayout>
     
