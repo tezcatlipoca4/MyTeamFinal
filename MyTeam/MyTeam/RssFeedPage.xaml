@@ -75,7 +75,7 @@
                         GridTapped="DataGrid_OnGridTapped"
                         HeaderRowHeight="0"
                         HorizontalOptions="FillAndExpand"
-                        RowHeight="40"
+                        RowHeight="45"
                         VerticalOptions="FillAndExpand">
 
 

@@ -193,10 +193,10 @@ namespace MyTeam
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "NovaSports", "RSS", "http://www.novasports.gr/sys/novasports/RssFeed/GetFeed?type=2&id=16625&languageID=1");
             table.Rows.Add("panathinaikos", "Παναθηναϊκός", "OnSports", "RSS", "http://www.onsports.gr/omades/panathinaikos?format=feed&type=rss");
             //table.Rows.Add("panathinaikos", "Παναθηναϊκός", "PrasinaNea", "RSS", "http://www.prasinanea.gr/feed/");
-            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "Sport24", "Atom", "http://www.sport24.gr/football/omades/paok/?widget=rssfeed&view=feed&contentId=174866");
+            table.Rows.Add("panathinaikos", "Παναθηναϊκός", "Sport24", "Atom", "http://www.sport24.gr/football/omades/pao/?widget=rssfeed&view=feed&contentId=174866");
             table.Rows.Add("paok", "ΠΑΟΚ", "Contra", "Atom", "http://www.contra.gr/soccer/paok/?widget=rssfeed&view=feed&contentId=1169269");
             table.Rows.Add("paok", "ΠΑΟΚ", "Gazzetta", "RSS", "http://www.gazzetta.gr/taxonomy/term/1018/all/feed");
-            table.Rows.Add("paok", "ΠΑΟΚ", "inPAOK", "RSS", "http://inpaok.com/feed/");
+            //table.Rows.Add("paok", "ΠΑΟΚ", "inPAOK", "RSS", "http://inpaok.com/feed/");
             table.Rows.Add("paok", "ΠΑΟΚ", "NovaSports", "RSS", "http://www.novasports.gr/sys/novasports/RssFeed/GetFeed?type=2&id=16657&languageID=1");
             table.Rows.Add("paok", "ΠΑΟΚ", "OnSports", "RSS", "http://www.onsports.gr/omades/paok?format=feed&type=rss");
             table.Rows.Add("paok", "ΠΑΟΚ", "SDNA", "Html", "http://www.sdna.gr/teams/paok");

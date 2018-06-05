@@ -7,8 +7,9 @@
     BackgroundColor="White">
 
     <ContentPage.Content>
-        <ScrollView Margin="20,0">
-            <StackLayout>
+
+        <ScrollView>
+            <StackLayout Margin="10,0">
 
                 <Label
                     FontSize="20"
@@ -31,18 +32,16 @@
 
                 <syncfusion:SfDataGrid
                     x:Name="AvailableSitesDataGrid"
-                    Margin="0,20,0,0"
                     ColumnSizer="LastColumnFill"
                     HeaderRowHeight="0"
                     HorizontalOptions="StartAndExpand"
                     RowHeight="40"
+                    HeightRequest="50"
                     VerticalOptions="Start">
 
                     <syncfusion:SfDataGrid.SortColumnDescriptions>
                         <syncfusion:SortColumnDescription ColumnName="SiteName" />
                     </syncfusion:SfDataGrid.SortColumnDescriptions>
-
-
 
                     <syncfusion:SfDataGrid.Columns>
                         <syncfusion:GridImageColumn MappingName="SiteLogo" />
@@ -68,7 +67,6 @@
                     MinimumHeightRequest="30"
                     MinimumWidthRequest="30"
                     SelectedIndexChanged="articlePicker_SelectedIndexChanged" />
-
 
                 <Button
                     x:Name="SaveSettingsButton"

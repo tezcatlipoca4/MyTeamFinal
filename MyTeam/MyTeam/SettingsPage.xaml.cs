@@ -19,10 +19,10 @@ namespace MyTeam
     public partial class SettingsPage : ContentPage
     {
         private int _numberOfRssFeedItems;
-        
+
         //Χρησιμοποιείται για να έχουμε την ομάδα που διάλεξε, μέχρι να πατήσει ο χρήστης αποθήκευση και τα site και το πλήθος των rss ανά σελίδα
         private string _teamChosen;
-        
+
         public SettingsPage()
         {
             InitializeComponent();
@@ -49,13 +49,11 @@ namespace MyTeam
                 Picker.SelectedItem = TeamLabel;
             }
             articlePicker.SelectedItem = NumberOfRssFeedItems.ToString();
-
-            //Μαρκάρουμε τις επιλογές που έχει ήδη επιλέξει ο χρήστης από το string SitesSelected
-
+            
             //Ορίζουμε το θέμα για το datagrid
             AvailableSitesDataGrid.GridStyle = new CustomGridStyle();
         }
-        
+
         private static ISettings AppSettings => CrossSettings.Current;
 
         //Παίρνουμε όλες τις διαθέσιμές ομάδες με distinct από τα διαθέσιμα RSS που έχει ο κεντρικός πίνακας πληροφοριών
@@ -77,7 +75,7 @@ namespace MyTeam
             List<AvailableSitesModel> results = new List<AvailableSitesModel>();
 
             //Παίρνουμε όλα τα διαθέσιμα site για την ομάδα που διάλεξε ο χρήστης
-            DataView dv = new DataView(App.TeamsInfoDataTable) {RowFilter = "TeamName = '" + _teamChosen + "'"};
+            DataView dv = new DataView(App.TeamsInfoDataTable) { RowFilter = "TeamName = '" + _teamChosen + "'" };
             DataTable availableSitesDataTable = dv.ToTable(true, "SiteName");
 
             foreach (DataRow row in availableSitesDataTable.Rows)
@@ -86,13 +84,20 @@ namespace MyTeam
                 {
                     SiteLogo = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + row["siteName"] + ".png"),
                     SiteName = row["siteName"].ToString(),
-                    //TODO: Θέλουμε αν υπήρχε στις προηγούμενες επιλογές του χρήστη να κρατάει τη ρύθμιση
                     SiteSelected = SitesSelectedString.Contains(row["siteName"].ToString())
                 });
-
             //Κάνουμε bind τα αποτελέσματα στο dataGrid
-
             AvailableSitesDataGrid.ItemsSource = new ObservableCollection<AvailableSitesModel>(results);
+
+            //Υπολογίζουμε το ύψος που πρέπει να έχει πλέον το grid
+
+            //double totalHeight = 0;
+
+            //for (int i = 0; i < availableSitesDataTable.Rows.Count; i++)
+            //    totalHeight += AvailableSitesDataGrid.GetRowHeight(i);
+
+            AvailableSitesDataGrid.HeightRequest = availableSitesDataTable.Rows.Count  * 40;
+
         }
 
         private void Picker_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -151,6 +156,10 @@ namespace MyTeam
                 //Φορτώνουμε το string που περιέχει όλες τις ιστοσελίδες που έχει ο χρήστης
                 SitesSelectedString = CreateSitesSelectedString();
             }
+            //Σιγουρεύουμε ότι ο χρήστης δεν είχε επισκεφτεί τις γενικές ειδήσεις
+            if (RssFeedPage.GeneralNewsSelected)
+                RssFeedPage.GeneralNewsSelected = false;
+
             Application.Current.MainPage = new MainPage();
         }
 
@@ -159,7 +168,7 @@ namespace MyTeam
             string tempString = string.Empty;
             foreach (var item in AvailableSitesDataGrid.View.Records)
             {
-                if (!(bool) AvailableSitesDataGrid.GetCellValue(item.Data, "SiteSelected")) continue;
+                if (!(bool)AvailableSitesDataGrid.GetCellValue(item.Data, "SiteSelected")) continue;
 
                 tempString += "," + AvailableSitesDataGrid.GetCellValue(item.Data, "SiteName");
             }
@@ -173,7 +182,7 @@ namespace MyTeam
             string filter = string.Empty;
 
             foreach (RecordEntry entry in AvailableSitesDataGrid.View.Records)
-                if ((bool) AvailableSitesDataGrid.GetCellValue(entry.Data, "SiteSelected"))
+                if ((bool)AvailableSitesDataGrid.GetCellValue(entry.Data, "SiteSelected"))
                     filter += "'" + AvailableSitesDataGrid.GetCellValue(entry.Data, "SiteName") + "',";
 
             //Αν ο χρήστης δεν διάλεξε τπτ επιστρέφουμε empty αλλιώς αφαιρούμε το τελευταίο ',' που δημιουργήθηκε από την foreach
@@ -199,6 +208,14 @@ namespace MyTeam
 
                 case "panathinaikos":
                     TeamChosenFcTables = "panathinaikos-191512";
+                    break;
+
+                case "aris":
+                    TeamChosenFcTables = "aris-thessaloniki-fc-180183";
+                    break;
+
+                case "atromitos":
+                    TeamChosenFcTables = "atromitos-180661";
                     break;
             }
 
