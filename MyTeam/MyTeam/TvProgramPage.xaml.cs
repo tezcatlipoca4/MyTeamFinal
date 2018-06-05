@@ -34,6 +34,13 @@ namespace MyTeam
             
             // Bind to Xaml List
 			scheduleList.ItemsSource = allEventItems;
+
+            // Disable selected item 
+			scheduleList.ItemSelected += (object sender, SelectedItemChangedEventArgs args) =>
+                {
+                    ((ListView)sender).SelectedItem = null;
+                };
+
 		}
 
         // Methods
@@ -85,5 +92,7 @@ namespace MyTeam
 				textDate = node.SelectSingleNode("./span[3]").InnerText.Trim();
 			}
 		}
+
+        
 	}                  
 }
