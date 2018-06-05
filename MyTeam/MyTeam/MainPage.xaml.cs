@@ -29,6 +29,7 @@ namespace MyTeam
                 "Προηγούμενος αγώνας",
                 "Επόμενος αγώνας",
                 "Γενικές Ειδήσεις",
+                "TV Πρόγραμμα",
                 "Βαθμολογία",
                 "Σκόρερς",
                 "Live Score",
@@ -151,6 +152,11 @@ namespace MyTeam
                     CheckConnectionAndNavigateToContent(new TeamLastGamePage().Content);
                     backButton.IsVisible = true;
                     break;
+
+				case "TV Πρόγραμμα":
+					CheckConnectionAndNavigateToContent(new TvProgramPage().Content);
+					backButton.IsVisible = true;
+					break;
 
                 case "Επόμενος αγώνας":
                     CheckConnectionAndNavigateToContent(new TeamNextMatchPage().Content);
