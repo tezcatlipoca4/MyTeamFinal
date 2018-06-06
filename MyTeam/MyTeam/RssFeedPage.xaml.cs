@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using HtmlAgilityPack;
 using MyTeam.Models;
 using Plugin.Connectivity;
 using Syncfusion.SfDataGrid.XForms;
@@ -202,8 +203,6 @@ namespace MyTeam
         //Επιστρέφει τα πιο πρόσφατα feeds βάσει των τιμων που δίνονται
         public List<RssModel> GetRssFeed(string rssType, string url, string siteName, int numberOfItems)
         {
-
-
             try
             {
                 //Δημιουργούμε το XDocument το οποίο είναι κοινό ανεξαιρέτως του τύπου δομής RSS/Atom
@@ -253,281 +252,156 @@ namespace MyTeam
                                 }).Take(numberOfItems).ToList();
                     default:
                     case "Html":
+                        int articlesfound = 0;
                         List<RssModel> rssModelFromHtml = new List<RssModel>();
                         string tempUrl = string.Empty;
                         string tempTitle = string.Empty;
                         DateTime tempPubDate = new DateTime();
+
                         //Εδώ έχουμε διαφορετικό σύστημα ανάλογα με την ιστοσελίδα που θα φορτώσουμε
                         switch (siteName)
                         {
                             case "SportFM":
-                                using (WebClient client = new WebClient()) // WebClient class inherits IDisposable
+
+                                #region sportFM
+
+                                HtmlWeb web = new HtmlWeb();
+                                HtmlDocument document = web.Load(url);
+                                //Το πρώτο άρθρο στο sportFM έχει άλλη κωδικοποίηση από τα υπόλοιπα
+                                HtmlNodeCollection nodesCollection =
+                                    document.DocumentNode.SelectNodes("//div[@class=\"promo main-promo\"]");
+
+                                rssModelFromHtml.Add(new RssModel
                                 {
-                                    client.Encoding = Encoding.UTF8;
-                                    string htmlCode = client.DownloadString(url);
+                                    SiteLogo = ImageSource.FromResource(
+                                        "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
+                                    Url = "http://www.sport-fm.gr" + nodesCollection[0].SelectSingleNode("./a")
+                                              .Attributes["href"].Value,
+                                    Title = nodesCollection[0].SelectSingleNode("./a").Attributes["title"].Value,
+                                    PublishedDatetime =
+                                        Convert.ToDateTime(nodesCollection[0].SelectSingleNode("./a/div/div/h3/small")
+                                            .InnerText)
+                                });
 
-                                    StringReader reader = new StringReader(htmlCode);
-                                    string line;
-                                    int articlesFound = 0;
-                                    bool foundStart = false;
+                                articlesfound++;
 
-                                    while ((line = reader.ReadLine()) != null)
+                                //Φορτώνουμε τώρα τα nodes για τα επόμενα άρθρα
+                                nodesCollection =
+                                    document.DocumentNode.SelectNodes("//div[@class=\"col-xs-8 col-md-12 caption\"]");
+
+                                foreach (var node in nodesCollection)
+                                {
+                                    rssModelFromHtml.Add(new RssModel
                                     {
-                                        //Μέχρι να συναντήσουμε το <div class="row"> δεν κρατάμε τπτ
-                                        if (line.Contains("<div class=\"row\">"))
-                                            foundStart = true;
 
-                                        if (!foundStart) continue;
+                                        SiteLogo = ImageSource.FromResource(
+                                            "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
+                                        Url = "http://www.sport-fm.gr" +
+                                              node.SelectSingleNode("./h4/a[2]").Attributes["href"].Value,
+                                        Title = node.SelectSingleNode("./h4/a[2]").Attributes["title"].Value,
+                                        PublishedDatetime =
+                                            Convert.ToDateTime(node.SelectSingleNode("./div").InnerText.Trim())
+                                    });
 
-                                        if (line.Contains("<a href=\"/article/") && line.Contains("title") &&
-                                            !line.Contains("</a>"))
-                                        {
-                                            line = line.Trim().Replace("<a href=\"", string.Empty);
+                                    articlesfound++;
+                                    if (articlesfound == numberOfItems) break;
 
-                                            int endUrlQuotreIndex = line.IndexOf('\"');
-
-                                            tempUrl = "http://www.sport-fm.gr" + line.Substring(0, endUrlQuotreIndex);
-
-                                            //Αφαιρούμε πλέον το url από τη γραμμή, το πρόθεμα του τίτλου και τα σύμβολα στο τέλος
-                                            line = line.Remove(0, endUrlQuotreIndex).Replace("\" title=\"", string.Empty)
-                                                .Replace("\">", string.Empty);
-
-                                            tempTitle = line;
-
-                                            articlesFound++;
-                                        }
-                                        else
-                                        {
-                                            switch (GeneralNewsSelected)
-                                            {
-                                                case true:
-                                                    if (line.Contains("/small"))
-                                                    {
-                                                        string tempLine = line.Replace("<small>", "")
-                                                            .Replace("</small>", "").TrimStart();
-
-                                                        tempPubDate =
-                                                            Convert.ToDateTime(tempLine.Substring(tempLine.Length - 16));
-                                                        rssModelFromHtml.Add(new RssModel
-                                                        {
-                                                            SiteLogo = ImageSource.FromResource(
-                                                                "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
-                                                            Url = tempUrl,
-                                                            Title = tempTitle,
-                                                            PublishedDatetime = tempPubDate
-                                                        });
-                                                    }
-                                                    break;
-                                                default:
-                                                    if (line.Contains("<span>"))
-
-                                                    {
-                                                        tempPubDate = Convert.ToDateTime(line.Replace("<span>", "")
-                                                            .Replace("</span>", "").TrimStart());
-
-                                                        //Πλέον έχουμε όλα τα στοιχεία που χρειαζόμαστε, προσθέτουμε στο RSSModel
-
-                                                        rssModelFromHtml.Add(new RssModel
-                                                        {
-                                                            SiteLogo = ImageSource.FromResource(
-                                                                "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
-                                                            Url = tempUrl,
-                                                            Title = tempTitle,
-                                                            PublishedDatetime = tempPubDate
-                                                        });
-                                                    }
-                                                    //Μόνο για το πρώτο άρθρο που έχει διαφορετική ρύθμιση για την ώρα!
-                                                    else if (line.Contains("article-date") && articlesFound == 1)
-                                                    {
-                                                        tempPubDate = Convert.ToDateTime(line
-                                                            .Remove(0, line.IndexOf("\">") + 2)
-                                                            .Replace("</small></h3>", string.Empty));
-
-                                                        rssModelFromHtml.Add(new RssModel
-                                                        {
-                                                            SiteLogo = ImageSource.FromResource(
-                                                                "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
-                                                            Url = tempUrl,
-                                                            Title = tempTitle,
-                                                            PublishedDatetime = tempPubDate
-                                                        });
-                                                    }
-
-                                                    break;
-                                            }
-                                            if (articlesFound >= numberOfItems) break;
-                                        }
-                                    }
                                 }
                                 break;
+
+                            #endregion
+
 
                             case "SDNA":
-                                using (WebClient client = new WebClient()) // WebClient class inherits IDisposable
+
+                                #region SDNA
+
+                                HtmlWeb sdnaWeb = new HtmlWeb();
+                                HtmlDocument sdnaDocument = sdnaWeb.Load(url);
+
+                                HtmlNodeCollection sdnaNodesCollection =
+                                    sdnaDocument.DocumentNode.SelectNodes("//div[@class=\"view-content\"]")[2]
+                                        .ChildNodes;
+
+                                foreach (HtmlNode node in sdnaNodesCollection)
                                 {
-                                    client.Encoding = Encoding.UTF8;
-                                    client.Headers.Add("User-Agent: Other");
+                                    if (node.Attributes["class"].Value.Equals("ad hft")) continue;
 
-                                    //Το SDNA έχει όλες τις πληροφορίες σε μια γραμμή! Την εντοπίζουμε και την σπάμε σε σειρές ώστε να μπορέσουμε να πάρουμε τα άρθρα
-                                    bool foundStart = false;
-                                    string htmlCode = client.DownloadString(url).Replace("><", ">\n<");
-                                    StringReader reader = new StringReader(htmlCode);
-                                    int articlesFound = 0;
-                                    string line;
+                                    //HtmlNode timeNode = node.SelectSingleNode("./div/div[2]/div[5]/div[2]/span");
+                                    //HtmlNode singleNode = node.SelectSingleNode(".//div").LastChild.FirstChild.FirstChild;//.InnerHtml.Trim();
+                                    //HtmlNode singleNodetest = node.SelectSingleNode("./div/div[3]/span/a");
 
-                                    while ((line = reader.ReadLine()) != null)
+                                    string tempDate = node.SelectSingleNode("./div/div[2]/div[5]/div[2]/span")
+                                        .InnerText.Trim();
+
+                                    if (tempDate.Contains("πριν"))
                                     {
-                                        //Μέχρι να συναντήσουμε το <div class="row"> που είναι και η μοναδική γραμμή που θέλουμε
-                                        if (line.Contains("<div class=\"external-wrapper\">"))
-                                            foundStart = true;
+                                        string[] splitString = tempDate.Split(new[] { " " }, StringSplitOptions.None);
+                                        int secondsPassedFromPublish = 0;
 
-                                        if (!foundStart) continue;
-
-                                        //Έλεγχος για τις δυο περιπτώσεις ημερομηνίας
-                                        if (line.Contains("<em class=\"placeholder\">"))
-                                        {
-                                            //Το string περιέχει δεδομένα όπως 1 ωρα 11 λεπτά. Το μετατρέπουμε σε κανονική ημερομηνία
-                                            line = line.Replace("<span class=\"field-content\"> <em class=\"placeholder\">",
-                                                "").Replace("</em> πριν </span>", "").Trim();
-
-                                            string[] splitString = line.Split(new[] { " " }, StringSplitOptions.None);
-                                            int secondsPassedFromPublish = 0;
-
-                                            //Μετατρεπουμε τα δεδομένα μας σε δευτερόλεπτα και βρίσκομε την ακριβή ώρα δημοσίευσης
-                                            for (int i = 0; i < splitString.Length; i++)
-                                                switch (splitString[i].ToLower())
-                                                {
-                                                    case "ώρα":
-                                                    case "ώρες":
-                                                        secondsPassedFromPublish += int.Parse(splitString[i - 1]) * 3600;
-                                                        break;
-                                                    case "λεπτό":
-                                                    case "λεπτά":
-                                                        secondsPassedFromPublish += int.Parse(splitString[i - 1]) * 60;
-                                                        break;
-                                                    case "δευτ.":
-                                                        secondsPassedFromPublish += int.Parse(splitString[i - 1]);
-                                                        break;
-                                                }
-
-                                            tempPubDate = DateTime.Now.AddSeconds(secondsPassedFromPublish * -1);
-                                        }
-
-                                        else if (line.Contains("<span class=\"field-content\">") &&
-                                                 line.Contains("</span>"))
-                                        {
-                                            //Η σειρά μας ενδιαφέρει μόνο αν έχει ημερομηνία μέσα
-                                            string[] format = { "dd MMMM yyyy, HH:mm" };
-                                            line = line.Replace("<span class=\"field-content\">", "").Replace("</span>", "")
-                                                .TrimStart().TrimEnd();
-                                            DateTime retrievedDateTime;
-
-                                            if (DateTime.TryParseExact(line, format,
-                                                new CultureInfo("el-GR"),
-                                                //CultureInfo.CurrentCulture,
-                                                DateTimeStyles.AssumeLocal, out retrievedDateTime))
-                                                tempPubDate = retrievedDateTime;
-                                        }
-                                        else if (!line.Contains("div class") && line.Contains("<a href=\"/"))
-                                        {
-                                            line = line.Replace("<a href=\"", string.Empty).Replace("</a>", string.Empty);
-
-                                            //Το σύμβολο (") χωρίζει το url από τον τίτλο
-                                            int breakSymbolIndex = line.IndexOf('\"');
-                                            string tempUrlLine = line.Substring(0, breakSymbolIndex);
-                                            tempUrl = "http://www.sdna.gr" + tempUrlLine;
-                                            //richTextBox1.AppendText("www.sdna.gr" + url + Environment.NewLine);
-
-                                            //Αφαιρούμε το url και τα διαχωριστικά (">) και μένει μόνο ο τίτλος του άρθρου
-                                            tempTitle = line.Replace(tempUrlLine, string.Empty)
-                                                .Replace("\">", string.Empty);
-
-
-                                            //Έχουμε όλα τα στοιχεία που χρειαζόμαστε, προσθέτουμε στα RSSModels
-
-                                            rssModelFromHtml.Add(new RssModel
+                                        //Μετατρεπουμε τα δεδομένα μας σε δευτερόλεπτα και βρίσκομε την ακριβή ώρα δημοσίευσης
+                                        for (int i = 0; i < splitString.Length; i++)
+                                            switch (splitString[i].ToLower())
                                             {
-                                                SiteLogo = ImageSource.FromResource(
-                                                    "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
-                                                Url = tempUrl,
-                                                Title = tempTitle,
-                                                PublishedDatetime = tempPubDate
-                                            });
-                                            articlesFound++;
-
-                                            if (articlesFound >= numberOfItems) break;
-                                        }
+                                                case "ώρα":
+                                                case "ώρες":
+                                                    secondsPassedFromPublish += int.Parse(splitString[i - 1]) * 3600;
+                                                    break;
+                                                case "λεπτό":
+                                                case "λεπτά":
+                                                    secondsPassedFromPublish += int.Parse(splitString[i - 1]) * 60;
+                                                    break;
+                                                case "δευτ.":
+                                                    secondsPassedFromPublish += int.Parse(splitString[i - 1]);
+                                                    break;
+                                            }
+                                        tempDate = DateTime.Now.AddSeconds(secondsPassedFromPublish * (-1))
+                                            .ToString("g");
                                     }
+
+                                    rssModelFromHtml.Add(new RssModel
+                                    {
+                                        SiteLogo = ImageSource.FromResource(
+                                            "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
+                                        Url = "http://www.sdna.gr" + node.SelectSingleNode("./div/div[3]/span/a")
+                                                  .Attributes["href"].Value,
+                                        Title = node.SelectSingleNode("./div/div[3]/span/a").InnerText.Trim(),
+                                        PublishedDatetime = Convert.ToDateTime(tempDate)
+                                    });
+
+                                    articlesfound++;
+
+                                    if (articlesfound == numberOfItems) break;
+
                                 }
                                 break;
+
+                            #endregion
+
                             case "OnSports":
-                                using (WebClient client = new WebClient()) // WebClient class inherits IDisposable
+                                HtmlWeb onSportsWeb = new HtmlWeb();
+                                HtmlDocument onSportsdocument = onSportsWeb.Load(url);
+
+                                HtmlNodeCollection onSportsNodesCollection =
+                                    onSportsdocument.DocumentNode.SelectNodes("//div[@class=\"stories-block row\"]")[0]
+                                        .ChildNodes;
+
+                                foreach (HtmlNode node in onSportsNodesCollection)
                                 {
-                                    client.Encoding = Encoding.UTF8;
-                                    client.Headers.Add("User-Agent: Other");
-                                    string htmlCode = client.DownloadString(url)
-                                        .Replace("<span class=\"story-date\">" + "\n",
-                                            "<span class=\"story-date\">"); //.Replace("><",">\n<");
-                                    StringReader reader = new StringReader(htmlCode);
-                                    int articlesFound = 0;
-                                    string line;
+                                    if (!node.Name.Equals("div") || node.Attributes[0].Value.Equals("clr")) continue;
 
-                                    bool foundStart = false;
 
-                                    while ((line = reader.ReadLine()) != null)
+                                    rssModelFromHtml.Add(new RssModel
                                     {
-                                        //Μέχρι να συναντήσουμε το <div class="row"> που είναι και η μοναδική γραμμή που θέλουμε
-                                        if (line.Contains("<div class=\"stories-block row\">"))
-                                            foundStart = true;
+                                        SiteLogo = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
+                                        Url = "http://www.onsports.gr" + node.SelectSingleNode("./a").Attributes["href"].Value,
+                                        Title = node.SelectSingleNode("./a").InnerText,
+                                        PublishedDatetime = Convert.ToDateTime(node.SelectSingleNode("./div[2]/span[2]").InnerText.Trim())
+                                    });
 
-                                        if (!foundStart) continue;
+                                    articlesfound++;
 
-                                        //Ημερομηνία
-                                        if (line.Contains("<span class=\"story-date\">"))
-                                        {
-                                            line = line.Replace("<span class=\"story-date\">", string.Empty)
-                                                .Replace("</span>", string.Empty).Trim();
-                                            //Γίνεται γιατί οι τσομπάνηδες έχουν τον Μάιο χωρίς διαλυτικά
-
-                                            line = line.Replace("Μαίου", "Μαΐου");
-
-                                            string[] format = { "dd MMMM yyyy, HH:mm" };
-                                            DateTime retrievedDateTime;
-
-                                            if (DateTime.TryParseExact(line, format,
-                                                new CultureInfo("el-GR"),
-                                                //CultureInfo.CurrentCulture,
-                                                DateTimeStyles.AssumeLocal, out retrievedDateTime))
-
-                                                tempPubDate = retrievedDateTime;
-                                        }
-                                        else if (!line.Contains("div class") && line.Contains("<a href=\"/"))
-                                        {
-                                            line = line.Replace("<a href=\"", string.Empty).Replace("</a>", string.Empty)
-                                                .Trim();
-
-                                            //Το σύμβολο (") χωρίζει το url από τον τίτλο
-                                            int breakSymbolIndex = line.IndexOf('\"');
-                                            string tempLineUrl = line.Substring(0, breakSymbolIndex);
-                                            tempUrl = "http://www.onsports.gr" + tempLineUrl;
-
-                                            //Αφαιρούμε το url και τα διαχωριστικά (">) και μένει μόνο ο τίτλος του άρθρου
-                                            tempTitle = line.Replace(tempLineUrl, string.Empty)
-                                                .Replace("\">", string.Empty);
-
-                                            rssModelFromHtml.Add(new RssModel
-                                            {
-                                                SiteLogo = ImageSource.FromResource(
-                                                    "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
-                                                Url = tempUrl,
-                                                Title = tempTitle,
-                                                PublishedDatetime = tempPubDate
-                                            });
-
-                                            articlesFound++;
-                                        }
-
-                                        if (articlesFound >= numberOfItems) break;
-                                    }
+                                    if (articlesfound == numberOfItems) break;
                                 }
                                 break;
                         }

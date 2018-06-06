@@ -34,9 +34,9 @@
                     x:Name="AvailableSitesDataGrid"
                     ColumnSizer="LastColumnFill"
                     HeaderRowHeight="0"
+                    HeightRequest="50"
                     HorizontalOptions="StartAndExpand"
                     RowHeight="40"
-                    HeightRequest="50"
                     VerticalOptions="Start">
 
                     <syncfusion:SfDataGrid.SortColumnDescriptions>
