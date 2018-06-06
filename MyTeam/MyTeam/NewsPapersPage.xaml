@@ -4,11 +4,11 @@
              x:Class="MyTeam.NewsPapersPage"
              BackgroundColor="Black">
 
-    <StackLayout>
-        <WebView
+    <StackLayout InputTransparent="true">
+        <WebView 
             x:Name="Browser"
-            HeightRequest="480"
-            WidthRequest="350" />
+            HeightRequest="550"
+            WidthRequest="320" />
     </StackLayout>
 
    
