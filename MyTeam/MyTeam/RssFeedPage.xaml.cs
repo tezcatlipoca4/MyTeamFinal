@@ -265,48 +265,84 @@ namespace MyTeam
 
                                 #region sportFM
 
-                                HtmlWeb web = new HtmlWeb();
-                                HtmlDocument document = web.Load(url);
-                                //Το πρώτο άρθρο στο sportFM έχει άλλη κωδικοποίηση από τα υπόλοιπα
-                                HtmlNodeCollection nodesCollection =
-                                    document.DocumentNode.SelectNodes("//div[@class=\"promo main-promo\"]");
+                                HtmlWeb sportFmWeb = new HtmlWeb();
+                                HtmlDocument sportFmDocument = sportFmWeb.Load(url);
 
-                                rssModelFromHtml.Add(new RssModel
+                                switch (GeneralNewsSelected)
                                 {
-                                    SiteLogo = ImageSource.FromResource(
-                                        "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
-                                    Url = "http://www.sport-fm.gr" + nodesCollection[0].SelectSingleNode("./a")
-                                              .Attributes["href"].Value,
-                                    Title = nodesCollection[0].SelectSingleNode("./a").Attributes["title"].Value,
-                                    PublishedDatetime =
-                                        Convert.ToDateTime(nodesCollection[0].SelectSingleNode("./a/div/div/h3/small")
-                                            .InnerText)
-                                });
 
-                                articlesfound++;
+                                    //Γενικές ειδήσεις
+                                    case true:
 
-                                //Φορτώνουμε τώρα τα nodes για τα επόμενα άρθρα
-                                nodesCollection =
-                                    document.DocumentNode.SelectNodes("//div[@class=\"col-xs-8 col-md-12 caption\"]");
+                                        HtmlNodeCollection generalNodesCollection =
+                                            sportFmDocument.DocumentNode.SelectNodes("//div[@class=\"row latest-news-flow\"]")[0].ChildNodes;
 
-                                foreach (var node in nodesCollection)
-                                {
-                                    rssModelFromHtml.Add(new RssModel
-                                    {
+                                        foreach (var node in generalNodesCollection)
+                                        {
+                                            if (!node.Name.Equals("div") || !node.Attributes[0].Value.Contains("article-box")) continue;
 
-                                        SiteLogo = ImageSource.FromResource(
-                                            "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
-                                        Url = "http://www.sport-fm.gr" +
-                                              node.SelectSingleNode("./h4/a[2]").Attributes["href"].Value,
-                                        Title = node.SelectSingleNode("./h4/a[2]").Attributes["title"].Value,
-                                        PublishedDatetime =
-                                            Convert.ToDateTime(node.SelectSingleNode("./div").InnerText.Trim())
-                                    });
+                                            string tempdate = node.SelectSingleNode("./a/small").InnerText.Trim();
+                                            rssModelFromHtml.Add(new RssModel
+                                            {
+                                                SiteLogo = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
+                                                Url = "http://www.sport-fm.gr" + node.SelectSingleNode("./a").Attributes["href"].Value,
+                                                Title = node.SelectSingleNode("./a").Attributes["title"].Value,
+                                                PublishedDatetime = Convert.ToDateTime(tempdate.Substring(tempdate.Length - 17))
+                                            });
+                                            articlesfound++;
+                                            if (articlesfound == numberOfItems) break;
 
-                                    articlesfound++;
-                                    if (articlesfound == numberOfItems) break;
+                                        }
 
+                                        
+                                        break;
+
+                                    //Ειδήσεις ομάδας
+                                    default:
+
+                                        //Το πρώτο άρθρο στο sportFM έχει άλλη κωδικοποίηση από τα υπόλοιπα
+                                        HtmlNodeCollection nodesCollection =
+                                            sportFmDocument.DocumentNode.SelectNodes("//div[@class=\"promo main-promo\"]");
+
+                                        rssModelFromHtml.Add(new RssModel
+                                        {
+                                            SiteLogo = ImageSource.FromResource(
+                                                "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
+                                            Url = "http://www.sport-fm.gr" + nodesCollection[0].SelectSingleNode("./a")
+                                                      .Attributes["href"].Value,
+                                            Title = nodesCollection[0].SelectSingleNode("./a").Attributes["title"].Value,
+                                            PublishedDatetime =
+                                                Convert.ToDateTime(nodesCollection[0].SelectSingleNode("./a/div/div/h3/small")
+                                                    .InnerText)
+                                        });
+
+                                        articlesfound++;
+
+                                        //Φορτώνουμε τώρα τα nodes για τα επόμενα άρθρα
+                                        nodesCollection =
+                                            sportFmDocument.DocumentNode.SelectNodes("//div[@class=\"col-xs-8 col-md-12 caption\"]");
+
+                                        foreach (var node in nodesCollection)
+                                        {
+                                            rssModelFromHtml.Add(new RssModel
+                                            {
+
+                                                SiteLogo = ImageSource.FromResource(
+                                                    "MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
+                                                Url = "http://www.sport-fm.gr" +
+                                                      node.SelectSingleNode("./h4/a[2]").Attributes["href"].Value,
+                                                Title = node.SelectSingleNode("./h4/a[2]").Attributes["title"].Value,
+                                                PublishedDatetime =
+                                                    Convert.ToDateTime(node.SelectSingleNode("./div").InnerText.Trim())
+                                            });
+
+                                            articlesfound++;
+                                            if (articlesfound == numberOfItems) break;
+
+                                        }
+                                        break;
                                 }
+
                                 break;
 
                             #endregion
