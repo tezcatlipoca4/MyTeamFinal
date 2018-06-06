@@ -4,7 +4,16 @@
              x:Class="MyTeam.TvProgramPage"
              BackgroundColor="White">
     <StackLayout>
-        <ListView x:Name="scheduleList" HasUnevenRows="True">
+        <WebView
+            x:Name="Browser"
+            HeightRequest="700"
+            WidthRequest="520" />
+    </StackLayout>
+
+        <!-- WIDGET IMPLEMENTAION -->
+
+        <!-- AGILITY IMPLEMENTAION -->
+  <!--<ListView x:Name="scheduleList" HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
@@ -56,7 +65,7 @@
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>
-    </ListView>
-    </StackLayout>
+    </ListView>-->
+
     
 </ContentPage>

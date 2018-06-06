@@ -18,13 +18,24 @@ namespace MyTeam
 		{
 			InitializeComponent();
 
-			HtmlWeb web = new HtmlWeb();
-			HtmlDocument document = web.Load("http://www.sdna.gr/tv-program");
+            // WIDGET IMPLEMENTATION
 
+            var htmlSource = new HtmlWebViewSource
+            {
+				Html = @"<html><body><p><iframe id='tv' name='tv' src='https://www.infobeto.com/tools/tvlistingp.php?bgcolor=3b3b3b&fcolor=ffffff' frameborder='0' scrolling='auto' width='600px' height='1000px'></iframe></p></body></html>"
+            };
+
+            Browser.Source = htmlSource;
+
+            
+            // HTML AGILITY IMPLEMENTATION ON SDNA.GR 
+			/* 
+			HtmlWeb web = new HtmlWeb();
+            HtmlDocument document = web.Load('http://www.sdna.gr/tv-program'); 
 			GetSetFullDate(document);
 
 			// Get Schedule nodes
-			HtmlNodeCollection scheduleTimeNodes = document.DocumentNode.SelectNodes("//div[@class=\"time-based\"]");
+			HtmlNodeCollection scheduleTimeNodes = document.DocumentNode.SelectNodes('//div[@class=\'time-based\']');
 
 			// Save Schedules in this list
 			List<Schedule> allEventItems = new List<Schedule>();
@@ -40,27 +51,28 @@ namespace MyTeam
                 {
                     ((ListView)sender).SelectedItem = null;
                 };
-
+            */
 		}
 
-        // Methods
+        // Methods for AGILITY IMPLEMENTATION
+        /*
 		void SetChedules(HtmlNodeCollection scheduleTimeNodes, List<Schedule> allEventItems)
 		{
 			foreach (HtmlNode node in scheduleTimeNodes)
 			{
 				// Set time                
-				string _time = node.SelectSingleNode("./div").InnerText.Trim();
+				string _time = node.SelectSingleNode('./div').InnerText.Trim();
 
-				HtmlNodeCollection entries = node.SelectNodes("./div[2]");
+				HtmlNodeCollection entries = node.SelectNodes('./div[2]');
                 
 				foreach (var entry in entries)
 				{					
-					HtmlNode infoDiv = entry.SelectSingleNode("./div");
-					HtmlNode titleDiv = infoDiv.SelectSingleNode("./div");
+					HtmlNode infoDiv = entry.SelectSingleNode('./div');
+					HtmlNode titleDiv = infoDiv.SelectSingleNode('./div');
 
 					string _title = titleDiv.FirstChild.InnerText.Trim();
-					string _channel = titleDiv.SelectSingleNode("./div[3]").InnerText.Trim();
-					string _desc = titleDiv.SelectSingleNode("./div[4]").InnerText.Trim();
+					string _channel = titleDiv.SelectSingleNode('./div[3]').InnerText.Trim();
+					string _desc = titleDiv.SelectSingleNode('./div[4]').InnerText.Trim();
 
 					Schedule scheduleItem = new Schedule
 					{
@@ -81,17 +93,19 @@ namespace MyTeam
 		{
 
 			// Get full Date
-			HtmlNodeCollection nodes = document.DocumentNode.SelectNodes("//div[@class=\"date\"]");
+			HtmlNodeCollection nodes = document.DocumentNode.SelectNodes('//div[@class=\'date\']');
 
 			// Set full date
 			foreach (HtmlNode node in nodes)
 			{
 
-				numberDate = node.SelectSingleNode("./span").InnerText.Trim();
-				monthYear = node.SelectSingleNode("./span[2]").InnerText.Trim();
-				textDate = node.SelectSingleNode("./span[3]").InnerText.Trim();
+				numberDate = node.SelectSingleNode('./span').InnerText.Trim();
+				monthYear = node.SelectSingleNode('./span[2]').InnerText.Trim();
+				textDate = node.SelectSingleNode('./span[3]').InnerText.Trim();
 			}
 		}
+
+        */
 
         
 	}                  

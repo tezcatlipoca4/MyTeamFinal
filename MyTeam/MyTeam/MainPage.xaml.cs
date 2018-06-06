@@ -33,6 +33,7 @@ namespace MyTeam
                 "Σκόρερς",
                 "Αποτελέσματα",
 				"TV Πρόγραμμα",
+                "Εφημερίδες",
                 "Ρυθμισεις",
                 "Σχετικά με την εφαρμογή"
             };
@@ -156,6 +157,10 @@ namespace MyTeam
 				case "TV Πρόγραμμα":
 					CheckConnectionAndNavigateToContent(new TvProgramPage().Content);
 					backButton.IsVisible = true;
+					break;
+
+				case "Εφημερίδες":
+					CheckConnectionAndNavigateToContent(new NewsPapersPage().Content);
 					break;
 
                 case "Επόμενος αγώνας":
