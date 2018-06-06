@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="MyTeam.TvProgramPage"
-             BackgroundColor="White">
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="MyTeam.TvProgramPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="White">
     <StackLayout>
         <WebView
             x:Name="Browser"
@@ -10,10 +11,10 @@
             WidthRequest="520" />
     </StackLayout>
 
-        <!-- WIDGET IMPLEMENTAION -->
+    <!--  WIDGET IMPLEMENTAION  -->
 
-        <!-- AGILITY IMPLEMENTAION -->
-  <!--<ListView x:Name="scheduleList" HasUnevenRows="True">
+    <!--  AGILITY IMPLEMENTAION  -->
+    <!--<ListView x:Name="scheduleList" HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
@@ -21,42 +22,42 @@
                <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="35"/>
-                    <ColumnDefinition Width="Auto"/>                
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                        
-         <Label HorizontalOptions="Start"                 
-           FontSize="Medium" 
+
+         <Label HorizontalOptions="Start"
+           FontSize="Medium"
            TextColor="White"
            BackgroundColor="Black"
-           FontAttributes="Bold" 
-           Grid.Column="0" Grid.Row="0"  
+           FontAttributes="Bold"
+           Grid.Column="0" Grid.Row="0"
            Text="{Binding NumberDate}"/>
 
-        <Label HorizontalOptions="Start" FontAttributes="Bold" 
-               Grid.Column="1" Grid.Row="0" 
+        <Label HorizontalOptions="Start" FontAttributes="Bold"
+               Grid.Column="1" Grid.Row="0"
                FontSize="Medium"
                Text="{Binding MonthYear}"/>
 
-        <Label HorizontalOptions="StartAndExpand"                
-               FontAttributes="Bold" 
+        <Label HorizontalOptions="StartAndExpand"
+               FontAttributes="Bold"
                FontSize="Medium"
-               Grid.Column="2" 
+               Grid.Column="2"
                Grid.Row="0"
                Text="{Binding Time}"/>
-                                
-        <Label HorizontalOptions="StartAndExpand"                
-               Grid.ColumnSpan="4" 
+
+        <Label HorizontalOptions="StartAndExpand"
+               Grid.ColumnSpan="4"
                FontAttributes="Bold"
-               Grid.Column="0" 
-               Grid.Row="1" 
+               Grid.Column="0"
+               Grid.Row="1"
                Text="{Binding Title}"/>
 
-        <Label Grid.Column="0" 
-               HorizontalOptions="StartAndExpand" 
-               Grid.ColumnSpan="4" 
+        <Label Grid.Column="0"
+               HorizontalOptions="StartAndExpand"
+               Grid.ColumnSpan="4"
                FontAttributes="Italic"
-               Grid.Row="2" 
+               Grid.Row="2"
                Text="{Binding Channel}"/>
 
 
@@ -67,5 +68,5 @@
       </ListView.ItemTemplate>
     </ListView>-->
 
-    
+
 </ContentPage>

@@ -444,7 +444,7 @@ namespace MyTeam
                         return rssModelFromHtml;
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 //Φτιάχνουμε μια γραμμή που ενημερώνει τον χρήστη ότι υπήρξε πρόβλημα
 
@@ -454,9 +454,10 @@ namespace MyTeam
                     Title = "Σφάλμα λήψης άρθρων από το" + siteName +
                             "! Αν το πρόβλημα επιμένει μπορείτε πατώντας εδώ να μας στείλετε ενημερωτικό email!",
                     Url = "mailto:konstractionDev@gmail.com?subject=Σφάλμα λήψης άρθρων&body=Σφάλμα λήψης άρθρων!\n"+
-                    "Ιστοσελίδα: " + siteName + "\n"+
-                    "Ημερομηνία: " + DateTime.Now.ToString("yy-MM-dd HH:mm") +"\n"+
-                    "Έκδοση εφαρμογής: " + DependencyService.Get<App.IGetVersionNumber>().GetVersion(),
+                    "Ιστοσελίδα: " + siteName + Environment.NewLine+
+                    "Ημερομηνία: " + DateTime.Now.ToString("yy-MM-dd HH:mm") +Environment.NewLine+
+                    "Έκδοση εφαρμογής: " + DependencyService.Get<App.IGetVersionNumber>().GetVersion() + Environment.NewLine +
+                    "Καταγεγραμμένο Σφάλμα: " + exception.Message,
                     PublishedDatetime = DateTime.Now
                 }};
             }
