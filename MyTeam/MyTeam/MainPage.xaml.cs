@@ -28,11 +28,12 @@ namespace MyTeam
                 "Ειδήσεις Ομάδας",
                 "Προηγούμενος αγώνας",
                 "Επόμενος αγώνας",
-                "Γενικές Ειδήσεις",
-                "TV Πρόγραμμα",
+                "Γενικές Ειδήσεις",                
                 "Βαθμολογία",
                 "Σκόρερς",
-                "Live Score",
+                "Αποτελέσματα",
+				"TV Πρόγραμμα",
+                "Εφημερίδες",
                 "Ρυθμισεις",
                 "Σχετικά με την εφαρμογή"
             };
@@ -158,6 +159,10 @@ namespace MyTeam
 					backButton.IsVisible = true;
 					break;
 
+				case "Εφημερίδες":
+					CheckConnectionAndNavigateToContent(new NewsPapersPage().Content);
+					break;
+
                 case "Επόμενος αγώνας":
                     CheckConnectionAndNavigateToContent(new TeamNextMatchPage().Content);
                     backButton.IsVisible = true;
@@ -168,7 +173,7 @@ namespace MyTeam
                     backButton.IsVisible = true;
                     break;
 
-                case "Live Score":
+				case "Αποτελέσματα":
                     CheckConnectionAndNavigateToContent(new LiveScoresPage().Content);
                     backButton.IsVisible = true;
                     break;
