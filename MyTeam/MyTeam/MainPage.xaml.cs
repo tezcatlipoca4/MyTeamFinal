@@ -168,7 +168,7 @@ namespace MyTeam
                     backButton.IsVisible = true;
                     break;
 
-                case "Live Score":
+				case "Αποτελέσματα":
                     CheckConnectionAndNavigateToContent(new LiveScoresPage().Content);
                     backButton.IsVisible = true;
                     break;
