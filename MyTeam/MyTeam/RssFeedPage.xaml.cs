@@ -256,7 +256,7 @@ namespace MyTeam
                         List<RssModel> rssModelFromHtml = new List<RssModel>();
                         string tempUrl = string.Empty;
                         string tempTitle = string.Empty;
-                        DateTime tempPubDate = new DateTime();
+                        
 
                         //Εδώ έχουμε διαφορετικό σύστημα ανάλογα με την ιστοσελίδα που θα φορτώσουμε
                         switch (siteName)
