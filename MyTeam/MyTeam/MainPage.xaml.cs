@@ -141,7 +141,7 @@ namespace MyTeam
                     RssFeedPage.GeneralNewsSelected = true;
 
                     CheckConnectionAndNavigateToContent(new RssFeedPage().Content);
-                    backButton.IsVisible = false;
+                    backButton.IsVisible = true;
                     break;
 
                 case "Βαθμολογία":
