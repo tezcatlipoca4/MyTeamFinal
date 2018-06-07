@@ -26,6 +26,7 @@
     <None Remove="Assets\Images\siteLogos\novasports.png" />
     <None Remove="Assets\Images\siteLogos\OlympiacosFC.png" />
     <None Remove="Assets\Images\siteLogos\onsports.png" />
+    <None Remove="Assets\Images\siteLogos\PAOK24.png" />
     <None Remove="Assets\Images\siteLogos\PAOKFC.png" />
     <None Remove="Assets\Images\siteLogos\Planetaris.png" />
     <None Remove="Assets\Images\siteLogos\prasinaNea.png" />
@@ -54,6 +55,7 @@
     <EmbeddedResource Include="Assets\Images\siteLogos\NovaSports.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\OnSports.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\OlympiacosFC.png" />
+    <EmbeddedResource Include="Assets\Images\siteLogos\PAOK24.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\PAOKFC.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\Planetaris.png" />
     <EmbeddedResource Include="Assets\Images\siteLogos\PrasinaNea.png" />

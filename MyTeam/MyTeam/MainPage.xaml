@@ -103,10 +103,10 @@
             </navigationdrawer:SfNavigationDrawer.DrawerFooterView>
         </navigationdrawer:SfNavigationDrawer>
 
-        <StackLayout Grid.Row="2" VerticalOptions="End">
+        <!--<StackLayout Grid.Row="2" VerticalOptions="End">
 
             <local:AdMobView HeightRequest="50" WidthRequest="320" />
-        </StackLayout>
+        </StackLayout>-->
 
 
     </Grid>

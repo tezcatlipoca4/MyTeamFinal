@@ -294,7 +294,7 @@ namespace MyTeam
 
                                         }
 
-                                        
+
                                         break;
 
                                     //Ειδήσεις ομάδας
@@ -415,6 +415,9 @@ namespace MyTeam
                             #endregion
 
                             case "OnSports":
+
+                                #region onSports
+
                                 HtmlWeb onSportsWeb = new HtmlWeb();
                                 HtmlDocument onSportsdocument = onSportsWeb.Load(url);
 
@@ -440,6 +443,37 @@ namespace MyTeam
                                     if (articlesfound == numberOfItems) break;
                                 }
                                 break;
+                            #endregion
+
+                            case "PAOK24":
+
+                                HtmlWeb paok24sWeb = new HtmlWeb();
+                                HtmlDocument paok24Document = paok24sWeb.Load(url);
+
+                                HtmlNodeCollection paok24NodesCollection =
+                                    paok24Document.DocumentNode.SelectNodes("//div[@class=\"col-xs-12 bggray padd20T\"]")[0].ChildNodes;
+
+                                foreach (HtmlNode node in paok24NodesCollection)
+                                {
+                                    //if (!node.Name.Equals("div") || node.Attributes[0].Value.Equals("clr")) continue;
+
+
+                                    rssModelFromHtml.Add(new RssModel
+                                    {
+                                        SiteLogo = ImageSource.FromResource("MyTeam.Assets.Images.siteLogos." + siteName + ".png"),
+                                        Url = node.SelectSingleNode("./div/a").Attributes["href"].Value,
+                                        Title = node.SelectSingleNode("./div/a").Attributes["title"].Value,
+                                        PublishedDatetime = Convert.ToDateTime(node.SelectSingleNode("./div[2]/div[2]/p").InnerText.Trim())
+                                    });
+
+                                    articlesfound++;
+
+                                    if (articlesfound == numberOfItems) break;
+                                }
+
+                                break;
+
+
                         }
                         return rssModelFromHtml;
                 }
